@@ -10,8 +10,8 @@ $(document).ready(function () {
 	var dateCurrentDisplay = `${dateCurrent.getDate()} ${monthArray[dateCurrent.getMonth()]} ${dateCurrent.getFullYear()} года`;
 	$('.header__today').children('span').text(dateCurrentDisplay)
 	// Чётный или нечётный
-	// var dateMinus = dateCurrent.getTime() - dateBegin.getTime();
-	var dateMinus = dateTest.getTime() - dateBegin.getTime();
+	var dateMinus = dateCurrent.getTime() - dateBegin.getTime();
+	// var dateMinus = dateTest.getTime() - dateBegin.getTime();
 	var dateIndex = Math.floor(dateMinus / dateCheck) + 1;
 	// console.log(dateMinus)
 	if (dateIndex % 2 == 0) {
@@ -51,33 +51,33 @@ $(document).ready(function () {
 
 	// console.log(dateIndex)
 
-	// var dayIndex = dateCurrent.getDay();
-	var dayIndex = dateTest.getDay();
+	var dayIndex = dateCurrent.getDay();
+	// var dayIndex = dateTest.getDay();
 
-	// var timeIndex = dateCurrent.getHours() * 3600 + dateCurrent.getMinutes()* 60 + dateCurrent.getSeconds();
-	var timeIndex = dateTest.getHours() * 3600 + dateTest.getMinutes() * 60 + dateTest.getSeconds();
+	var timeIndex = dateCurrent.getHours() * 3600 + dateCurrent.getMinutes() * 60 + dateCurrent.getSeconds();
+	// var timeIndex = dateTest.getHours() * 3600 + dateTest.getMinutes() * 60 + dateTest.getSeconds();
 	// console.log(dayIndex);
 	console.log(timeIndex);
 
-	$('#d' + dayIndex).children('.day__name').addClass('active');
+	$('.day_' + dayIndex).children('.day__name').addClass('active');
 
-	$('#d' + dayIndex).children('.day__timetable').delay(300).slideDown(300, function () {
+	$('.day_' + dayIndex).children('.day__timetable').delay(300).slideDown(300, function () {
 		$(this).css('display', 'grid').toggleClass('active')
 	})
 
 	if (timeIndex > (7 * 3600 + 59 * 60 + 59)) {
 		if (timeIndex < (15 * 3600 + 35 * 60 + 1)) {
 			if (timeIndex < (9 * 3600 + 35 * 60 + 1)) {
-				$('#d' + dayIndex).children().children(".lesson_1").addClass('active');
+				$('.day_' + dayIndex).children().children(".lesson_1").addClass('active');
 			} else {
 				if (timeIndex < (11 * 3600 + 25 * 60 + 1)) {
-					$('#d' + dayIndex).children().children(".lesson_2").addClass('active');
+					$('.day_' + dayIndex).children().children(".lesson_2").addClass('active');
 				} else {
 					if (timeIndex < (13 * 3600 + 15 * 60 + 1)) {
-						$('#d' + dayIndex).children().children(".lesson_3").addClass('active');
+						$('.day_' + dayIndex).children().children(".lesson_3").addClass('active');
 					} else {
 						if (timeIndex < (15 * 3600 + 35 * 60 + 1)) {
-							$('#d' + dayIndex).children().children(".lesson_4").addClass('active');
+							$('.day_' + dayIndex).children().children(".lesson_4").addClass('active');
 						}
 					}
 				}

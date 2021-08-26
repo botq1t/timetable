@@ -1,12 +1,16 @@
 $(document).ready(function () {
 	$('.nav__tab').click(function (event) {
 		$('.nav__tab').not(this).removeClass('active');
-		$('.main__body').hide();
+		$('.main__body').fadeOut(300);
 		$(this).addClass('active');
 		if ($(this).hasClass('nav__tab__117')) {
-			$('.main__body_117').show();
+			$('.main__body_117').delay(300).fadeIn(300, function () {
+				$(this).css('display', 'grid')
+			});
 		} else {
-			$('.main__body_217').show();
+			$('.main__body_217').delay(300).fadeIn(300, function () {
+				$(this).css('display', 'grid')
+			});
 		}
 	});
 
