@@ -128,6 +128,7 @@ body {
 	border-radius: 15px;
 	overflow: hidden;
 	&__name {
+		cursor: pointer;
 		width: 100%;
 		height: 100%;
 		text-align: center;
