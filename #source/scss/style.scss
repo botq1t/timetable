@@ -1,1 +1,218 @@
 @import "nullstyle.scss";
+// ================= Переменные ===============
+$accent-color: rgb(11, 8, 219);
+$even-color: rgba(88, 252, 252, 0.521);
+$odd-color: rgba(232, 81, 252, 0.527);
+// =============== Main styles ============
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	overflow: hidden;
+}
+.container {
+	max-width: 1020px;
+	padding: 0 10px;
+	margin: 0 auto;
+}
+body {
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+// ========== Header =====================
+.header {
+	position: relative;
+	flex: 0 1 auto;
+	&__body {
+		display: grid;
+		grid-template: auto auto auto / 1fr;
+		justify-items: center;
+		align-items: center;
+	}
+	&__title {
+		width: 100%;
+		text-align: center;
+		font-size: 40px;
+		padding: 10px 0;
+		font-weight: 700;
+		// background-color: rgb(233, 233, 233);
+		// border-bottom: 1px solid black;
+	}
+	&__week {
+		width: 100%;
+		text-align: center;
+		font-size: 25px;
+		padding: 10px 0;
+	}
+
+	&__today {
+		margin: 0px 0px 10px 0px;
+		span {
+			font-style: italic;
+			text-decoration: underline;
+		}
+	}
+
+	&__even-odd {
+		display: inline-block;
+		// text-decoration: underline;
+		padding: 5px 25px;
+		border-radius: 10px;
+		transition: all 500ms ease 0s;
+		&.even {
+			background: $even-color;
+			transition: all 500ms ease 0s;
+		}
+		&.odd {
+			background: $odd-color;
+			transition: all 500ms ease 0s;
+		}
+	}
+
+	&__nav {
+	}
+}
+.nav {
+	font-size: 30px;
+	width: 100%;
+	border-top: 1px solid rgba(110, 110, 110, 0.192);
+	border-bottom: 1px solid rgba(110, 110, 110, 0.192);
+	&__menu {
+		display: flex;
+		justify-content: start;
+		padding: 0 15px;
+		margin: 0 -15px;
+		il {
+			&.active {
+				background: rgba(110, 110, 110, 0.082);
+				border-bottom: 3px solid $accent-color;
+			}
+			cursor: pointer;
+			padding: 10px 15px;
+			border-right: 1px solid rgba(110, 110, 110, 0.192);
+			&:last-child {
+				border-right: none;
+			}
+		}
+	}
+}
+
+// ====================== Main ============================
+.main {
+	flex: 1 0 auto;
+	// background: rgb(255, 254, 195);
+	transition: all 500ms ease 0s;
+	&.even {
+		background: $even-color;
+		transition: all 500ms ease 0s;
+		transition: all 500ms ease 0s;
+	}
+	&.odd {
+		background: $odd-color;
+		transition: all 500ms ease 0s;
+	}
+
+	padding: 15px 0;
+	&__body {
+		display: grid;
+		// grid-template: repeat(7, auto) / 1fr;
+		grid-template-columns: 1fr;
+		grid-auto-rows: auto;
+	}
+}
+.day {
+	background: rgb(252, 252, 252);
+	border: 1px solid $accent-color;
+	display: grid;
+	grid-template: auto auto / 1fr;
+	margin: 0 0 20px 0;
+	border-radius: 15px;
+	overflow: hidden;
+	&__name {
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		font-size: 23px;
+		font-weight: 700;
+		text-shadow: 0 0 3px black;
+		padding: 10px 0;
+		border-bottom: 1px solid $accent-color;
+		background: $accent-color;
+		color: white;
+
+		&.active {
+			background: rgb(0, 255, 34);
+		}
+	}
+
+	&__timetable {
+		display: none;
+		// display: grid;
+		grid-auto-rows: 1fr;
+		grid-template-columns: 1fr;
+	}
+}
+
+.lesson {
+	display: grid;
+	// grid-template: 1fr / minmax(43px, 1fr) minmax(115px, 3fr) minmax(30px, 1fr) minmax(45px, 1fr) 1.5fr;
+	// grid-template: 1fr / minmax(15vw, 1fr) 28vw 10vw 12vw 30vw;
+	grid-template: 1fr / 45px 1fr 30px 40px 103px;
+	align-items: center;
+	// justify-items: center;
+	padding: 5px 0;
+	border-bottom: 1px solid $accent-color;
+	&:last-child {
+		border-bottom: none;
+	}
+	&:nth-child(even) {
+		background: rgba(143, 143, 143, 0.226);
+	}
+	&.active {
+		background: rgba(255, 0, 0, 0.849);
+		color: white;
+	}
+
+	&__item {
+		padding: 3px 3px;
+		border-right: 1px dashed $accent-color;
+		height: 100%;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		font-size: 15px;
+		line-height: 17px;
+
+		&:last-child {
+			border-right: none;
+		}
+	}
+
+	&__name {
+		font-style: italic;
+	}
+
+	&__type {
+	}
+
+	&__autidory {
+		font-weight: 700;
+	}
+
+	&__teacher {
+		font-style: italic;
+	}
+}
+.time {
+	font-weight: 700;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	&__start {
+	}
+
+	&__end {
+	}
+}

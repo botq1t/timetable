@@ -6,14 +6,262 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/style.css">
-	<title>У117, У217. Расписание</title>
+	<title>Расписанька</title>
 </head>
 
 <body>
-	<header class="header"></header>
-	<main class="main"></main>
-	<footer class="footer"></footer>
-	<script src="js.main.js"></script>
+	<div class="wrapper">
+		<header class="header">
+			<div class="header__body">
+				<h1 class="header__title">Расписанька</h1>
+				<div class="header__week week">
+					<p class="header__today">Сегодня: <span></span></p>
+					<p class="header__even-odd">Чётная/нечётная</p>
+				</div>
+				<nav class="header__nav nav">
+					<div class="container">
+						<ul class="nav__menu">
+							<il class="nav__tab nav__tab__117 active">У117</il>
+							<il class="nav__tab nav__tab__217">У217</il>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</header>
+		<main class="main">
+			<div class="container">
+				<div class="main__body main__body_117">
+					<div class="main__day day" id="d1">
+						<h2 class="day__name">Понедельник</h2>
+						<ul class="day__timetable">
+							<!-- ! 1 пара -->
+							<li class="day__lesson lesson lesson_1">
+								<div class="lesson__time time time_1 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">АИП и ЧФ</div>
+								<div class="lesson__type lesson__item">ЛК</div>
+								<div class="lesson__autidory lesson__item">3207</div>
+								<div class="lesson__teacher lesson__item">Козлова Ольга Грегорьевна</div>
+							</li>
+							<!-- ! 2 пара -->
+							<li class="day__lesson lesson lesson_2">
+								<div class="lesson__time time time_2 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ПАП при ОВД</div>
+								<div class="lesson__type lesson__item">ПЗ</div>
+								<div class="lesson__autidory lesson__item">3204</div>
+								<div class="lesson__teacher lesson__item">Александров О.В.</div>
+							</li>
+							<!-- ! 3 пара -->
+							<li class="day__lesson lesson lesson_3">
+								<div class="lesson__time time time_3 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ПП и ТОВД</div>
+								<div class="lesson__type lesson__item">ЛК</div>
+								<div class="lesson__autidory lesson__item">3203</div>
+								<div class="lesson__teacher lesson__item">Дубовский Алексей Викторович</div>
+							</li>
+							<!-- ! 4 пара -->
+							<li class="day__lesson lesson lesson_4">
+								<div class="lesson__time time time_4 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ФРО на АЯ</div>
+								<div class="lesson__type lesson__item">ПЗ</div>
+								<div class="lesson__autidory lesson__item">3207</div>
+								<div class="lesson__teacher lesson__item">Лазовский Георгий Борисович</div>
+							</li>
+						</ul>
+					</div>
+					<div class="main__day day" id="d2">
+						<h2 class="day__name">Вторник</h2>
+						<ul class="day__timetable">
+							<!-- ! 1 пара -->
+							<li class="day__lesson lesson lesson_1">
+								<div class="lesson__time time time_1 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ЭО</div>
+								<div class="lesson__type lesson__item">ЛК</div>
+								<div class="lesson__autidory lesson__item">3103</div>
+								<div class="lesson__teacher lesson__item">Науменко Александр Иванович</div>
+							</li>
+							<!-- ! 2 пара -->
+							<li class="day__lesson lesson lesson_2">
+								<div class="lesson__time time time_2 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ЭО</div>
+								<div class="lesson__type lesson__item">ПЗ</div>
+								<div class="lesson__autidory lesson__item">3209</div>
+								<div class="lesson__teacher lesson__item">Науменко Александр Иванович</div>
+							</li>
+							<!-- ! 3 пара -->
+							<li class="day__lesson lesson lesson_3">
+								<div class="lesson__time time time_3 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">АИП и ЧФ</div>
+								<div class="lesson__type lesson__item">ПЗ</div>
+								<div class="lesson__autidory lesson__item">3204</div>
+								<div class="lesson__teacher lesson__item">Козлова Ольга Грегорьевна</div>
+							</li>
+						</ul>
+					</div>
+					<div class="main__day day" id="d3">
+						<h2 class="day__name">Среда</h2>
+						<ul class="day__timetable">
+							<!-- ! 1 пара -->
+							<li class="day__lesson lesson lesson_1">
+								<div class="lesson__time time time_1 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ОПВД</div>
+								<div class="lesson__type lesson__item">ПЗ</div>
+								<div class="lesson__autidory lesson__item">3204</div>
+								<div class="lesson__teacher lesson__item">Вишневский Роман Анатольевич</div>
+							</li>
+							<!-- ! 2 пара -->
+							<li class="day__lesson lesson lesson_2">
+								<div class="lesson__time time time_2 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ФРО на АЯ</div>
+								<div class="lesson__type lesson__item">ПЗ</div>
+								<div class="lesson__autidory lesson__item">1305</div>
+								<div class="lesson__teacher lesson__item">Лазовский Георгий Борисович</div>
+							</li>
+							<!-- ! 3 пара -->
+							<li class="day__lesson lesson lesson_3">
+								<div class="lesson__time time time_3 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ПП и ТОВД</div>
+								<div class="lesson__type lesson__item">ПЗ</div>
+								<div class="lesson__autidory lesson__item">3204</div>
+								<div class="lesson__teacher lesson__item">Дубовский Алексей Викторович</div>
+							</li>
+						</ul>
+					</div>
+					<div class="main__day day" id="d4">
+						<h2 class="day__name">Четверг</h2>
+						<ul class="day__timetable">
+							<!-- ! 1 пара нечётная -->
+							<li class="day__lesson lesson lesson_1 lesson__odd">
+								<div class="lesson__time time time_1 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">МОМАН</div>
+								<div class="lesson__type lesson__item">ЛК</div>
+								<div class="lesson__autidory lesson__item">3203</div>
+								<div class="lesson__teacher lesson__item">Барабан Иван Иванович</div>
+							</li>
+							<!-- ! 1 пара чётная -->
+							<li class="day__lesson lesson lesson_1 lesson__even">
+								<div class="lesson__time time time_1 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">АП и ПНК</div>
+								<div class="lesson__type lesson__item">ЛК</div>
+								<div class="lesson__autidory lesson__item">3103</div>
+								<div class="lesson__teacher lesson__item">Пилипчук Владимир Сергеевич</div>
+							</li>
+							<!-- ! 2 пара -->
+							<li class="day__lesson lesson lesson_2">
+								<div class="lesson__time time time_2 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ОПВД</div>
+								<div class="lesson__type lesson__item">ЛК</div>
+								<div class="lesson__autidory lesson__item">3204</div>
+								<div class="lesson__teacher lesson__item">Вишневский Роман Анатольевич</div>
+							</li>
+							<!-- ! 3 пара -->
+							<li class="day__lesson lesson lesson_3">
+								<div class="lesson__time time time_3 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ПАП при ОВД</div>
+								<div class="lesson__type lesson__item">ЛК</div>
+								<div class="lesson__autidory lesson__item">3204</div>
+								<div class="lesson__teacher lesson__item">Вишневский Роман Анатольевич</div>
+							</li>
+						</ul>
+					</div>
+					<div class="main__day day" id="d5">
+						<h2 class="day__name">Пятница</h2>
+						<ul class="day__timetable">
+							<!-- ! 1 пара нечётная-->
+							<li class="day__lesson lesson lesson_1 lesson__odd">
+								<div class="lesson__time time time_1 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ФРО на АЯ</div>
+								<div class="lesson__type lesson__item">ПЗ</div>
+								<div class="lesson__autidory lesson__item">1305</div>
+								<div class="lesson__teacher lesson__item">Лазовский Георгий Борисович</div>
+							</li>
+							<!-- ! 1 пара чётная -->
+							<li class="day__lesson lesson lesson_1 lesson__even">
+								<div class="lesson__time time time_1 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">АП и ПНК</div>
+								<div class="lesson__type lesson__item">ЛК</div>
+								<div class="lesson__autidory lesson__item">3103</div>
+								<div class="lesson__teacher lesson__item">Пилипчук Владимир Сергеевич</div>
+							</li>
+							<!-- ! 2 пара -->
+							<li class="day__lesson lesson lesson_2">
+								<div class="lesson__time time time_2 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ОПВД</div>
+								<div class="lesson__type lesson__item">ЛК</div>
+								<div class="lesson__autidory lesson__item">3204</div>
+								<div class="lesson__teacher lesson__item">Вишневский Роман Анатольевич</div>
+							</li>
+							<!-- ! 3 пара -->
+							<li class="day__lesson lesson lesson_3">
+								<div class="lesson__time time time_3 lesson__item">
+									<div class="time__start"></div>
+									<div class="time__end"></div>
+								</div>
+								<div class="lesson__name lesson__item">ПАП при ОВД</div>
+								<div class="lesson__type lesson__item">ЛК</div>
+								<div class="lesson__autidory lesson__item">3204</div>
+								<div class="lesson__teacher lesson__item">Вишневский Роман Анатольевич</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer class="footer"></footer>
+	</div>
+
+	<script src="js/libs/jquery-3.6.0.min.js"></script>
+	<script src="js/main.js"></script>
 </body>
 
 </html>
