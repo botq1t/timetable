@@ -62,7 +62,7 @@ $(document).ready(function () {
 	$('#d' + dayIndex).children('.day__name').addClass('active');
 
 	$('#d' + dayIndex).children('.day__timetable').delay(300).slideDown(300, function () {
-		$(this).css('display', 'grid')
+		$(this).css('display', 'grid').toggleClass('active')
 	})
 
 	if (timeIndex > (7 * 3600 + 59 * 60 + 59)) {
