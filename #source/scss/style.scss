@@ -165,9 +165,9 @@ body {
 	&:last-child {
 		border-bottom: none;
 	}
-	&:nth-child(even) {
-		background: rgba(143, 143, 143, 0.226);
-	}
+	// &:nth-child(even) {
+	// 	background: rgba(143, 143, 143, 0.226);
+	// }
 	&.active {
 		background: rgba(255, 0, 0, 0.849);
 		color: white;
