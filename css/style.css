@@ -319,8 +319,17 @@ body {
   padding: 5px 0;
   border-bottom: 1px solid #0b08db;
 }
-.lesson_1, .lesson_3 {
-  background: rgba(168, 168, 168, 0.185);
+.lesson_lection {
+  background: rgba(49, 240, 167, 0.2);
+}
+.lesson_practice {
+  background: rgba(255, 166, 0, 0.2);
+}
+.lesson_out {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 4;
+  grid-area: out;
 }
 .lesson:last-child {
   border-bottom: none;
@@ -359,12 +368,6 @@ body {
 }
 .lesson__teacher {
   font-style: italic;
-}
-.lesson__out {
-  -ms-grid-row: 1;
-  -ms-grid-column: 2;
-  -ms-grid-column-span: 4;
-  grid-area: out;
 }
 
 .time {

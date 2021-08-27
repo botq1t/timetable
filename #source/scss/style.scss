@@ -202,9 +202,14 @@ body {
 	// justify-items: center;
 	padding: 5px 0;
 	border-bottom: 1px solid $accent-color;
-	&_1,
-	&_3 {
-		background: rgba(168, 168, 168, 0.185);
+	&_lection {
+		background: rgba(49, 240, 167, 0.2);
+	}
+	&_practice {
+		background: rgba(255, 166, 0, 0.2);
+	}
+	&_out {
+		grid-area: out;
 	}
 	&:last-child {
 		border-bottom: none;
@@ -249,9 +254,6 @@ body {
 
 	&__teacher {
 		font-style: italic;
-	}
-	&__out {
-		grid-area: out;
 	}
 }
 .time {

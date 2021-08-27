@@ -2,3 +2,4 @@
 // @prepros-append "date.js"
 // @prepros-append "tabs.js"
 // @prepros-append "fullLessonName.js"
+// @prepros-append "lectionsPractice.js"
