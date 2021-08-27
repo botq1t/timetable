@@ -273,15 +273,17 @@ body {
 	background: $accent-color;
 	&__body {
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		p {
-			@include adaptiv-font(30, 23);
-			padding: 10px 0;
-			color: white;
-			font-weight: 700;
-			font-style: italic;
-			text-shadow: 0 0 5px black;
-		}
+	}
+	&__time {
+		@include adaptiv-font(26, 17);
+		// font-size: 20px;
+		padding: 10px 0;
+		color: white;
+		font-weight: 700;
+		font-style: italic;
+		text-shadow: 0 0 5px black;
 	}
 }

@@ -393,6 +393,10 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -400,8 +404,8 @@ body {
       -ms-flex-align: center;
           align-items: center;
 }
-.footer__body p {
-  font-size: calc(23px + 7 * ((100vw - 320px) / 704));
+.footer__time {
+  font-size: calc(17px + 9 * ((100vw - 320px) / 704));
   padding: 10px 0;
   color: white;
   font-weight: 700;

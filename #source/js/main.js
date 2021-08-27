@@ -3,3 +3,4 @@
 // @prepros-append "tabs.js"
 // @prepros-append "fullLessonName.js"
 // @prepros-append "lectionsPractice.js"
+// @prepros-append "remain.js"
