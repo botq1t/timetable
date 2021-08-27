@@ -162,20 +162,26 @@ body {
 .header__title span {
   margin: 0 10px;
 }
-.header__week {
+.week {
   width: 100%;
   text-align: center;
   font-size: calc(21px + 7 * ((100vw - 320px) / 704));
   padding: 10px 0;
 }
-.header__today {
-  margin: 0px 0px 10px 0px;
+.week p {
+  margin-bottom: 10px;
 }
-.header__today span {
+.week p:last-child {
+  margin-bottom: none;
+}
+.week__today {
+  border-top: 1px solid rgba(110, 110, 110, 0.192);
+  padding: 5px 0;
+}
+.week__date, .week__time {
   font-style: italic;
-  text-decoration: underline;
 }
-.header__even-odd {
+.week__even-odd {
   display: inline-block;
   cursor: pointer;
   padding: 5px 25px;
@@ -187,21 +193,22 @@ body {
   -webkit-transition: all 500ms ease 0s;
   transition: all 500ms ease 0s;
 }
-.header__even-odd:hover, .header__even-odd:active {
+.week__even-odd:hover, .week__even-odd:active {
   top: 2px;
   -webkit-box-shadow: 0 1px 0 #464646;
           box-shadow: 0 1px 0 #464646;
 }
-.header__even-odd.even {
+.week__even-odd.even {
   background: rgba(57, 252, 252, 0.39);
   -webkit-transition: all 500ms ease 0s;
   transition: all 500ms ease 0s;
 }
-.header__even-odd.odd {
+.week__even-odd.odd {
   background: rgba(218, 70, 255, 0.363);
   -webkit-transition: all 500ms ease 0s;
   transition: all 500ms ease 0s;
 }
+
 .nav {
   font-size: calc(25px + 5 * ((100vw - 320px) / 704));
   width: 100%;
@@ -345,6 +352,7 @@ body {
 }
 .lesson__name {
   font-style: italic;
+  cursor: help;
 }
 .lesson__autidory {
   font-weight: 700;

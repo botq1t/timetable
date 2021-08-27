@@ -50,20 +50,31 @@ body {
 			margin: 0 10px;
 		}
 	}
-	&__week {
-		width: 100%;
-		text-align: center;
-		// font-size: 25px;
-		@include adaptiv-font(28, 21);
-		padding: 10px 0;
+
+	&__nav {
+	}
+}
+
+.week {
+	width: 100%;
+	text-align: center;
+	// font-size: 25px;
+	@include adaptiv-font(28, 21);
+	padding: 10px 0;
+	p {
+		margin-bottom: 10px;
+		&:last-child {
+			margin-bottom: none;
+		}
 	}
 
 	&__today {
-		margin: 0px 0px 10px 0px;
-		span {
-			font-style: italic;
-			text-decoration: underline;
-		}
+		border-top: 1px solid rgba(110, 110, 110, 0.192);
+		padding: 5px 0;
+	}
+	&__date,
+	&__time {
+		font-style: italic;
 	}
 
 	&__even-odd {
@@ -80,17 +91,16 @@ body {
 			top: 2px;
 			box-shadow: 0 1px 0 rgb(70, 70, 70);
 		}
+
 		&.even {
 			background: $even-color;
 			transition: all 500ms ease 0s;
 		}
+
 		&.odd {
 			background: $odd-color;
 			transition: all 500ms ease 0s;
 		}
-	}
-
-	&__nav {
 	}
 }
 .nav {
@@ -227,6 +237,7 @@ body {
 
 	&__name {
 		font-style: italic;
+		cursor: help;
 	}
 
 	&__type {
