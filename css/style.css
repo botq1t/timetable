@@ -155,6 +155,7 @@ body {
 .header__title {
   width: 100%;
   text-align: center;
+  color: #0b08db;
   font-size: calc(27px + 13 * ((100vw - 320px) / 704));
   padding: 10px 0;
   font-weight: 700;

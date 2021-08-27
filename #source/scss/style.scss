@@ -42,6 +42,7 @@ body {
 	&__title {
 		width: 100%;
 		text-align: center;
+		color: $accent-color;
 		// font-size: 40px;
 		@include adaptiv-font(40, 27);
 		padding: 10px 0;
