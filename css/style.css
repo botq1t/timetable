@@ -321,10 +321,10 @@ body {
   border-bottom: 1px solid #0b08db;
 }
 .lesson_lection {
-  background: rgba(49, 240, 167, 0.2);
+  background: rgba(49, 240, 167, 0.1);
 }
 .lesson_practice {
-  background: rgba(255, 166, 0, 0.2);
+  background: rgba(255, 0, 0, 0.1);
 }
 .lesson_out {
   -ms-grid-row: 1;
@@ -336,8 +336,8 @@ body {
   border-bottom: none;
 }
 .lesson.active {
-  background: rgba(255, 0, 0, 0.849);
-  color: white;
+  background: rgba(229, 255, 0, 0.849);
+  color: black;
 }
 .lesson__item {
   padding: 3px 3px;

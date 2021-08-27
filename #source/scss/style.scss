@@ -204,10 +204,10 @@ body {
 	padding: 5px 0;
 	border-bottom: 1px solid $accent-color;
 	&_lection {
-		background: rgba(49, 240, 167, 0.2);
+		background: rgba(49, 240, 167, 0.1);
 	}
 	&_practice {
-		background: rgba(255, 166, 0, 0.2);
+		background: rgba(255, 0, 0, 0.1);
 	}
 	&_out {
 		grid-area: out;
@@ -215,12 +215,10 @@ body {
 	&:last-child {
 		border-bottom: none;
 	}
-	// &:nth-child(even) {
-	// 	background: rgba(143, 143, 143, 0.226);
-	// }
+
 	&.active {
-		background: rgba(255, 0, 0, 0.849);
-		color: white;
+		background: rgba(229, 255, 0, 0.849);
+		color: black;
 	}
 
 	&__item {

@@ -4,7 +4,7 @@ let dayName = ['Воскресенье', 'Понедельник', 'Вторни
 $(document).ready(function () {
 	//! ====================== Получение даты =========================
 	var dateCurrent = new Date();						//? Текущая дата
-	// var dateCurrent = new Date(1630926000000);		//? Тестовая дата
+	// var dateCurrent = new Date(1631523600000);		//? Тестовая дата
 
 	console.log(dateCurrent)
 
@@ -22,7 +22,7 @@ $(document).ready(function () {
 
 	function getCurrentDate() {
 		dateCurrent = new Date();								//? Текущая дата
-		// var dateCurrent = new Date(1630926000000);		//? Тестовая дата
+		// var dateCurrent = new Date(1631523600000);		//? Тестовая дата
 
 		var dateCurrentDisplay = `Сегодня: ${dateCurrent.getDate()} ${monthArray[dateCurrent.getMonth()]} ${dateCurrent.getFullYear()} года (${dayName[dayIndex]})`;
 		$('.week__date').text(dateCurrentDisplay)
@@ -49,7 +49,6 @@ $(document).ready(function () {
 	setInterval(getCurrentTime, 1000)
 	//! ==============  Чётный или нечётный =========================
 	var dateMinus = dateCurrent.getTime() - dateBegin.getTime();		//? Сколько прошло миллисекунд с начала семестра
-
 	var dateIndex = Math.floor(dateMinus / dateCheck) + 1;				//? Вычисление индекса чётности недели
 
 	if (dateIndex % 2 == 0) {														//? Определение и запись чётности
@@ -61,7 +60,7 @@ $(document).ready(function () {
 		$('.lesson__even').css('display', 'grid');
 	} else {
 		console.log('Нечётная')
-		$('.week__even-odd').children('span').addClass('odd').text('Нечётная неделя');
+		$('.week__even-odd').addClass('odd').text('Нечётная неделя');
 		$('.main').addClass('odd');
 
 		$('.lesson__even').hide();
