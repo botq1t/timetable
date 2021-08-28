@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	var date = new Date();
-	// var date = new Date(1631349600000);
+	// var date = new Date(1631253600000);
 
 
 	var dayIndex = date.getDay();
