@@ -4,7 +4,6 @@ let lessonTime = {
 };
 
 $(document).ready(function () {
-	console.log(lessonTime);
 	var lessonStringTime = '';
 	for (let i = 0; i < lessonTime['start'].length; i++) {
 		// ! Начало пары

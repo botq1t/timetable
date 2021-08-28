@@ -1,15 +1,15 @@
-let monthArray = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'илюя', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+let monthName = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'илюя', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 let dayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];		//? Название дней недели
+const dateBegin = new Date(1630454400000); 			//? Начало семестра
+const dateCheck = 604800000; 							//? Одна неделя в миллисекундах
 
 $(document).ready(function () {
 	//! ====================== Получение даты =========================
 	var dateCurrent = new Date();						//? Текущая дата
-	// var dateCurrent = new Date(1631523600000);		//? Тестовая дата
+	// var dateCurrent = new Date(1631349600000);		//? Тестовая дата
 
 	console.log(dateCurrent)
 
-	var dateBegin = new Date(1630454400000); 			//? Начало семестра
-	var dateCheck = 604800000; 							//? Одна неделя в миллисекундах
 	// !======================== Текущий день недели ========================================
 	var dayIndex = dateCurrent.getDay();		//? Определение текущего дня недели
 
@@ -22,9 +22,9 @@ $(document).ready(function () {
 
 	function getCurrentDate() {
 		dateCurrent = new Date();								//? Текущая дата
-		// var dateCurrent = new Date(1631523600000);		//? Тестовая дата
+		// var dateCurrent = new Date(1631349600000);		//? Тестовая дата
 
-		var dateCurrentDisplay = `Сегодня: ${dateCurrent.getDate()} ${monthArray[dateCurrent.getMonth()]} ${dateCurrent.getFullYear()} года (${dayName[dayIndex]})`;
+		var dateCurrentDisplay = `Сегодня: ${dateCurrent.getDate()} ${monthName[dateCurrent.getMonth()]} ${dateCurrent.getFullYear()} года (${dayName[dayIndex]})`;
 		$('.week__date').text(dateCurrentDisplay)
 	}
 
@@ -49,42 +49,62 @@ $(document).ready(function () {
 	setInterval(getCurrentTime, 1000)
 	//! ==============  Чётный или нечётный =========================
 	var dateMinus = dateCurrent.getTime() - dateBegin.getTime();		//? Сколько прошло миллисекунд с начала семестра
-	var dateIndex = Math.floor(dateMinus / dateCheck) + 1;				//? Вычисление индекса чётности недели
+	var dateIndex = Math.floor(dateMinus / dateCheck);				//? Вычисление индекса чётности недели
 
-	if (dateIndex % 2 == 0) {														//? Определение и запись чётности
-		console.log('Чётная')
-		$('.week__even-odd').addClass('even').text('Чётная неделя');
-		$('.main').addClass('even');
+	function oddEven() {
+		dateIndex++;
+		if (dateIndex % 2 == 0) {														//? Определение и запись чётности
+			console.log('Чётная')
+			$('.week__even-odd').removeClass('odd').addClass('even').text('Чётная неделя');
+			$('.main').removeClass('odd').addClass('even');
+			$('.nav__tab').removeClass('odd').addClass('even');
 
-		$('.lesson__odd').hide();
-		$('.lesson__even').css('display', 'grid');
-	} else {
-		console.log('Нечётная')
-		$('.week__even-odd').addClass('odd').text('Нечётная неделя');
-		$('.main').addClass('odd');
 
-		$('.lesson__even').hide();
-		$('.lesson__odd').css('display', 'grid');
+			$('.lesson_even').css('display', 'grid');
+			$('.lesson_odd').each(function () {
+				if ($(this).hasClass('lesson_even') == false) {
+					$(this).css('display', 'none');
+				}
+			})
+		} else {
+			console.log('Нечётная')
+			$('.week__even-odd').removeClass('even').addClass('odd').text('Нечётная неделя');
+			$('.main').removeClass('even').addClass('odd');
+			$('.nav__tab').removeClass('even').addClass('odd');
+
+			$('.lesson_odd').css('display', 'grid');
+			$('.lesson_even').each(function () {
+				if ($(this).hasClass('lesson_odd') == false) {
+					$(this).css('display', 'none');
+				}
+			})
+		}
 	}
+
+	setTimeout(oddEven, 0)
+
+	$('.week__even-odd').click(oddEven);
+	/*
 	//!====================== Переключение чётности при нажатии ==================
 	$('.week__even-odd').click(function () {
 		dateIndex++;
 		if (dateIndex % 2 == 0) {
 			console.log('Чётная')
-			$('.week__even-odd').removeClass('odd').addClass('even').text('Чётная неделя');
+			$('.week__even-odd').text('Чётная неделя');
 			$('.odd').removeClass('odd').addClass('even');
 
 			$('.lesson__odd').hide();
 			$('.lesson__even').css('display', 'grid');
 		} else {
 			console.log('Нечётная')
-			$('.week__even-odd').removeClass('even').addClass('odd').text('Нечётная неделя');
+			$('.week__even-odd').text('Нечётная неделя');
 			$('.even').removeClass('even').addClass('odd');
 
 			$('.lesson__even').hide();
 			$('.lesson__odd').css('display', 'grid');
 		}
 	});
+	*/
 
 	// !========================== Текущая пара ================================================
 	var timeIndex = dateCurrent.getHours() * 3600 + dateCurrent.getMinutes() * 60 + dateCurrent.getSeconds();		//? Перевод часов и минус в секунды

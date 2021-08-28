@@ -4,7 +4,7 @@ let lessonName = {
 };
 
 $(document).ready(function () {
-	$('.lesson__name').click(function (event) {
+	function fullLessonName() {
 		// console.log($(this).text())
 		for (let i = 0; i < lessonName['short'].length; i++) {
 
@@ -22,5 +22,8 @@ $(document).ready(function () {
 					break;
 			};
 		};
-	});
+	}
+
+	$('.lesson__name').click(fullLessonName);
+	$('.now__name').click(fullLessonName);
 });
