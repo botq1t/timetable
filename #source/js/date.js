@@ -6,23 +6,23 @@ const dateCheck = 604800000; 							//? Одна неделя в миллисе�
 $(document).ready(function () {
 	//! ====================== Получение даты =========================
 	var dateCurrent = new Date();						//? Текущая дата
-	// var dateCurrent = new Date(1631253600000);		//? Тестовая дата
+	// var dateCurrent = new Date(1631277600000);		//? Тестовая дата
 
 	console.log(dateCurrent)
 
 	// !======================== Текущий день недели ========================================
 	var dayIndex = dateCurrent.getDay();		//? Определение текущего дня недели
 
-	$('.day_' + dayIndex).children('.day__name').addClass('active');		//? Выделение текущего дня недели в расписании
+	$('.day_' + dayIndex).children('.day__name').addClass('active slide');		//? Выделение текущего дня недели в расписании
 
-	$('.day_' + dayIndex).children('.day__timetable').delay(200).slideDown(300, function () {		//? Выкатывание расписания текущего дня недели
-		$(this).css('display', 'grid').toggleClass('active')
+	$('.day_' + dayIndex).children('.day__timetable').delay(100).slideDown(300, function () {		//? Выкатывание расписания текущего дня недели
+		$(this).css('display', 'grid')
 	})
 	//! ============ Вывод текущей даты над ивен одд ==================
 
 	function getCurrentDate() {
 		dateCurrent = new Date();								//? Текущая дата
-		// var dateCurrent = new Date(1631253600000);		//? Тестовая дата
+		// var dateCurrent = new Date(1631277600000);		//? Тестовая дата
 
 		var dateCurrentDisplay = `Сегодня: ${dateCurrent.getDate()} ${monthName[dateCurrent.getMonth()]} ${dateCurrent.getFullYear()} года (${dayName[dayIndex]})`;
 		$('.week__date').text(dateCurrentDisplay)
@@ -120,7 +120,31 @@ $(document).ready(function () {
 			}
 		}
 	}
+	// ! ======================= Следующий день недели ============================
+	var dayNextIndex = dayIndex + 1;
+	if (dayNextIndex > 5) { dayNextIndex = 1 }
+	var lastLessonTodayTimeEnd = 0;
+	// ? Количество пар сегодня
+	for (let i = 5; i > 1; i--) {
+		if ($('#u117-target').children('.day_' + dayIndex).children('.day__timetable').children().last().hasClass('lesson_' + i)) {
+			lastLessonTodayTimeEnd = lessonTime['end'][i - 1];
+			break;
+		} else {
+			if ($('#u217-target').children('.day_' + dayIndex).children('.day__timetable').children().last().hasClass('lesson_' + i)) {
+				lastLessonTodayTimeEnd = lessonTime['end'][i - 1];
+				break;
+			}
+		}
+	}
 
+	console.log(lastLessonTodayTimeEnd)
+
+	if (timeIndex > (lastLessonTodayTimeEnd + 299)) {
+		$('.day_' + dayIndex).children('.day__name').removeClass('slide').next('.day__timetable').slideUp(300);
+		$('.day_' + dayNextIndex).children('.day__name').addClass('slide nextDay').next('.day__timetable').slideDown(300, function () {
+			$(this).css('display', 'grid');
+		})
+	}
 
 	/*
 		if (timeIndex > (7 * 3600 + 59 * 60 + 59)) {
