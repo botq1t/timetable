@@ -453,8 +453,8 @@ body {
 }
 .now__card {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 280px;
-          flex: 0 0 280px;
+      -ms-flex: 0 0 290px;
+          flex: 0 0 290px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -514,15 +514,15 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 20px;
+  font-size: calc(20px + 4 * ((100vw - 320px) / 704));
 }
 .now__name {
+  cursor: help;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 80%;
           flex: 0 0 80%;
   text-align: center;
   padding: 5px;
-  font-size: 20px;
   border-right: 2px dotted #0b08db;
 }
 .now__type {

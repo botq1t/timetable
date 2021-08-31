@@ -6,7 +6,7 @@ const dateCheck = 604800000; 							//? Одна неделя в миллисе�
 $(document).ready(function () {
 	//! ====================== Получение даты =========================
 	var dateCurrent = new Date();						//? Текущая дата
-	// var dateCurrent = new Date(1631277600000);		//? Тестовая дата
+	// var dateCurrent = new Date(1631248800000);		//? Тестовая дата
 
 	console.log(dateCurrent)
 
@@ -22,7 +22,7 @@ $(document).ready(function () {
 
 	function getCurrentDate() {
 		dateCurrent = new Date();								//? Текущая дата
-		// var dateCurrent = new Date(1631277600000);		//? Тестовая дата
+		// var dateCurrent = new Date(1631248800000);		//? Тестовая дата
 
 		var dateCurrentDisplay = `Сегодня: ${dateCurrent.getDate()} ${monthName[dateCurrent.getMonth()]} ${dateCurrent.getFullYear()} года (${dayName[dayIndex]})`;
 		$('.week__date').text(dateCurrentDisplay)

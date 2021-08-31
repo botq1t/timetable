@@ -326,7 +326,7 @@ body {
 	justify-content: space-around;
 	align-items: baseline;
 	&__card {
-		flex: 0 0 280px;
+		flex: 0 0 290px;
 		display: flex;
 		flex-direction: column;
 		border-radius: 15px;
@@ -378,15 +378,16 @@ body {
 		display: flex;
 		font-style: italic;
 		align-items: center;
-		font-size: 20px;
-		// @include adaptiv-font(27, 22);
+		// font-size: 20px;
+		@include adaptiv-font(24, 20);
 	}
 
 	&__name {
+		cursor: help;
 		flex: 0 0 80%;
 		text-align: center;
 		padding: 5px;
-		font-size: 20px;
+		// font-size: 20px;
 		// @include adaptiv-font(27, 22);
 		border-right: 2px dotted $accent-color;
 	}
