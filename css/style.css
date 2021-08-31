@@ -318,12 +318,12 @@ body {
   padding: 15px 0;
 }
 .main.even {
-  background: rgba(57, 252, 252, 0.39);
+  background: rgba(57, 252, 252, 0.39) url("../img/stickers.webp") local;
   -webkit-transition: all 300ms ease 0s;
   transition: all 300ms ease 0s;
 }
 .main.odd {
-  background: rgba(218, 70, 255, 0.363);
+  background: rgba(218, 70, 255, 0.363) url("../img/stickers.webp") local;
   -webkit-transition: all 300ms ease 0s;
   transition: all 300ms ease 0s;
 }
