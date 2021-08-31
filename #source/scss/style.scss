@@ -273,13 +273,25 @@ body {
 	padding: 5px 0;
 	border-bottom: 1px solid $accent-color;
 	&_lection {
-		background: rgba(49, 240, 167, 0.1);
+		background: rgba(49, 240, 167, 0.2);
+		transition: all 300ms ease 0s;
+		&:hover {
+			background: rgba(49, 240, 167, 0.5);
+			transition: all 300ms ease 0s;
+		}
 	}
 	&_practice {
-		background: rgba(255, 136, 0, 0.1);
+		background: rgba(255, 123, 0, 0.2);
+		&:hover {
+			background: rgba(255, 123, 0, 0.5);
+			transition: all 300ms ease 0s;
+		}
 	}
 	&_out {
 		grid-area: out;
+		span {
+			margin: 0 5px;
+		}
 	}
 	&:last-child {
 		border-bottom: none;
