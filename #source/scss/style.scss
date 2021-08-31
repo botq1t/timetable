@@ -50,12 +50,29 @@ body {
 		span {
 			margin: 0 10px;
 		}
+		animation: headerTitleAnim 4s linear 0s infinite;
 	}
 
 	&__nav {
 	}
 }
-
+@keyframes headerTitleAnim {
+	0% {
+		text-shadow: 0 0 4px rgb(255, 0, 0);
+	}
+	25% {
+		text-shadow: 0 0 5px rgb(9, 255, 0);
+	}
+	50% {
+		text-shadow: 0 0 4px rgb(0, 217, 255);
+	}
+	75% {
+		text-shadow: 0 0 3px rgb(238, 255, 0);
+	}
+	100% {
+		text-shadow: 0 0 4px rgb(255, 0, 0);
+	}
+}
 .week {
 	width: 100%;
 	text-align: center;
@@ -269,8 +286,10 @@ body {
 	}
 
 	&.active {
-		background: rgba(229, 255, 0, 0.849);
-		color: black;
+		background: rgb(255, 0, 0);
+		color: rgb(255, 255, 255);
+		text-shadow: 0 0 1px black;
+		font-weight: 700;
 	}
 
 	&__item {
@@ -293,10 +312,12 @@ body {
 
 	&__name {
 		font-style: italic;
+		border-right: none;
 		cursor: help;
 	}
 
 	&__type {
+		border-left: 1px dashed $accent-color;
 	}
 
 	&__autidory {
@@ -304,6 +325,7 @@ body {
 	}
 
 	&__teacher {
+		cursor: help;
 		font-style: italic;
 	}
 }
