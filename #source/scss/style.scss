@@ -222,13 +222,21 @@ body {
 		color: white;
 		&::before,
 		&::after {
-			content: "";
+			content: "\e906";
+			font-family: "iconfont" !important;
+			speak: never;
+			font-style: normal;
+			font-weight: normal;
+			font-variant: normal;
+			text-transform: none;
+			line-height: 1;
+
 			position: absolute;
 			top: 50%;
 			transform: translateY(-50%);
-			border-top: calc(5px * 3) solid white;
-			border-left: calc(3px * 3) solid transparent;
-			border-right: calc(3px * 3) solid transparent;
+			// border-top: calc(5px * 3) solid white;
+			// border-left: calc(3px * 3) solid transparent;
+			// border-right: calc(3px * 3) solid transparent;
 			transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
 		}
 		&::before {
@@ -241,12 +249,12 @@ body {
 			&::before {
 				transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
 				transform: rotate(180deg) translateY(50%);
-				left: 5%;
+				left: 10px;
 			}
 			&::after {
 				transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
 				transform: rotate(-180deg) translateY(50%);
-				right: 5%;
+				right: 10px;
 			}
 		}
 		&.active {
@@ -276,14 +284,14 @@ body {
 		background: rgba(49, 240, 167, 0.2);
 		transition: all 300ms ease 0s;
 		&:hover {
-			background: rgba(49, 240, 167, 0.5);
+			background: rgba(49, 240, 167, 0.4);
 			transition: all 300ms ease 0s;
 		}
 	}
 	&_practice {
 		background: rgba(255, 123, 0, 0.2);
 		&:hover {
-			background: rgba(255, 123, 0, 0.5);
+			background: rgba(255, 123, 0, 0.4);
 			transition: all 300ms ease 0s;
 		}
 	}

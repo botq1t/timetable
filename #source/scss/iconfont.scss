@@ -24,7 +24,9 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-
+.icon-bells:before {
+	content: "\e906";
+}
 .icon-sleep:before {
 	content: "\e905";
 }
