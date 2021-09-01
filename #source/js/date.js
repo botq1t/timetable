@@ -12,7 +12,7 @@ let nextDayIndex, nextDayLastLessonTime;
 let currentLessonBegin, currentLessonEnd;
 // ! Получение текущей даты
 function getDate() {
-	date = new Date(1631275200000);
+	date = new Date();
 	dayIndex = date.getDay();
 	timeInSeconds = (date.getHours() * 3600) + (date.getMinutes() * 60) + (date.getSeconds());
 }
