@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	function getRemain() {
 		var semCurrentDate = new Date();
-		var semEnd = 1640898000000;
+		var semEnd = 1640552400000;
 		var semRemain = semEnd - semCurrentDate;
 
 		semRemain = Math.floor(semRemain / 1000);
@@ -11,7 +11,7 @@ $(document).ready(function () {
 		semRemainMinutes = Math.floor((semRemainTime % 3600) / 60);
 		semRemainSeconds = ((semRemainTime % 86400) % 60);
 
-		semRemainTimeString = `До Нового Года: ${semRemainDays} дней, `;
+		semRemainTimeString = `До сессии: ${semRemainDays} дней, `;
 		if (semRemainHours < 10) { semRemainTimeString = semRemainTimeString + '0' }
 		semRemainTimeString = semRemainTimeString + semRemainHours + ':';
 		if (semRemainMinutes < 10) { semRemainTimeString = semRemainTimeString + '0' }
