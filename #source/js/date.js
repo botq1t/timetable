@@ -1,60 +1,73 @@
 let monthName = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'илюя', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 let dayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];		//? Название дней недели
-const dateBegin = new Date(1630454400000); 			//? Начало семестра
-const dateCheck = 604800000; 							//? Одна неделя в миллисекундах
 
-$(document).ready(function () {
-	//! ====================== Получение даты =========================
-	var dateCurrent = new Date();						//? Текущая дата
-	// var dateCurrent = new Date(1631248800000);		//? Тестовая дата
+const semBegin = 1630454400000; 			//? Начало семестра в миллисекундах
+const weekCheck = 604800000; 							//? Одна неделя в миллисекундах
+const remainEnd = 1640552400000;		//? Конец семестра в миллисекундах
+var date, dayIndex, timeInSeconds;
+let currentTime, timeString;
+let remainTimeString, remainTime, remain, remainDays, remainInSeconds, remainHours, remainMinutes, remainSeconds;
+let weekPassTime, weekIndex;
+let nextDayIndex, nextDayLastLessonTime;
+let currentLessonBegin, currentLessonEnd;
+// ! Получение текущей даты
+function getDate() {
+	date = new Date(1631275200000);
+	dayIndex = date.getDay();
+	timeInSeconds = (date.getHours() * 3600) + (date.getMinutes() * 60) + (date.getSeconds());
+}
+setTimeout(getDate, 0);
+setInterval(getDate, 1000);
 
-	console.log(dateCurrent)
+// ! Секунды в красивую строку
+function getTimeString(h, m, s) {
+	timeString = ''
+	if (h < 10) { timeString = timeString + '0' }
+	timeString = timeString + h + ':';
+	if (m < 10) { timeString = timeString + '0' }
+	timeString = timeString + m + ':';
+	if (s < 10) { timeString = timeString + '0' }
+	timeString = timeString + s;
+}
 
-	// !======================== Текущий день недели ========================================
-	var dayIndex = dateCurrent.getDay();		//? Определение текущего дня недели
+// ! Осталось до конца семестра
+function getRemain() {
+	remainTime = remainEnd - date.getTime();
+	remainTime = Math.floor(remainTime / 1000);
 
-	$('.day_' + dayIndex).children('.day__name').addClass('active slide');		//? Выделение текущего дня недели в расписании
+	remainDays = Math.floor(remainTime / 86400);
+	remainInSeconds = (remainTime % 86400);
+	remainHours = Math.floor(remainInSeconds / 3600);
+	remainMinutes = Math.floor((remainInSeconds % 3600) / 60);
+	remainSeconds = ((remainInSeconds % 86400) % 60);
 
-	$('.day_' + dayIndex).children('.day__timetable').delay(100).slideDown(300, function () {		//? Выкатывание расписания текущего дня недели
-		$(this).css('display', 'grid')
-	})
-	//! ============ Вывод текущей даты над ивен одд ==================
+	getTimeString(remainHours, remainMinutes, remainSeconds);
+	remainTimeString = timeString;
 
-	function getCurrentDate() {
-		dateCurrent = new Date();								//? Текущая дата
-		// var dateCurrent = new Date(1631248800000);		//? Тестовая дата
+	remain = `${remainDays} дней, ${remainTimeString}`
 
-		var dateCurrentDisplay = `Сегодня: ${dateCurrent.getDate()} ${monthName[dateCurrent.getMonth()]} ${dateCurrent.getFullYear()} года (${dayName[dayIndex]})`;
-		$('.week__date').text(dateCurrentDisplay)
-	}
+	$('.footer__time').text(`До сессии осталось ${remain}`)
+}
 
-	$(document).ready(getCurrentDate());
-	setInterval(getCurrentDate, 1000);
-	//! ================= Вывод времени над ивен одд ====================
-	function getCurrentTime() {
-		var timeCurrentDisplay = "Время: ";
-		if (dateCurrent.getHours() < 10) { timeCurrentDisplay = timeCurrentDisplay + "0"; }
-		timeCurrentDisplay = timeCurrentDisplay + `${dateCurrent.getHours()}:`
+// ! Выделение текущего дня недели
+function hlToday() {
+	$(`.day_${dayIndex}`).children('.day__name').addClass('active slide').next().css('display', 'grid');
+}
 
-		if (dateCurrent.getMinutes() < 10) { timeCurrentDisplay = timeCurrentDisplay + "0"; }
-		timeCurrentDisplay = timeCurrentDisplay + `${dateCurrent.getMinutes()}:`
+// ! Получение номера недели
+function getWeekIndex() {
+	weekPassTime = date.getTime() - semBegin;
+	weekIndex = Math.floor(weekPassTime / weekCheck);
+	console.log('Номер недели:', (weekIndex + 1))
+}
+setTimeout(getWeekIndex, 0)
 
-		if (dateCurrent.getSeconds() < 10) { timeCurrentDisplay = timeCurrentDisplay + "0"; }
-		timeCurrentDisplay = timeCurrentDisplay + `${dateCurrent.getSeconds()}`
-		// console.log(timeCurrentDisplay);
-		$('.week__time').text(timeCurrentDisplay);
-	}
-
-	$(document).ready(getCurrentTime());
-	setInterval(getCurrentTime, 1000)
-	//! ==============  Чётный или нечётный =========================
-	var dateMinus = dateCurrent.getTime() - dateBegin.getTime();		//? Сколько прошло миллисекунд с начала семестра
-	var dateIndex = Math.floor(dateMinus / dateCheck);				//? Вычисление индекса чётности недели
-
-	function oddEven() {
-		dateIndex++;
-		if (dateIndex % 2 == 0) {														//? Определение и запись чётности
-			console.log('Чётная')
+// ! Чётности недели
+function getWeekParity() {
+	weekIndex++;
+	switch (weekIndex % 2) {
+		case 0:
+			// console.log('Чётная')
 			$('.week__even-odd').removeClass('odd').addClass('even').text('Чётная неделя');
 			$('.main').removeClass('odd').addClass('even');
 			$('.nav__tab').removeClass('odd').addClass('even');
@@ -66,8 +79,9 @@ $(document).ready(function () {
 					$(this).css('display', 'none');
 				}
 			})
-		} else {
-			console.log('Нечётная')
+			break;
+		default:
+			// console.log('Нечётная')
 			$('.week__even-odd').removeClass('even').addClass('odd').text('Нечётная неделя');
 			$('.main').removeClass('even').addClass('odd');
 			$('.nav__tab').removeClass('even').addClass('odd');
@@ -78,93 +92,87 @@ $(document).ready(function () {
 					$(this).css('display', 'none');
 				}
 			})
-		}
-	}
-
-	setTimeout(oddEven, 0)
-
-	$('.week__even-odd').click(oddEven);
-	/*
-	//!====================== Переключение чётности при нажатии ==================
-	$('.week__even-odd').click(function () {
-		dateIndex++;
-		if (dateIndex % 2 == 0) {
-			console.log('Чётная')
-			$('.week__even-odd').text('Чётная неделя');
-			$('.odd').removeClass('odd').addClass('even');
-
-			$('.lesson__odd').hide();
-			$('.lesson__even').css('display', 'grid');
-		} else {
-			console.log('Нечётная')
-			$('.week__even-odd').text('Нечётная неделя');
-			$('.even').removeClass('even').addClass('odd');
-
-			$('.lesson__even').hide();
-			$('.lesson__odd').css('display', 'grid');
-		}
-	});
-	*/
-
-	// !========================== Текущая пара ================================================
-	var timeIndex = dateCurrent.getHours() * 3600 + dateCurrent.getMinutes() * 60 + dateCurrent.getSeconds();		//? Перевод часов и минус в секунды
-
-
-	if (timeIndex > (lessonTime['start'][0] - 1)) {
-		if (timeIndex < (lessonTime['end'][lessonTime['end'].length - 1] + 1)) {
-			for (let i = 0; i < lessonTime['end'].length; i++) {
-				if (timeIndex < lessonTime['end'][i]) {
-					$('.day_' + dayIndex).children().children('.lesson_' + (i + 1)).addClass('active');
-					break;
-				}
-			}
-		}
-	}
-	// ! ======================= Следующий день недели ============================
-	var dayNextIndex = dayIndex + 1;
-	if (dayNextIndex > 5) { dayNextIndex = 1 }
-	var lastLessonTodayTimeEnd = 0;
-	// ? Количество пар сегодня
-	for (let i = 5; i > 1; i--) {
-		if ($('#u117-target').children('.day_' + dayIndex).children('.day__timetable').children().last().hasClass('lesson_' + i)) {
-			lastLessonTodayTimeEnd = lessonTime['end'][i - 1];
 			break;
-		} else {
-			if ($('#u217-target').children('.day_' + dayIndex).children('.day__timetable').children().last().hasClass('lesson_' + i)) {
-				lastLessonTodayTimeEnd = lessonTime['end'][i - 1];
-				break;
+	}
+}
+
+// ! Расписание следующего дня
+
+function getNextDay() {
+	nextDayIndex = dayIndex + 1;
+	if (nextDayIndex > 4) { nextDayIndex = 1 }
+	console.log('Завтра:', dayName[nextDayIndex]);
+
+	// ? У117
+	var k = 4;
+	while ($('#u117-target').children(`.day_${dayIndex}`).children('.day__timetable').children('.lesson').last().hasClass(`lesson_${k}`) == false) {
+		k--;
+	}
+	console.log('Количество пар У117 сегодня:', k);
+	/*timeToSeconds(lessonTime[k]['end'])
+	nextDayLastLessonTime = timeOutput;*/
+	if (timeInSeconds > lessonTimeSeconds[k]['end'] + 299) {
+		$('#u117-target').children(`.day_${nextDayIndex}`).children('.day__name').addClass('nextDay slide').next().css('display', 'grid');
+		$('#u117-target').children(`.day_${dayIndex}`).children('.day__name').removeClass('slide').next().slideUp();
+	}
+
+	// ? У217
+	var k = 4;
+	while ($('#u217-target').children(`.day_${dayIndex}`).children('.day__timetable').children('.lesson').last().hasClass(`lesson_${k}`) == false) {
+		k--;
+	}
+	console.log('Количество пар У117 сегодня:', k);
+	timeToSeconds(lessonTime[k]['end'])
+	nextDayLastLessonTime = timeOutput;
+	if (timeInSeconds > nextDayLastLessonTime + 299) {
+		$('#u217-target').children(`.day_${nextDayIndex}`).children('.day__name').addClass('nextDay slide').next().css('display', 'grid');
+		$('#u217-target').children(`.day_${dayIndex}`).children('.day__name').removeClass('slide').next().slideUp();
+	}
+}
+// ! Текущая пара
+function getCurrentLesson() {
+	for (let i = 1; i < 5; i++) {
+		/*timeToSeconds(lessonTime[i]['begin'])
+		currentLessonBegin = timeOutput;
+		timeToSeconds(lessonTime[i]['end'])
+		currentLessonEnd = timeOutput;*/
+		if (timeInSeconds > (lessonTimeSeconds[i]['begin'] - 1)) {
+			if (timeInSeconds < (lessonTimeSeconds[i]['end'] + 1)) {
+				$(`.day_${dayIndex}`).children('.day__timetable').children('.lesson').each(function () { $(this).removeClass('active') })
+				$(`.day_${dayIndex}`).children('.day__timetable').children(`.lesson_${i}`).each(function () { $(this).addClass('active') })
 			}
 		}
 	}
+}
 
-	console.log(lastLessonTodayTimeEnd)
-
-	if (timeIndex > (lastLessonTodayTimeEnd + 299)) {
-		$('.day_' + dayIndex).children('.day__name').removeClass('slide').next('.day__timetable').slideUp(300);
-		$('.day_' + dayNextIndex).children('.day__name').addClass('slide nextDay').next('.day__timetable').slideDown(300, function () {
-			$(this).css('display', 'grid');
-		})
+// ? Вывод на страницу
+$(document).ready(function () {
+	// ! Вывод текущей даты и времени
+	function displayDate() {
+		$('.week__date').text(`Сегодня: ${date.getDate()} ${monthName[date.getMonth()]} ${date.getFullYear()} г. (${dayName[dayIndex]})`);
+		currentTime = '';
+		getTimeString(date.getHours(), date.getMinutes(), date.getSeconds());
+		currentTime = timeString;
+		$('.week__time').text(`Время: ${currentTime}`);
 	}
+	setTimeout(displayDate, 0);
+	setInterval(displayDate, 1000)
 
-	/*
-		if (timeIndex > (7 * 3600 + 59 * 60 + 59)) {
-			if (timeIndex < (15 * 3600 + 35 * 60 + 1)) {
-				if (timeIndex < (9 * 3600 + 35 * 60 + 1)) {
-					$('.day_' + dayIndex).children().children(".lesson_1").addClass('active');
-				} else {
-					if (timeIndex < (11 * 3600 + 25 * 60 + 1)) {
-						$('.day_' + dayIndex).children().children(".lesson_2").addClass('active');
-					} else {
-						if (timeIndex < (13 * 3600 + 15 * 60 + 1)) {
-							$('.day_' + dayIndex).children().children(".lesson_3").addClass('active');
-						} else {
-							if (timeIndex < (15 * 3600 + 35 * 60 + 1)) {
-								$('.day_' + dayIndex).children().children(".lesson_4").addClass('active');
-							}
-						}
-					}
-				}
-			}
-		}
-	*/
-})
+	// ! Вывод остатка до конца семестра
+	setTimeout(getRemain, 0);
+	setInterval(getRemain, 1000)
+
+	// ! Выделение текущего дня недели
+	setTimeout(hlToday, 0);
+
+	// ! Вывод и смена чётности недели
+	setTimeout(getWeekParity, 0);
+	$('.week__even-odd').click(getWeekParity);
+
+	// ! Расписание следующего дня
+	setTimeout(getNextDay, 0);
+
+	// ! Вывод остатка до конца семестра
+	setTimeout(getCurrentLesson, 0);
+	setInterval(getCurrentLesson, 1000)
+});

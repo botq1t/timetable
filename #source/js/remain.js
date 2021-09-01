@@ -1,3 +1,4 @@
+/*
 $(document).ready(function () {
 	function getRemain() {
 		var semCurrentDate = new Date();
@@ -23,3 +24,4 @@ $(document).ready(function () {
 	setTimeout(getRemain, 0);
 	setInterval(getRemain, 1000);
 });
+*/

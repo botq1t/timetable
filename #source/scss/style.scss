@@ -384,6 +384,18 @@ body {
 	flex-wrap: wrap;
 	justify-content: space-around;
 	align-items: baseline;
+	&__gone {
+		display: none;
+		text-align: center;
+		@include adaptiv-font(23, 20);
+		padding: 5px;
+	}
+	&__item {
+		border-bottom: 1px solid $accent-color;
+		&:last-child {
+			border-bottom: none;
+		}
+	}
 	&__card {
 		flex: 0 0 290px;
 		display: flex;
@@ -407,7 +419,7 @@ body {
 		font-weight: 700;
 		text-shadow: 0 0 3px black;
 		padding: 10px 0;
-		border-bottom: 1px solid $accent-color;
+		border-bottom: 2px solid $accent-color;
 		background: $accent-color;
 		color: white;
 	}
@@ -415,30 +427,38 @@ body {
 	&__content {
 		display: flex;
 		flex-direction: column;
-		p {
-			font-size: 20px;
-			text-align: center;
-			padding: 23px;
+		@include adaptiv-font(23, 20);
+		&.current {
+			background: rgba(255, 0, 0, 0.2);
+			border-bottom: 2px solid $accent-color;
+			&.noNext {
+				border-bottom: 0px solid $accent-color;
+			}
+		}
+		&.next {
+			background: rgba(255, 153, 0, 0.2);
 		}
 	}
 
 	&__auditory {
+		// background: white;
 		color: black;
 		text-align: center;
 		font-weight: 700;
-		letter-spacing: 3px;
-		// font-size: 20px;
-		@include adaptiv-font(27, 22);
+		// letter-spacing: 3px;
 		padding: 5px;
 		border-bottom: 1px solid $accent-color;
 	}
 
 	&__lesson {
+		// background: white;
 		display: flex;
 		font-style: italic;
 		align-items: center;
-		// font-size: 20px;
-		@include adaptiv-font(24, 20);
+		overflow-x: auto;
+		&.hidden {
+			border-bottom: none;
+		}
 	}
 
 	&__name {
@@ -446,14 +466,19 @@ body {
 		flex: 0 0 80%;
 		text-align: center;
 		padding: 5px;
-		// font-size: 20px;
-		// @include adaptiv-font(27, 22);
 		border-right: 2px dotted $accent-color;
 	}
 
 	&__type {
 		flex: 0 0 20%;
 		text-align: center;
+		padding: 5px;
+	}
+	&__countdown {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		padding: 5px;
 	}
 }
 

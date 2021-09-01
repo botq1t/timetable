@@ -369,8 +369,9 @@ let lessonsU217 = {
 	},
 
 }
-
+console.log('Расписание У117:');
 console.log(lessonsU117);
+console.log('Расписание У217:');
 console.log(lessonsU217);
 
 function schedule() {
@@ -503,4 +504,4 @@ function schedule() {
 	}
 }
 
-setTimeout(schedule, 0);
+$(document).ready(schedule);
