@@ -649,7 +649,7 @@ let currentLessonBegin, currentLessonEnd;
 // ! Получение текущей даты, дня недели и времени в секундах
 var date, dayIndex, timeInSeconds;
 function getDate() {
-	date = new Date();
+	date = new Date(1631251241000);
 	dayIndex = date.getDay();
 	timeInSeconds = (date.getHours() * 3600) + (date.getMinutes() * 60) + (date.getSeconds());
 }
@@ -1230,14 +1230,21 @@ if (dayIndex == 6 || dayIndex == 0) {
 			$(groupTag).children('.current').children('.now__auditory').html(`Сейчас: ${nowLessonIndex}-ая (${nowLessonArray[group][nowLessonIndex]['auditory']})`);
 			$(groupTag).children('.current').children('.now__lesson').children('.now__name').html(nowLessonArray[group][nowLessonIndex]['name']);
 			$(groupTag).children('.current').children('.now__lesson').children('.now__type').html(nowLessonArray[group][nowLessonIndex]['type']);
-			var nowLessonTimeEstimateInSeconds = lessonTimeSeconds[nowLessonIndex]['end'] - timeInSeconds;
-			var nowLessonTimeEstimate = getHMS(nowLessonTimeEstimateInSeconds);
-			var nowLessonTimeString = getTimeString(nowLessonTimeEstimate['hours'], nowLessonTimeEstimate['minutes'], nowLessonTimeEstimate['seconds']);
 
-			$(groupTag).children('.current').children('.now__countdown').html(`До конца: ${nowLessonTimeString}`)
-			if (nowLessonArray[group][nowLessonIndex]['name'] == 'no')
+			function nowLessonTimeUpdate(group) {
+				var groupTag = `#now_${group}`;
+				var nowLessonTimeEstimateInSeconds = lessonTimeSeconds[nowLessonIndex]['end'] - timeInSeconds;
+				var nowLessonTimeEstimate = getHMS(nowLessonTimeEstimateInSeconds);
+				var nowLessonTimeString = getTimeString(nowLessonTimeEstimate['hours'], nowLessonTimeEstimate['minutes'], nowLessonTimeEstimate['seconds']);
+
+				$(groupTag).children('.current').children('.now__countdown').html(`До конца: ${nowLessonTimeString}`)
+				// console.log(group, 'now lesson time updated')
+			}
+			/*if (nowLessonArray[group][nowLessonIndex]['name'] == 'no')
 				$(groupTag).children('.current').slideUp(300);
-			else $(groupTag).children('.current').slideDown(300, function () { $(this).css('display', 'flex'); });
+			else $(groupTag).children('.current').slideDown(300, function () { $(this).css('display', 'flex'); });*/
+			nowLessonTimeUpdate(group);
+			setInterval(nowLessonTimeUpdate, 1000, group);
 		}
 	}
 
@@ -1275,10 +1282,15 @@ if (dayIndex == 6 || dayIndex == 0) {
 		bufer.children('.now__lesson').children('.now__name').html(nowNextLessonArray[group][i]['name'])
 		bufer.children('.now__lesson').children('.now__type').html(nowNextLessonArray[group][i]['type'])
 
-		var temp = nowNextLessonArray[group][i]['begin'] - timeInSeconds;
-		temp2 = getHMS(temp);
-		temp3 = getTimeString(temp2['hours'], temp2['minutes'], temp2['seconds'])
-		bufer.children('.now__countdown').html(`До начала: ${temp3}`);
+		function nowNextLessonTimeUpdate(group) {
+			var temp = nowNextLessonArray[group][i]['begin'] - timeInSeconds;
+			temp2 = getHMS(temp);
+			temp3 = getTimeString(temp2['hours'], temp2['minutes'], temp2['seconds'])
+			bufer.children('.now__countdown').html(`До начала: ${temp3}`);
+			// console.log(group, 'next lesson time updated')
+		}
+		nowNextLessonTimeUpdate(group);
+		setInterval(nowNextLessonTimeUpdate, 1000, group);
 	}
 
 	nowNextLesson(117);
