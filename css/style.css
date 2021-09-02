@@ -544,6 +544,12 @@ body {
 }
 .now__gone {
   display: none;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   text-align: center;
   font-size: calc(20px + 3 * ((100vw - 320px) / 704));
   padding: 5px;
@@ -587,9 +593,7 @@ body {
   color: white;
 }
 .now__content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -604,6 +608,9 @@ body {
   border-bottom: 0px solid #0b08db;
 }
 .now__content.next {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   background: rgba(255, 153, 0, 0.2);
 }
 .now__auditory {

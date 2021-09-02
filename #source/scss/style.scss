@@ -386,6 +386,8 @@ body {
 	align-items: baseline;
 	&__gone {
 		display: none;
+		justify-content: center;
+		align-items: center;
 		text-align: center;
 		@include adaptiv-font(23, 20);
 		padding: 5px;
@@ -425,7 +427,8 @@ body {
 	}
 
 	&__content {
-		display: flex;
+		// display: flex;
+		display: none;
 		flex-direction: column;
 		@include adaptiv-font(23, 20);
 		&.current {
@@ -436,6 +439,7 @@ body {
 			}
 		}
 		&.next {
+			display: flex;
 			background: rgba(255, 153, 0, 0.2);
 		}
 	}

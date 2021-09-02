@@ -1,410 +1,322 @@
-// ! 117
-function getNowLesson117() {
-	const nowWeekIndex117 = weekIndex;
-	var j = 1;
-	var nowLesson = {
+const nowWeekIndex = getWeekIndex();
+var nowLessonArray = {
+	117: {
 		1: {
-			'name': '',
-			'type': '',
-			'auditory': '',
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no'
 		},
 		2: {
-			'name': '',
-			'type': '',
-			'auditory': '',
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no'
 		},
 		3: {
-			'name': '',
-			'type': '',
-			'auditory': '',
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no'
 		},
 		4: {
-			'name': '',
-			'type': '',
-			'auditory': '',
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no'
+		}
+	},
+	217: {
+		1: {
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no'
 		},
-	};
-	// ! Заполнение массива сегодняшних пар
-	while (lessonsU117[dayIndex][j] != undefined) {
-		var ii = lessonsU117[dayIndex][j]['index'];
-		// console.log(ii);
-		switch (lessonsU117[dayIndex][j]['parity']) {
-			case 'both':
-				nowLesson[ii]['name'] = lessonsU117[dayIndex][j]['name'];
-				nowLesson[ii]['type'] = lessonsU117[dayIndex][j]['type'];
-				nowLesson[ii]['auditory'] = lessonsU117[dayIndex][j]['auditory'];
-				break;
-			case 'even':
-				if (nowWeekIndex117 % 2 == 0) {
-					nowLesson[ii]['name'] = lessonsU117[dayIndex][j]['name'];
-					nowLesson[ii]['type'] = lessonsU117[dayIndex][j]['type'];
-					nowLesson[ii]['auditory'] = lessonsU117[dayIndex][j]['auditory'];
-				}
-				break;
-			case 'odd':
-				if (nowWeekIndex117 % 2 != 0) {
-					nowLesson[ii]['name'] = lessonsU117[dayIndex][j]['name'];
-					nowLesson[ii]['type'] = lessonsU117[dayIndex][j]['type'];
-					nowLesson[ii]['auditory'] = lessonsU117[dayIndex][j]['auditory'];
-				}
-				break;
-		}
-		j++;
-	}
-	console.log('У117', nowLesson);
-
-	// ! Вычисление количества сеггодняшних пар
-	var k = 4;
-	while ($('#u117-target').children(`.day_${dayIndex}`).children('.day__timetable').children('.lesson').last().hasClass(`lesson_${k}`) == false) {
-		k--;
-	}
-	// console.log(timeInSeconds);
-	// console.log(lessonTimeSeconds[1]['begin']);
-	// console.log(lessonTimeSeconds[k]['end']);
-	// ? Если сейчас до первой пары
-	if (timeInSeconds < lessonTimeSeconds[1]['begin']) {
-		$('#now_117').children('.current').css('display', 'none');
-		$('#now_117').children('.next').children('.now__auditory').text(`Следующая (${nowLesson[1]['auditory']})`)
-		$('#now_117').children('.next').children('.now__lesson').children('.now__name').text(nowLesson[1]['name'])
-		$('#now_117').children('.next').children('.now__lesson').children('.now__type').text(nowLesson[1]['type'])
-
-		var nowNextCountdown = lessonTimeSeconds[1]['begin'] - timeInSeconds;
-		nowNextCountdownMinutes = Math.floor(nowNextCountdown / 60);
-		nowNextCountdownSeconds = nowNextCountdown - (nowNextCountdownMinutes * 60);
-		if (nowNextCountdownMinutes > 60) {
-			$('#now_117').children('.next').children('.now__countdown').css('display', 'none');
-		} else {
-			if (nowNextCountdownMinutes > 0) {
-				$('#now_117').children('.next').children('.now__countdown').css('display', 'block');
-				$('#now_117').children('.next').children('.now__countdown').text(`До начала - ${nowNextCountdownMinutes} мин ${nowNextCountdownSeconds} сек`);
-			} else {
-				$('#now_117').children('.next').children('.now__countdown').css('display', 'block');
-				$('#now_117').children('.next').children('.now__countdown').text(`До начала - ${nowNextCountdownSeconds} сек`);
-			}
-		}
-	} else {
-		// ? Если сейчас после последней пары
-		if (timeInSeconds > (lessonTimeSeconds[k]['end'] - 1)) {
-			$('#now_117').children('.current').css('display', 'none');
-			$('#now_117').children('.next').css('display', 'none');
-			$('#now_117').children('.now__gone').css('display', 'block').text('На сегодня пары закончились)');
-
-		} else {
-			// ? Если сейчас во время пар
-			$('#now__117').children('.now__gone').css('display', 'none');
-			// ? Номер текущей пары
-			for (let i = 1; i < 5; i++) {
-				if (timeInSeconds > (lessonTimeSeconds[i]['begin'] - 1)) {
-					if (timeInSeconds < (lessonTimeSeconds[i]['end'] + 1)) {
-						var nowLessonIndex = i;
-						break;
-					}
-				}
-			}
-			// ? Пара текущая
-			if (nowLessonIndex == undefined) {
-				$('#now_117').children('.current').css('display', 'none');
-			} else {
-				if (nowLesson[nowLessonIndex]['name'] == 'no') {
-					$('#now_117').children('.current').css('display', 'none');
-				} else {
-					$('#now_117').children('.current').css('display', 'flex');
-					$('#now_117').children('.current').children('.now__auditory').text(`Сейчас (${nowLesson[nowLessonIndex]['auditory']})`);
-					$('#now_117').children('.current').children('.now__lesson').children('.now__name').text(nowLesson[nowLessonIndex]['name']);
-					$('#now_117').children('.current').children('.now__lesson').children('.now__type').text(nowLesson[nowLessonIndex]['type']);
-
-					var nowCountdownEnd = lessonTimeSeconds[nowLessonIndex]['end'] - timeInSeconds;
-					nowCountdownMinutes = Math.floor(nowCountdownEnd / 60);
-					nowCountdownSeconds = nowCountdownEnd - (nowCountdownMinutes * 60);
-					// console.log(nowCountdownEnd);
-					// console.log(nowCountdownMinutes);
-					// console.log(nowCountdownSeconds);
-
-					if (nowCountdownMinutes > 0) {
-						$('#now_117').children('.current').children('.now__countdown').html(`<p>До конца пары:</p><p>${nowCountdownMinutes} мин. ${nowCountdownSeconds} сек.</p>`);
-					} else {
-						$('#now_117').children('.current').children('.now__countdown').html(`<p>До конца пары:</p><p>${nowCountdownSeconds} сек.</p>`);
-					}
-
-				}
-			}
-			// ? Пара следующая
-			if (nowLessonIndex < k) {
-				$('#now_117').children('.next').css('display', 'flex');
-				$('#now_117').children('.next').children('.now__auditory').text(`Следующая (${nowLesson[nowLessonIndex + 1]['auditory']})`);
-				$('#now_117').children('.next').children('.now__lesson').children('.now__name').text(nowLesson[nowLessonIndex + 1]['name']);
-				$('#now_117').children('.next').children('.now__lesson').children('.now__type').text(nowLesson[nowLessonIndex + 1]['type']);
-
-				/*var nowNextCountdownBegin = lessonTimeSeconds[nowLessonIndex + 1]['begin'] - timeInSeconds;
-				nowNextCountdownMinutes = Math.floor(nowNextCountdownBegin / 60);
-				nowNextCountdownSeconds = nowNextCountdownBegin - (nowNextCountdownMinutes * 60);
-				// console.log(nowNextCountdownBegin);
-				// console.log(nowNextCountdownMinutes);
-				// console.log(nowNextCountdownSeconds);
-	
-				if (nowNextCountdownMinutes > 0) {
-					$('#now_117').children('.next').children('.now__countdown').html(`<p>До начала пары:</p><p>${nowNextCountdownMinutes} мин. ${nowNextCountdownSeconds} сек.</p>`);
-				} else {
-					$('#now_117').children('.next').children('.now__countdown').html(`<p>До начала пары:<p></p>${nowNextCountdownSeconds} сек.</p>`);
-				}*/
-				if (nowLesson[nowLessonIndex]['name'] == 'no') {
-					$('#now_117').children('.next').children('.now__countdown').css('display', 'flex').prev().removeClass('hidden');
-					var nowNextCountdownBegin = lessonTimeSeconds[nowLessonIndex + 1]['begin'] - timeInSeconds;
-					nowNextCountdownMinutes = Math.floor(nowNextCountdownBegin / 60);
-					nowNextCountdownSeconds = nowNextCountdownBegin - (nowNextCountdownMinutes * 60);
-					// console.log(nowNextCountdownBegin);
-					// console.log(nowNextCountdownMinutes);
-					// console.log(nowNextCountdownSeconds);
-
-					if (nowNextCountdownMinutes > 0) {
-						$('#now_117').children('.next').children('.now__countdown').html(`<p>До начала пары:</p><p>${nowNextCountdownMinutes} мин. ${nowNextCountdownSeconds} сек.</p>`);
-					} else {
-						$('#now_117').children('.next').children('.now__countdown').html(`<p>До начала пары:<p></p>${nowNextCountdownSeconds} сек.</p>`);
-					}
-				} else {
-					$('#now_117').children('.next').children('.now__countdown').css('display', 'none').prev().addClass('hidden');
-				}
-			} else {
-				$('#now_117').children('.next').css('display', 'none');
-				$('#now_117').children('.current').addClass('noNext');
-			}
-			if (nowLessonIndex == undefined) {
-				for (let i = 1; i < 4; i++) {
-					if (timeInSeconds > (breakTimeSeconds['big'][i]['begin'] - 1)) {
-						if (timeInSeconds < (breakTimeSeconds['big'][i]['end'] + 1)) {
-							var nowLessonIndex = i;
-							break;
-						}
-					}
-				}
-				$('#now_117').children('.next').css('display', 'flex');
-				$('#now_117').children('.next').children('.now__auditory').text(`Следующая (${nowLesson[nowLessonIndex + 1]['auditory']})`);
-				$('#now_117').children('.next').children('.now__lesson').children('.now__name').text(nowLesson[nowLessonIndex + 1]['name']);
-				$('#now_117').children('.next').children('.now__lesson').children('.now__type').text(nowLesson[nowLessonIndex + 1]['type']);
-
-				var nowNextCountdownBegin = lessonTimeSeconds[nowLessonIndex + 1]['begin'] - timeInSeconds;
-				nowNextCountdownMinutes = Math.floor(nowNextCountdownBegin / 60);
-				nowNextCountdownSeconds = nowNextCountdownBegin - (nowNextCountdownMinutes * 60);
-				// console.log(nowNextCountdownBegin);
-				// console.log(nowNextCountdownMinutes);
-				// console.log(nowNextCountdownSeconds);
-				$('#now_117').children('.next').children('.now__countdown').css('display', 'flex').prev().removeClass('hidden');
-				if (nowNextCountdownMinutes > 0) {
-					$('#now_117').children('.next').children('.now__countdown').html(`<p>До начала пары:</p><p>${nowNextCountdownMinutes} мин. ${nowNextCountdownSeconds} сек.</p>`);
-				} else {
-					$('#now_117').children('.next').children('.now__countdown').html(`<p>До начала пары:<p></p>${nowNextCountdownSeconds} сек.</p>`);
-				}
-			}
+		2: {
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no'
+		},
+		3: {
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no'
+		},
+		4: {
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no'
 		}
 	}
 }
-// ! 217
-function getNowLesson217() {
-	const nowWeekIndex217 = weekIndex;
-	var j = 1;
-	var nowLesson = {
+var nowNextLessonArray = {
+	117: {
+		0: {
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'begin': 0,
+			'index': 0,
+		},
 		1: {
-			'name': '',
-			'type': '',
-			'auditory': '',
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'begin': 0,
+			'index': 0,
 		},
 		2: {
-			'name': '',
-			'type': '',
-			'auditory': '',
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'begin': 0,
+			'index': 0,
 		},
 		3: {
-			'name': '',
-			'type': '',
-			'auditory': '',
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'begin': 0,
+			'index': 0,
 		},
-		4: {
-			'name': '',
-			'type': '',
-			'auditory': '',
+	},
+	217: {
+		0: {
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'begin': 0,
+			'index': 0,
 		},
-	};
-	// ! Заполнение массива сегодняшних пар
-	while (lessonsU217[dayIndex][j] != undefined) {
-		var ii = lessonsU217[dayIndex][j]['index'];
-		// console.log(ii);
-		switch (lessonsU217[dayIndex][j]['parity']) {
-			case 'both':
-				nowLesson[ii]['name'] = lessonsU217[dayIndex][j]['name'];
-				nowLesson[ii]['type'] = lessonsU217[dayIndex][j]['type'];
-				nowLesson[ii]['auditory'] = lessonsU217[dayIndex][j]['auditory'];
-				break;
-			case 'even':
-				if (nowWeekIndex217 % 2 == 0) {
-					nowLesson[ii]['name'] = lessonsU217[dayIndex][j]['name'];
-					nowLesson[ii]['type'] = lessonsU217[dayIndex][j]['type'];
-					nowLesson[ii]['auditory'] = lessonsU217[dayIndex][j]['auditory'];
-				}
-				break;
-			case 'odd':
-				if (nowWeekIndex217 % 2 != 0) {
-					nowLesson[ii]['name'] = lessonsU217[dayIndex][j]['name'];
-					nowLesson[ii]['type'] = lessonsU217[dayIndex][j]['type'];
-					nowLesson[ii]['auditory'] = lessonsU217[dayIndex][j]['auditory'];
-				}
-				break;
-		}
-		j++;
-	}
-	// console.log(nowLesson);
-
-	// ! Вычисление количества сеггодняшних пар
-	var k = 4;
-	while ($('#u217-target').children(`.day_${dayIndex}`).children('.day__timetable').children('.lesson').last().hasClass(`lesson_${k}`) == false) {
-		k--;
-	}
-	// console.log(timeInSeconds);
-	// console.log(lessonTimeSeconds[1]['begin']);
-	// console.log(lessonTimeSeconds[k]['end']);
-	// ? Если сейчас до первой пары
-	if (timeInSeconds < lessonTimeSeconds[1]['begin']) {
-		$('#now_217').children('.current').css('display', 'none');
-		$('#now_217').children('.next').children('.now__auditory').text(`Следующая (${nowLesson[1]['auditory']})`)
-		$('#now_217').children('.next').children('.now__lesson').children('.now__name').text(nowLesson[1]['name'])
-		$('#now_217').children('.next').children('.now__lesson').children('.now__type').text(nowLesson[1]['type'])
-
-		var nowNextCountdown = lessonTimeSeconds[1]['begin'] - timeInSeconds;
-		nowNextCountdownMinutes = Math.floor(nowNextCountdown / 60);
-		nowNextCountdownSeconds = nowNextCountdown - (nowNextCountdownMinutes * 60);
-		if (nowNextCountdownMinutes > 60) {
-			$('#now_217').children('.next').children('.now__countdown').css('display', 'none');
-		} else {
-			if (nowNextCountdownMinutes > 0) {
-				$('#now_217').children('.next').children('.now__countdown').css('display', 'block');
-				$('#now_217').children('.next').children('.now__countdown').text(`До начала - ${nowNextCountdownMinutes} мин ${nowNextCountdownSeconds} сек`);
-			} else {
-				$('#now_217').children('.next').children('.now__countdown').css('display', 'block');
-				$('#now_217').children('.next').children('.now__countdown').text(`До начала - ${nowNextCountdownSeconds} сек`);
-			}
-		}
-	} else {
-		// ? Если сейчас после последней пары
-		if (timeInSeconds > (lessonTimeSeconds[k]['end'] - 1)) {
-			$('#now_217').children('.current').css('display', 'none');
-			$('#now_217').children('.next').css('display', 'none');
-			$('#now_217').children('.now__gone').css('display', 'block').text('На сегодня пары закончились)');
-
-		} else {
-			// ? Если сейчас во время пар
-			$('#now__217').children('.now__gone').css('display', 'none');
-			// ? Номер текущей пары
-			for (let i = 1; i < 5; i++) {
-				if (timeInSeconds > (lessonTimeSeconds[i]['begin'] - 1)) {
-					if (timeInSeconds < (lessonTimeSeconds[i]['end'] + 1)) {
-						var nowLessonIndex = i;
-						break;
-					}
-				}
-			}
-			// ? Пара текущая
-			if (nowLessonIndex == undefined) {
-				$('#now_217').children('.current').css('display', 'none');
-			} else {
-				if (nowLesson[nowLessonIndex]['name'] == 'no') {
-					$('#now_217').children('.current').css('display', 'none');
-				} else {
-					$('#now_217').children('.current').css('display', 'flex');
-					$('#now_217').children('.current').children('.now__auditory').text(`Сейчас (${nowLesson[nowLessonIndex]['auditory']})`);
-					$('#now_217').children('.current').children('.now__lesson').children('.now__name').text(nowLesson[nowLessonIndex]['name']);
-					$('#now_217').children('.current').children('.now__lesson').children('.now__type').text(nowLesson[nowLessonIndex]['type']);
-
-					var nowCountdownEnd = lessonTimeSeconds[nowLessonIndex]['end'] - timeInSeconds;
-					nowCountdownMinutes = Math.floor(nowCountdownEnd / 60);
-					nowCountdownSeconds = nowCountdownEnd - (nowCountdownMinutes * 60);
-					// console.log(nowCountdownEnd);
-					// console.log(nowCountdownMinutes);
-					// console.log(nowCountdownSeconds);
-
-					if (nowCountdownMinutes > 0) {
-						$('#now_217').children('.current').children('.now__countdown').html(`<p>До конца пары:</p><p>${nowCountdownMinutes} мин. ${nowCountdownSeconds} сек.</p>`);
-					} else {
-						$('#now_217').children('.current').children('.now__countdown').html(`<p>До конца пары:</p><p>${nowCountdownSeconds} сек.</p>`);
-					}
-
-				}
-			}
-			// ? Пара следующая
-			if (nowLessonIndex < k) {
-				$('#now_217').children('.next').css('display', 'flex');
-				$('#now_217').children('.next').children('.now__auditory').text(`Следующая (${nowLesson[nowLessonIndex + 1]['auditory']})`);
-				$('#now_217').children('.next').children('.now__lesson').children('.now__name').text(nowLesson[nowLessonIndex + 1]['name']);
-				$('#now_217').children('.next').children('.now__lesson').children('.now__type').text(nowLesson[nowLessonIndex + 1]['type']);
-
-				/*var nowNextCountdownBegin = lessonTimeSeconds[nowLessonIndex + 1]['begin'] - timeInSeconds;
-				nowNextCountdownMinutes = Math.floor(nowNextCountdownBegin / 60);
-				nowNextCountdownSeconds = nowNextCountdownBegin - (nowNextCountdownMinutes * 60);
-				// console.log(nowNextCountdownBegin);
-				// console.log(nowNextCountdownMinutes);
-				// console.log(nowNextCountdownSeconds);
-	
-				if (nowNextCountdownMinutes > 0) {
-					$('#now_217').children('.next').children('.now__countdown').html(`<p>До начала пары:</p><p>${nowNextCountdownMinutes} мин. ${nowNextCountdownSeconds} сек.</p>`);
-				} else {
-					$('#now_217').children('.next').children('.now__countdown').html(`<p>До начала пары:<p></p>${nowNextCountdownSeconds} сек.</p>`);
-				}*/
-				if (nowLesson[nowLessonIndex]['name'] == 'no') {
-					$('#now_217').children('.next').children('.now__countdown').css('display', 'flex').prev().removeClass('hidden');
-					var nowNextCountdownBegin = lessonTimeSeconds[nowLessonIndex + 1]['begin'] - timeInSeconds;
-					nowNextCountdownMinutes = Math.floor(nowNextCountdownBegin / 60);
-					nowNextCountdownSeconds = nowNextCountdownBegin - (nowNextCountdownMinutes * 60);
-					// console.log(nowNextCountdownBegin);
-					// console.log(nowNextCountdownMinutes);
-					// console.log(nowNextCountdownSeconds);
-
-					if (nowNextCountdownMinutes > 0) {
-						$('#now_217').children('.next').children('.now__countdown').html(`<p>До начала пары:</p><p>${nowNextCountdownMinutes} мин. ${nowNextCountdownSeconds} сек.</p>`);
-					} else {
-						$('#now_217').children('.next').children('.now__countdown').html(`<p>До начала пары:<p></p>${nowNextCountdownSeconds} сек.</p>`);
-					}
-				} else {
-					$('#now_217').children('.next').children('.now__countdown').css('display', 'none').prev().addClass('hidden');
-				}
-			} else {
-				$('#now_217').children('.next').css('display', 'none');
-				$('#now_217').children('.current').addClass('noNext');
-			}
-			if (nowLessonIndex == undefined) {
-				for (let i = 1; i < 4; i++) {
-					if (timeInSeconds > (breakTimeSeconds['big'][i]['begin'] - 1)) {
-						if (timeInSeconds < (breakTimeSeconds['big'][i]['end'] + 1)) {
-							var nowLessonIndex = i;
-							break;
-						}
-					}
-				}
-				$('#now_217').children('.next').css('display', 'flex');
-				$('#now_217').children('.next').children('.now__auditory').text(`Следующая (${nowLesson[nowLessonIndex + 1]['auditory']})`);
-				$('#now_217').children('.next').children('.now__lesson').children('.now__name').text(nowLesson[nowLessonIndex + 1]['name']);
-				$('#now_217').children('.next').children('.now__lesson').children('.now__type').text(nowLesson[nowLessonIndex + 1]['type']);
-
-				var nowNextCountdownBegin = lessonTimeSeconds[nowLessonIndex + 1]['begin'] - timeInSeconds;
-				nowNextCountdownMinutes = Math.floor(nowNextCountdownBegin / 60);
-				nowNextCountdownSeconds = nowNextCountdownBegin - (nowNextCountdownMinutes * 60);
-				// console.log(nowNextCountdownBegin);
-				// console.log(nowNextCountdownMinutes);
-				// console.log(nowNextCountdownSeconds);
-				$('#now_217').children('.next').children('.now__countdown').css('display', 'flex').prev().removeClass('hidden');
-				if (nowNextCountdownMinutes > 0) {
-					$('#now_217').children('.next').children('.now__countdown').html(`<p>До начала пары:</p><p>${nowNextCountdownMinutes} мин. ${nowNextCountdownSeconds} сек.</p>`);
-				} else {
-					$('#now_217').children('.next').children('.now__countdown').html(`<p>До начала пары:<p></p>${nowNextCountdownSeconds} сек.</p>`);
-				}
-			}
-		}
-	}
+		1: {
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'begin': 0,
+			'index': 0,
+		},
+		2: {
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'begin': 0,
+			'index': 0,
+		},
+		3: {
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'begin': 0,
+			'index': 0,
+		},
+	},
 }
 
+if (dayIndex == 6 || dayIndex == 0) {
+	$('#now_117').children('.now__content').slideUp(300);
+	$('#now_117').children('.now__gone').html('Выходной!').slideDown(300, function () { $(this).css('display', 'flex'); })
+	$('#now_217').children('.now__content').slideUp(300);
+	$('#now_217').children('.now__gone').html('Выходной!').slideDown(300, function () { $(this).css('display', 'flex'); })
+} else {
+	// * ====================================================================
+	// ! ========================= Update ===================================
+	function nowUpdate(group) {
+		console.log('check updates', timeInSeconds);
+		if (timeInSeconds == 0 || timeInSeconds == lessonTimeSeconds[getLessonAmount(group)]['end']) {
+			console.log('update1');
+			nowCheckAfter(group);
+			nowCheck(group);
+			nowNextLesson(group);
+		}
+		if (getCurrentLessonIndex() != undefined)
+			if (timeInSeconds == lessonTimeSeconds[getCurrentLessonIndex()]['begin'] || timeInSeconds == lessonTimeSeconds[getCurrentLessonIndex()]['end']) {
+				console.log('update1');
+				nowCheck(group);
+				nowLesson(group);
+				nowNextLesson(group);
+			}
+	}
+
+	setInterval(nowUpdate, 1000, 117);
+	setInterval(nowUpdate, 1000, 217);
+	// * ====================================================================
+	// ! ================= Массив пар сегодняшних ===========================
+	function makeNowLessonArray(group) {
+		var i = 1;
+		switch (group) {
+			case 117:
+				while (lessonsU117[dayIndex][i] != undefined) {
+					switch (lessonsU117[dayIndex][i]['parity']) {
+						case 'both':
+							nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['name'] = lessonsU117[dayIndex][i]['name'];
+							nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['type'] = lessonsU117[dayIndex][i]['type'];
+							nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['auditory'] = lessonsU117[dayIndex][i]['auditory'];
+							break;
+						case 'odd':
+							if (nowWeekIndex % 2 != 0) {
+								nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['name'] = lessonsU117[dayIndex][i]['name'];
+								nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['type'] = lessonsU117[dayIndex][i]['type'];
+								nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['auditory'] = lessonsU117[dayIndex][i]['auditory'];
+							}
+							break;
+						case 'even':
+							if (nowWeekIndex % 2 == 0) {
+								nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['name'] = lessonsU117[dayIndex][i]['name'];
+								nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['type'] = lessonsU117[dayIndex][i]['type'];
+								nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['auditory'] = lessonsU117[dayIndex][i]['auditory'];
+							}
+							break;
+					}
+					i++;
+				}
+				break;
+			case 217:
+				while (lessonsU217[dayIndex][i] != undefined) {
+					switch (lessonsU217[dayIndex][i]['parity']) {
+						case 'both':
+							nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['name'] = lessonsU217[dayIndex][i]['name'];
+							nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['type'] = lessonsU217[dayIndex][i]['type'];
+							nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['auditory'] = lessonsU217[dayIndex][i]['auditory'];
+							break;
+						case 'odd':
+							if (nowWeekIndex % 2 != 0) {
+								nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['name'] = lessonsU217[dayIndex][i]['name'];
+								nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['type'] = lessonsU217[dayIndex][i]['type'];
+								nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['auditory'] = lessonsU217[dayIndex][i]['auditory'];
+							}
+							break;
+						case 'even':
+							if (nowWeekIndex % 2 == 0) {
+								nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['name'] = lessonsU217[dayIndex][i]['name'];
+								nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['type'] = lessonsU217[dayIndex][i]['type'];
+								nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['auditory'] = lessonsU217[dayIndex][i]['auditory'];
+							}
+							break;
+					}
+					i++;
+				}
+				break;
+		}
+	}
+
+	makeNowLessonArray(117);
+	makeNowLessonArray(217);
+	console.log('nowLessonArray', nowLessonArray)
+	// * ====================================================================
+	// ! ================== Массив пар следующих ============================
+	function makeNowNextLessonArray(group) {
+		var i = 0;
+		while (i < getLessonAmount(group)) {
+			j = i + 1;
+			while (nowLessonArray[group][j]['name'] == 'no')
+				j++;
+			nowNextLessonArray[group][i]['name'] = nowLessonArray[group][j]['name'];
+			nowNextLessonArray[group][i]['type'] = nowLessonArray[group][j]['type'];
+			nowNextLessonArray[group][i]['auditory'] = nowLessonArray[group][j]['auditory'];
+			nowNextLessonArray[group][i]['begin'] = lessonTimeSeconds[j]['begin'];
+			nowNextLessonArray[group][i]['index'] = j;
+			// console.log(group, 'для', i, 'это', j);
+			i++;
+		}
+	}
+
+	makeNowNextLessonArray(117);
+	makeNowNextLessonArray(217);
+	console.log('nowNextLessonArray', nowNextLessonArray)
+	// * ====================================================================
+	// ! ============== Проверка окончания пар =========================
+	function nowCheckAfter(group) {
+		var groupTag = `#now_${group}`;
+		if (timeInSeconds >= lessonTimeSeconds[getLessonAmount(group)]['end']) {
+			console.log(group, 'сейчас после окончания пар')
+			$(groupTag).children('.current').slideUp(300);
+			$(groupTag).children('.now__gone').html('На сегодня пары закончились!').slideDown(300, function () { $(this).css('display', 'flex'); })
+		} /*else {
+			$(groupTag).children('.now__gone').slideUp(300);
+			$(groupTag).children('.current').slideDown(300, function () { $(this).css('display', 'flex'); });
+		}*/
 
 
-$(document).ready(function () {
-	setTimeout(getNowLesson117, 0);
-	setInterval(getNowLesson117, 1000);
-	setTimeout(getNowLesson217, 0);
-	setInterval(getNowLesson217, 1000);
+	}
 
-})
+	$(document).ready(function () {
+		nowCheckAfter(117);
+		nowCheckAfter(217);
+	})
+	// * ====================================================================
+	// ! ============== Проверка наличия текущей пары =======================
+	function nowCheck(group) {
+		var groupTag = `#now_${group}`;
+		var nowLessonIndex = getCurrentLessonIndex();
+		if (nowLessonIndex == undefined) {
+			console.log(group, 'сейчас нет пары');
+			$(groupTag).children('.current').slideUp(300);
+		} else if (nowLessonArray[group][nowLessonIndex]['name'] != 'no' && timeInSeconds < lessonTimeSeconds[getLessonAmount(group)]['end']) {
+			console.log(group, 'сейчас есть пара');
+			$(groupTag).children('.current').slideDown(300, function () { $(this).css('display', 'flex'); });
+		}
+	}
+
+	$(document).ready(function () {
+		nowCheck(117);
+		nowCheck(217);
+	})
+	// * ====================================================================
+	// ! ================ Прописывание текущей пары =========================
+	function nowLesson(group) {
+		var groupTag = `#now_${group}`;
+		var nowLessonIndex = getCurrentLessonIndex();
+		if (nowLessonIndex != undefined) {
+			$(groupTag).children('.current').children('.now__auditory').html(`Сейчас: ${nowLessonIndex}-ая (${nowLessonArray[group][nowLessonIndex]['auditory']})`);
+			$(groupTag).children('.current').children('.now__lesson').children('.now__name').html(nowLessonArray[group][nowLessonIndex]['name']);
+			$(groupTag).children('.current').children('.now__lesson').children('.now__type').html(nowLessonArray[group][nowLessonIndex]['type']);
+			var nowLessonTimeEstimateInSeconds = lessonTimeSeconds[nowLessonIndex]['end'] - timeInSeconds;
+			var nowLessonTimeEstimate = getHMS(nowLessonTimeEstimateInSeconds);
+			var nowLessonTimeString = getTimeString(nowLessonTimeEstimate['hours'], nowLessonTimeEstimate['minutes'], nowLessonTimeEstimate['seconds']);
+
+			$(groupTag).children('.current').children('.now__countdown').html(`До конца: ${nowLessonTimeString}`)
+			if (nowLessonArray[group][nowLessonIndex]['name'] == 'no')
+				$(groupTag).children('.current').slideUp(300);
+			else $(groupTag).children('.current').slideDown(300, function () { $(this).css('display', 'flex'); });
+		}
+	}
+
+	$(document).ready(function () {
+		nowLesson(117);
+		// setInterval(nowLesson, 1000, 117);
+		nowLesson(217);
+		// setInterval(nowLesson, 1000, 217);
+	})
+	// * ====================================================================
+	// ! ================ Прописывание следующей пары =======================
+	// * ====================================================================
+	function nowNextLesson(group) {
+		var groupTag = `#now_${group}`;
+		console.log(group, 'сегодня пар', getLessonAmount(group));
+		var i;
+		if (timeInSeconds < lessonTimeSeconds[1]['begin']) {
+			console.log(group, 'перед первой парой');
+			i = 0;
+		} else if (timeInSeconds >= lessonTimeSeconds[1]['begin'] && timeInSeconds < lessonTimeSeconds[getLessonAmount(group)]['begin']) {
+			i = getCurrentLessonIndex(group)
+			if (i == undefined)
+				i = getCurrentBreakIndex(group)
+			console.log(group, 'между началом первой и началом последней');
+		} else if (timeInSeconds >= lessonTimeSeconds[getLessonAmount(group)]['begin']) {
+			$(groupTag).children('.next').slideUp(300);
+			$(groupTag).children('.current').addClass('noNext');
+			console.log(group, 'после начала последней');
+			return;
+		}
+		console.log(group, 'текущая пара', i);
+		var bufer = $(groupTag).children('.next');
+		bufer.slideDown(300, function () { $(this).css('display', 'flex') });
+		bufer.children('.now__auditory').html(`Следующая: ${nowNextLessonArray[group][i]['index']}-ая (${nowNextLessonArray[group][i]['auditory']})`)
+		bufer.children('.now__lesson').children('.now__name').html(nowNextLessonArray[group][i]['name'])
+		bufer.children('.now__lesson').children('.now__type').html(nowNextLessonArray[group][i]['type'])
+
+		var temp = nowNextLessonArray[group][i]['begin'] - timeInSeconds;
+		temp2 = getHMS(temp);
+		temp3 = getTimeString(temp2['hours'], temp2['minutes'], temp2['seconds'])
+		bufer.children('.now__countdown').html(`До начала: ${temp3}`);
+	}
+
+	nowNextLesson(117);
+	nowNextLesson(217);
+}
