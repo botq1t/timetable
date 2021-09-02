@@ -1081,7 +1081,7 @@ if (dayIndex == 6 || dayIndex == 0) {
 	// * ====================================================================
 	// ! ========================= Update ===================================
 	function nowUpdate(group) {
-		console.log('check updates', timeInSeconds);
+		// console.log('check updates', timeInSeconds);
 		if (timeInSeconds == 0 || timeInSeconds == lessonTimeSeconds[getLessonAmount(group)]['end']) {
 			console.log('update1');
 			nowCheckAfter(group);
@@ -1095,6 +1095,8 @@ if (dayIndex == 6 || dayIndex == 0) {
 				nowLesson(group);
 				nowNextLesson(group);
 			}
+		if (timeInSeconds == 0)
+			$(`#now_${group}`).children('.now__gone').slideUp(300);
 	}
 
 	setInterval(nowUpdate, 1000, 117);
