@@ -165,7 +165,7 @@ function getCurrentLesson() {
 $(document).ready(function () {
 	// ! Вывод текущей даты и времени
 	function displayDate() {
-		$('.week__date').text(`Сегодня: ${date.getDate()} ${monthName[date.getMonth()]} ${date.getFullYear()} г. (${dayName[dayIndex]})`);
+		$('.week__date').text(`Сегодня: ${date.getDate()} ${monthName[date.getMonth()]} ${date.getFullYear()} г. (${dayName[dayIndex]}, ${nowWeekIndex}-ая неделя)`);
 		var currentTime = getTimeString(date.getHours(), date.getMinutes(), date.getSeconds());
 		$('.week__time').text(`Время: ${currentTime}`);
 	}
