@@ -118,7 +118,7 @@ function getLessonAmount(group, day) {
 // * ===========================================
 // ! ====== Расписание следующего дня ==========
 var nextDayIndex = dayIndex + 1;
-if (nextDayIndex > 5) nextDayIndex = 1;
+if (nextDayIndex > 6) nextDayIndex = 1;
 console.log('Завтра:', dayName[nextDayIndex]);
 function setNextDay(group, delay) {
 	function getNextDay(group, delay) {

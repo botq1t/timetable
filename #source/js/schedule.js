@@ -1,15 +1,16 @@
-let lessonsDayName = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница'];
+let lessonsDayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
 
 let lessonsU117 = {
 	// ? Понедельник
 	1: {
+		'lessons': true,
 		1: {
 			'index': 1,
-			'parity': 'both',
-			'name': 'АИП и ЧФ',
-			'type': 'ЛК',
-			'auditory': '3207',
-			'teacher': 'Козлова О.Г.'
+			'parity': 'no',
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'teacher': 'no'
 		},
 
 		2: {
@@ -41,6 +42,7 @@ let lessonsU117 = {
 
 	// ? Вторник
 	2: {
+		'lessons': true,
 		1: {
 			'index': 1,
 			'parity': 'both',
@@ -58,19 +60,11 @@ let lessonsU117 = {
 			'auditory': '3209',
 			'teacher': 'Науменко А.И.'
 		},
-		3: {
-			'index': 3,
-			'parity': 'both',
-			'name': 'АИП и ЧФ',
-			'type': 'ПЗ',
-			'auditory': '3204',
-			'teacher': 'Козлова О.Г.'
-		},
-
 	},
 
 	// ? Среда
 	3: {
+		'lessons': true,
 		1: {
 			'index': 1,
 			'parity': 'both',
@@ -101,6 +95,7 @@ let lessonsU117 = {
 
 	// ? Четверг
 	4: {
+		'lessons': true,
 		1: {
 			'index': 1,
 			'parity': 'odd',
@@ -120,13 +115,21 @@ let lessonsU117 = {
 		},
 		3: {
 			'index': 2,
-			'parity': 'both',
+			'parity': 'odd',
 			'name': 'ОПВД',
 			'type': 'ЛК',
 			'auditory': '3204',
 			'teacher': 'Вишневский Р.А.'
 		},
 		4: {
+			'index': 2,
+			'parity': 'even',
+			'name': 'ОПВД',
+			'type': 'ЛК',
+			'auditory': '3203',
+			'teacher': 'Вишневский Р.А.'
+		},
+		5: {
 			'index': 3,
 			'parity': 'both',
 			'name': 'ПАП при ОВД',
@@ -139,13 +142,14 @@ let lessonsU117 = {
 
 	// ? Пятница
 	5: {
+		'lessons': true,
 		1: {
 			'index': 1,
-			'parity': 'both',
-			'name': 'ФРО на АЯ',
-			'type': 'ПЗ',
-			'auditory': '1305',
-			'teacher': 'Лазовский Г.Б.'
+			'parity': 'no',
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'teacher': 'no'
 		},
 
 		2: {
@@ -172,7 +176,51 @@ let lessonsU117 = {
 			'auditory': '3203',
 			'teacher': 'Дубовский А.В.'
 		},
+		5: {
+			'index': 4,
+			'parity': 'both',
+			'name': 'ФРО на АЯ',
+			'type': 'ПЗ',
+			'auditory': '1305',
+			'teacher': 'Лазовский Г.Б.'
+		},
 
+	},
+
+	// ? Суббота
+	6: {
+		'lessons': true,
+		1: {
+			'index': 1,
+			'parity': 'no',
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'teacher': 'no'
+		},
+
+		2: {
+			'index': 2,
+			'parity': 'both',
+			'name': 'АИП и ЧФ',
+			'type': 'ПЗ',
+			'auditory': '3204',
+			'teacher': 'Худолей Е.В.'
+		},
+		3: {
+			'index': 3,
+			'parity': 'both',
+			'name': 'АИП и ЧФ',
+			'type': 'ЛК',
+			'auditory': '3204',
+			'teacher': 'Худолей Е.В.'
+		},
+
+	},
+
+	// ? Воскресенье
+	0: {
+		'lessons': false,
 	},
 
 }
@@ -180,13 +228,14 @@ let lessonsU117 = {
 let lessonsU217 = {
 	// ? Понедельник
 	1: {
+		'lessons': true,
 		1: {
 			'index': 1,
 			'parity': 'both',
-			'name': 'АИП и ЧФ',
-			'type': 'ЛК',
-			'auditory': '3207',
-			'teacher': 'Козлова О.Г.'
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'teacher': 'no'
 		},
 
 		2: {
@@ -218,6 +267,7 @@ let lessonsU217 = {
 
 	// ? Вторник
 	2: {
+		'lessons': true,
 		1: {
 			'index': 1,
 			'parity': 'both',
@@ -230,10 +280,10 @@ let lessonsU217 = {
 		2: {
 			'index': 2,
 			'parity': 'both',
-			'name': 'АИП и ЧФ',
-			'type': 'ПЗ',
-			'auditory': '3204',
-			'teacher': 'Козлова О.Г.'
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'teacher': 'no'
 		},
 		3: {
 			'index': 3,
@@ -248,13 +298,14 @@ let lessonsU217 = {
 
 	// ? Среда
 	3: {
+		'lessons': true,
 		1: {
 			'index': 1,
 			'parity': 'both',
-			'name': 'ФРО на АЯ',
-			'type': 'ПЗ',
-			'auditory': '1305, 1307',
-			'teacher': 'Лазовский Г.Б., Швайко Е. П.'
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'teacher': 'no'
 		},
 
 		2: {
@@ -271,13 +322,22 @@ let lessonsU217 = {
 			'parity': 'both',
 			'name': 'ПАП при ОВД',
 			'type': 'ПЗ',
-			'auditory': '3103',
+			'auditory': '3207',
 			'teacher': 'Александров О.В.'
+		},
+		4: {
+			'index': 4,
+			'parity': 'both',
+			'name': 'ФРО на АЯ',
+			'type': 'ПЗ',
+			'auditory': '1305, 1307',
+			'teacher': 'Лазовский Г.Б., Швайко Е. П.'
 		},
 	},
 
 	// ? Четверг
 	4: {
+		'lessons': true,
 		1: {
 			'index': 1,
 			'parity': 'odd',
@@ -297,13 +357,21 @@ let lessonsU217 = {
 		},
 		3: {
 			'index': 2,
-			'parity': 'both',
+			'parity': 'odd',
 			'name': 'ОПВД',
 			'type': 'ЛК',
 			'auditory': '3204',
 			'teacher': 'Вишневский Р.А.'
 		},
 		4: {
+			'index': 2,
+			'parity': 'even',
+			'name': 'ОПВД',
+			'type': 'ЛК',
+			'auditory': '3203',
+			'teacher': 'Вишневский Р.А.'
+		},
+		5: {
 			'index': 3,
 			'parity': 'both',
 			'name': 'ПАП при ОВД',
@@ -316,6 +384,7 @@ let lessonsU217 = {
 
 	// ? Пятница
 	5: {
+		'lessons': true,
 		1: {
 			'index': 1,
 			'parity': 'odd',
@@ -368,11 +437,553 @@ let lessonsU217 = {
 
 	},
 
+	// ? Суббота
+	6: {
+		'lessons': true,
+		1: {
+			'index': 1,
+			'parity': 'both',
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'teacher': 'no'
+		},
+
+		2: {
+			'index': 2,
+			'parity': 'both',
+			'name': 'no',
+			'type': 'no',
+			'auditory': 'no',
+			'teacher': 'no'
+		},
+		3: {
+			'index': 3,
+			'parity': 'both',
+			'name': 'АИП и ЧФ',
+			'type': 'ЛК',
+			'auditory': '3204',
+			'teacher': 'Худолей Е.В.'
+		},
+		4: {
+			'index': 4,
+			'parity': 'both',
+			'name': 'АИП и ЧФ',
+			'type': 'ПЗ',
+			'auditory': '3207',
+			'teacher': 'Худолей Е.В.'
+		},
+
+	},
+	// ? Воскресенье
+	7: {
+		'lessons': false,
+	},
+
+}
+
+var lessons = {
+	117: {
+		// ? Воскресенье
+		0: {
+			'lessons': false,
+		},
+
+		// ? Понедельник
+		1: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'no',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ПАП при ОВД',
+				'type': 'ПЗ',
+				'auditory': '3204',
+				'teacher': 'Александров О.В.'
+			},
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПП и ТОВД',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Дубовский А.В.'
+			},
+			4: {
+				'index': 4,
+				'parity': 'both',
+				'name': 'ФРО на АЯ',
+				'type': 'ПЗ',
+				'auditory': '1305',
+				'teacher': 'Лазовский Г.Б.'
+			},
+
+		},
+
+		// ? Вторник
+		2: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'ЭО',
+				'type': 'ЛК',
+				'auditory': '3103',
+				'teacher': 'Науменко А.И.'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ЭО',
+				'type': 'ПЗ',
+				'auditory': '3209',
+				'teacher': 'Науменко А.И.'
+			},
+		},
+
+		// ? Среда
+		3: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'ОПВД',
+				'type': 'ПЗ',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ФРО на АЯ',
+				'type': 'ПЗ',
+				'auditory': '1305',
+				'teacher': 'Лазовский Г.Б.'
+			},
+
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПП и ТОВД',
+				'type': 'ПЗ',
+				'auditory': '3204',
+				'teacher': 'Дубовский А.В.'
+			},
+		},
+
+		// ? Четверг
+		4: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'odd',
+				'name': 'МОМАН',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Барабан И.И.'
+			},
+
+			2: {
+				'index': 1,
+				'parity': 'even',
+				'name': 'АП и ПНК',
+				'type': 'ЛК',
+				'auditory': '3103',
+				'teacher': 'Пилипчук В.С.'
+			},
+			3: {
+				'index': 2,
+				'parity': 'odd',
+				'name': 'ОПВД',
+				'type': 'ЛК',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
+			},
+			4: {
+				'index': 2,
+				'parity': 'even',
+				'name': 'ОПВД',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Вишневский Р.А.'
+			},
+			5: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПАП при ОВД',
+				'type': 'ЛК',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
+			},
+
+		},
+
+		// ? Пятница
+		5: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'no',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'odd',
+				'name': 'АП и ПНК',
+				'type': 'ПЗ',
+				'auditory': '3103',
+				'teacher': 'Пилипчук В.С.'
+			},
+			3: {
+				'index': 2,
+				'parity': 'even',
+				'name': 'МОМАН',
+				'type': 'ПЗ',
+				'auditory': '3203',
+				'teacher': 'Барабан И.И.'
+			},
+			4: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПП и ТОВД',
+				'type': 'ПЗ',
+				'auditory': '3203',
+				'teacher': 'Дубовский А.В.'
+			},
+			5: {
+				'index': 4,
+				'parity': 'both',
+				'name': 'ФРО на АЯ',
+				'type': 'ПЗ',
+				'auditory': '1305',
+				'teacher': 'Лазовский Г.Б.'
+			},
+
+		},
+
+		// ? Суббота
+		6: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'no',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'АИП и ЧФ',
+				'type': 'ПЗ',
+				'auditory': '3204',
+				'teacher': 'Худолей Е.В.'
+			},
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'АИП и ЧФ',
+				'type': 'ЛК',
+				'auditory': '3204',
+				'teacher': 'Худолей Е.В.'
+			},
+
+		},
+	},
+	217: {
+		// ? Воскресенье
+		0: {
+			'lessons': false,
+		},
+		// ? Понедельник
+		1: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ФРО на АЯ',
+				'type': 'ПЗ',
+				'auditory': '1305, 1307',
+				'teacher': 'Лазовский Г.Б., Швайко Е. П.'
+			},
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПП и ТОВД',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Дубовский А.В.'
+			},
+			4: {
+				'index': 4,
+				'parity': 'both',
+				'name': 'ОПВД',
+				'type': 'ПЗ',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
+			},
+
+		},
+
+		// ? Вторник
+		2: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'ЭО',
+				'type': 'ЛК',
+				'auditory': '3103',
+				'teacher': 'Науменко А.И.'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ЭО',
+				'type': 'ПЗ',
+				'auditory': '3209',
+				'teacher': 'Науменко А.И.'
+			},
+
+		},
+
+		// ? Среда
+		3: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ПП и ТОВД',
+				'type': 'ПЗ',
+				'auditory': '3204',
+				'teacher': 'Дубовский А.В.'
+			},
+
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПАП при ОВД',
+				'type': 'ПЗ',
+				'auditory': '3207',
+				'teacher': 'Александров О.В.'
+			},
+			4: {
+				'index': 4,
+				'parity': 'both',
+				'name': 'ФРО на АЯ',
+				'type': 'ПЗ',
+				'auditory': '1305, 1307',
+				'teacher': 'Лазовский Г.Б., Швайко Е. П.'
+			},
+		},
+
+		// ? Четверг
+		4: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'odd',
+				'name': 'МОМАН',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Барабан И.И.'
+			},
+
+			2: {
+				'index': 1,
+				'parity': 'even',
+				'name': 'АП и ПНК',
+				'type': 'ЛК',
+				'auditory': '3103',
+				'teacher': 'Пилипчук В.С.'
+			},
+			3: {
+				'index': 2,
+				'parity': 'odd',
+				'name': 'ОПВД',
+				'type': 'ЛК',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
+			},
+			4: {
+				'index': 2,
+				'parity': 'even',
+				'name': 'ОПВД',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Вишневский Р.А.'
+			},
+			5: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПАП при ОВД',
+				'type': 'ЛК',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
+			},
+
+		},
+
+		// ? Пятница
+		5: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'odd',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 1,
+				'parity': 'even',
+				'name': 'МОМАН',
+				'type': 'ПЗ',
+				'auditory': '3203',
+				'teacher': 'Барабан И.И.'
+			},
+			3: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ФРО на АЯ',
+				'type': 'ПЗ',
+				'auditory': '1305, 1307',
+				'teacher': 'Лазовский Г.Б., Швайко Е. П.'
+			},
+			4: {
+				'index': 3,
+				'parity': 'odd',
+				'name': 'АП и ПНК',
+				'type': 'ПЗ',
+				'auditory': '3103',
+				'teacher': 'Пилипчук В.С.'
+			},
+			5: {
+				'index': 3,
+				'parity': 'even',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+			6: {
+				'index': 4,
+				'parity': 'both',
+				'name': 'ПП и ТОВД',
+				'type': 'ПЗ',
+				'auditory': '3203',
+				'teacher': 'Дубовский А.В.'
+			},
+
+		},
+
+		// ? Суббота
+		6: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'АИП и ЧФ',
+				'type': 'ЛК',
+				'auditory': '3204',
+				'teacher': 'Худолей Е.В.'
+			},
+			4: {
+				'index': 4,
+				'parity': 'both',
+				'name': 'АИП и ЧФ',
+				'type': 'ПЗ',
+				'auditory': '3207',
+				'teacher': 'Худолей Е.В.'
+			},
+
+		},
+	},
 }
 console.log('Расписание У117:');
 console.log(lessonsU117);
 console.log('Расписание У217:');
 console.log(lessonsU217);
+
+function scheduleNew(group) {
+	var groupTag = `#u${group}-target`
+	for (var i = 1; i <= 6; i++) {
+		var currentSchedule = $(groupTag).children(`.day_${i}`).children('.day__timetable');
+		currentSchedule.empty();
+		var schedule = lessons[group][i];
+		if (schedule['lessons']) {
+			var j = 1;
+			while (schedule[j] != undefined) {
+				console.log('asdadssadads');
+				j++;
+			}
+		}
+	}
+}
+
+// scheduleNew(117);
 
 function schedule() {
 	// ! Объявление переменных
@@ -382,7 +993,7 @@ function schedule() {
 	$('#u117-target').empty();
 	$('#u217-target').empty();
 	// ! Перебор дней недели
-	for (let dayIndex = 1; dayIndex < 6; dayIndex++) {
+	for (let dayIndex = 1; dayIndex <= 6; dayIndex++) {
 		i = 1;
 		j = 1;
 		// ? Прописывание денй недели и их классов
@@ -398,10 +1009,10 @@ function schedule() {
 		currentDay217 = $('#u217-target').children(`.day_${dayIndex}`);
 
 		// ? Добавление текущему дню имени и расписания
-		currentDay117.append(`<h2 class="day__name">${lessonsDayName[dayIndex - 1]}</h2>`);
+		currentDay117.append(`<h2 class="day__name">${lessonsDayName[dayIndex]}</h2>`);
 		currentDay117.append(`<ul class="day__timetable"></ul>`);
 		// ! ===============================================
-		currentDay217.append(`<h2 class="day__name">${lessonsDayName[dayIndex - 1]}</h2>`);
+		currentDay217.append(`<h2 class="day__name">${lessonsDayName[dayIndex]}</h2>`);
 		currentDay217.append(`<ul class="day__timetable"></ul>`);
 
 		// ? Текущее расписание в переменную
@@ -410,96 +1021,100 @@ function schedule() {
 		currentTime217table = currentDay217.children('.day__timetable');
 
 		// ? Перебор пар в текущем расписании
-		while (lessonsU117[dayIndex][i] != undefined) {
-			// ? Запись в переменную информации о текущей паре из общего массива
-			lessonNow117 = lessonsU117[dayIndex][i];
+		if (lessonsU117[dayIndex]['lessons']) {
+			while (lessonsU117[dayIndex][i] != undefined) {
+				// ? Запись в переменную информации о текущей паре из общего массива
+				lessonNow117 = lessonsU117[dayIndex][i];
 
-			// ? Добавление пары
-			currentTime117table.append(`<li class="day__lesson lesson lesson_${lessonNow117['index']}"></li>`);
-			currentLesson117 = currentTime117table.children().last();
+				// ? Добавление пары
+				currentTime117table.append(`<li class="day__lesson lesson lesson_${lessonNow117['index']}"></li>`);
+				currentLesson117 = currentTime117table.children().last();
 
-			// ? Добавление текущей паре класса чётности
-			switch (lessonNow117['parity']) {
-				case 'both':
-					currentLesson117.addClass('lesson_odd lesson_even')
-					break;
-				case 'odd':
-					currentLesson117.addClass('lesson_odd')
-					break;
-				case 'even':
-					currentLesson117.addClass('lesson_even')
-					break;
-			}
-
-			// ? Добавление остальной информации текущей пары
-
-			currentLesson117.append(`<div class="lesson__time time time_${lessonNow117['index']} lesson__item"></div>`);
-
-			currentTime117 = currentLesson117.children().last();
-			currentTime117.append('<div class="time__start"></div>').append('<div class="time__end"></div>')
-
-			if (lessonNow117['name'] == 'no') {
-				switch (lessonNow117['index']) {
-					case 1:
-						currentLesson117.append(`<div class="lesson__item lesson_out"><span class="icon-sleep"></spanМожно спать между прочим!<span class="icon-sleep"></span></div>`)
+				// ? Добавление текущей паре класса чётности
+				switch (lessonNow117['parity']) {
+					case 'both':
+						currentLesson117.addClass('lesson_odd lesson_even')
 						break;
-					default:
-						currentLesson117.append(`<div class="lesson__item lesson_out"><span class="icon-sad"></span>Форточка<span class="icon-sad"></span></div>`)
+					case 'odd':
+						currentLesson117.addClass('lesson_odd')
+						break;
+					case 'even':
+						currentLesson117.addClass('lesson_even')
 						break;
 				}
-			} else {
-				currentLesson117.append(`<div class="lesson__name lesson__item">${lessonNow117['name']}</div>`)
-				currentLesson117.append(`<div class="lesson__type lesson__item">${lessonNow117['type']}</div>`)
-				currentLesson117.append(`<div class="lesson__autidory lesson__item">${lessonNow117['auditory']}</div>`)
-				currentLesson117.append(`<div class="lesson__teacher lesson__item">${lessonNow117['teacher']}</div>`)
+
+				// ? Добавление остальной информации текущей пары
+
+				currentLesson117.append(`<div class="lesson__time time time_${lessonNow117['index']} lesson__item"></div>`);
+
+				currentTime117 = currentLesson117.children().last();
+				currentTime117.append('<div class="time__start"></div>').append('<div class="time__end"></div>')
+
+				if (lessonNow117['name'] == 'no') {
+					switch (lessonNow117['index']) {
+						case 1:
+							currentLesson117.append(`<div class="lesson__item lesson_out"><span class="icon-sleep"></spanМожно спать между прочим!<span class="icon-sleep"></span></div>`)
+							break;
+						default:
+							currentLesson117.append(`<div class="lesson__item lesson_out"><span class="icon-sad"></span>Форточка<span class="icon-sad"></span></div>`)
+							break;
+					}
+				} else {
+					currentLesson117.append(`<div class="lesson__name lesson__item">${lessonNow117['name']}</div>`)
+					currentLesson117.append(`<div class="lesson__type lesson__item">${lessonNow117['type']}</div>`)
+					currentLesson117.append(`<div class="lesson__autidory lesson__item">${lessonNow117['auditory']}</div>`)
+					currentLesson117.append(`<div class="lesson__teacher lesson__item">${lessonNow117['teacher']}</div>`)
+				}
+				i++;
 			}
-			i++;
 		}
 		// ! ==================================================
-		while (lessonsU217[dayIndex][j] != undefined) {
-			// ? Запись в переменную информации о текущей паре из общего массива
-			lessonNow217 = lessonsU217[dayIndex][j];
+		if (lessonsU217[dayIndex]['lessons']) {
+			while (lessonsU217[dayIndex][j] != undefined) {
+				// ? Запись в переменную информации о текущей паре из общего массива
+				lessonNow217 = lessonsU217[dayIndex][j];
 
-			// ? Добавление пары
-			currentTime217table.append(`<li class="day__lesson lesson lesson_${lessonNow217['index']}"></li>`);
-			currentLesson217 = currentTime217table.children().last();
+				// ? Добавление пары
+				currentTime217table.append(`<li class="day__lesson lesson lesson_${lessonNow217['index']}"></li>`);
+				currentLesson217 = currentTime217table.children().last();
 
-			// ? Добавление текущей паре класса чётности
-			switch (lessonNow217['parity']) {
-				case 'both':
-					currentLesson217.addClass('lesson_odd lesson_even')
-					break;
-				case 'odd':
-					currentLesson217.addClass('lesson_odd')
-					break;
-				case 'even':
-					currentLesson217.addClass('lesson_even')
-					break;
-			}
-
-			// ? Добавление остальной информации текущей пары
-
-			currentLesson217.append(`<div class="lesson__time time time_${lessonNow217['index']} lesson__item"></div>`);
-
-			currentTime217 = currentLesson217.children().last();
-			currentTime217.append('<div class="time__start"></div>').append('<div class="time__end"></div>')
-
-			if (lessonNow217['name'] == 'no') {
-				switch (lessonNow217['index']) {
-					case 1:
-						currentLesson217.append(`<div class="lesson__item lesson_out"><span class="icon-sleep"></span>Можно спать между прочим!<span class="icon-sleep"></span></div>`)
+				// ? Добавление текущей паре класса чётности
+				switch (lessonNow217['parity']) {
+					case 'both':
+						currentLesson217.addClass('lesson_odd lesson_even')
 						break;
-					default:
-						currentLesson217.append(`<div class="lesson__item lesson_out"><span class="icon-sad"></span>Форточка<span class="icon-sad"></span></div>`)
+					case 'odd':
+						currentLesson217.addClass('lesson_odd')
+						break;
+					case 'even':
+						currentLesson217.addClass('lesson_even')
 						break;
 				}
-			} else {
-				currentLesson217.append(`<div class="lesson__name lesson__item">${lessonNow217['name']}</div>`)
-				currentLesson217.append(`<div class="lesson__type lesson__item">${lessonNow217['type']}</div>`)
-				currentLesson217.append(`<div class="lesson__autidory lesson__item">${lessonNow217['auditory']}</div>`)
-				currentLesson217.append(`<div class="lesson__teacher lesson__item">${lessonNow217['teacher']}</div>`)
+
+				// ? Добавление остальной информации текущей пары
+
+				currentLesson217.append(`<div class="lesson__time time time_${lessonNow217['index']} lesson__item"></div>`);
+
+				currentTime217 = currentLesson217.children().last();
+				currentTime217.append('<div class="time__start"></div>').append('<div class="time__end"></div>')
+
+				if (lessonNow217['name'] == 'no') {
+					switch (lessonNow217['index']) {
+						case 1:
+							currentLesson217.append(`<div class="lesson__item lesson_out"><span class="icon-sleep"></span>Можно спать между прочим!<span class="icon-sleep"></span></div>`)
+							break;
+						default:
+							currentLesson217.append(`<div class="lesson__item lesson_out"><span class="icon-sad"></span>Форточка<span class="icon-sad"></span></div>`)
+							break;
+					}
+				} else {
+					currentLesson217.append(`<div class="lesson__name lesson__item">${lessonNow217['name']}</div>`)
+					currentLesson217.append(`<div class="lesson__type lesson__item">${lessonNow217['type']}</div>`)
+					currentLesson217.append(`<div class="lesson__autidory lesson__item">${lessonNow217['auditory']}</div>`)
+					currentLesson217.append(`<div class="lesson__teacher lesson__item">${lessonNow217['teacher']}</div>`)
+				}
+				j++;
 			}
-			j++;
 		}
 	}
 }

@@ -108,7 +108,7 @@ var nowNextLessonArray = {
 	},
 }
 
-if (dayIndex == 6 || dayIndex == 0) {
+if (lessons[117][dayIndex]['lessons'] == false) {
 	$('#now_117').children('.now__content').slideUp(300);
 	$('#now_117').children('.now__gone').html('Выходной!').slideDown(300, function () { $(this).css('display', 'flex'); })
 	$('#now_217').children('.now__content').slideUp(300);
@@ -135,8 +135,8 @@ if (dayIndex == 6 || dayIndex == 0) {
 			$(`#now_${group}`).children('.now__gone').slideUp(300);
 	}
 
-	setInterval(nowUpdate, 1000, 117);
-	setInterval(nowUpdate, 1000, 217);
+	setInterval(nowUpdate, 500, 117);
+	setInterval(nowUpdate, 500, 217);
 	// * ====================================================================
 	// ! ================= Массив пар сегодняшних ===========================
 	function makeNowLessonArray(group) {
@@ -328,7 +328,7 @@ if (dayIndex == 6 || dayIndex == 0) {
 			// console.log(group, 'next lesson time updated')
 		}
 		nowNextLessonTimeUpdate(group);
-		setInterval(nowNextLessonTimeUpdate, 1000, group);
+		setInterval(nowNextLessonTimeUpdate, 500, group);
 	}
 
 	nowNextLesson(117);
