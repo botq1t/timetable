@@ -40,6 +40,9 @@ body {
 		align-items: center;
 	}
 	&__title {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		width: 100%;
 		text-align: center;
 		color: $accent-color;
@@ -390,7 +393,11 @@ body {
 		align-items: center;
 		text-align: center;
 		@include adaptiv-font(23, 20);
+		font-weight: 700;
 		padding: 5px;
+		span {
+			margin: 0 5px;
+		}
 	}
 	&__item {
 		border-bottom: 1px solid $accent-color;

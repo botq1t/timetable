@@ -109,9 +109,9 @@ var nowNextLessonArray = {
 
 if (lessons[117][dayIndex]['lessons'] == false) {
 	$('#now_117').children('.now__content').slideUp(300);
-	$('#now_117').children('.now__gone').html('Выходной!').slideDown(300, function () { $(this).css('display', 'flex'); })
+	$('#now_117').children('.now__gone').html(`<span class="icon-bokal"></span>Выходной<span class="icon-bokal"></span>`).slideDown(300, function () { $(this).css('display', 'flex'); })
 	$('#now_217').children('.now__content').slideUp(300);
-	$('#now_217').children('.now__gone').html('Выходной!').slideDown(300, function () { $(this).css('display', 'flex'); })
+	$('#now_217').children('.now__gone').html('<span class="icon-bokal"></span>Выходной<span class="icon-bokal"></span>').slideDown(300, function () { $(this).css('display', 'flex'); })
 } else {
 	// * ====================================================================
 	// ! ========================= Update ===================================

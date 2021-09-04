@@ -24,6 +24,13 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
+.icon-cake:before {
+	content: "\e908";
+}
+.icon-bokal:before {
+	content: "\e907";
+}
 .icon-bells:before {
 	content: "\e906";
 }
