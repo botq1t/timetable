@@ -494,7 +494,7 @@ var lessons = {
 			'lessons': true,
 			1: {
 				'index': 1,
-				'parity': 'no',
+				'parity': 'both',
 				'name': 'no',
 				'type': 'no',
 				'auditory': 'no',
@@ -633,7 +633,7 @@ var lessons = {
 			'lessons': true,
 			1: {
 				'index': 1,
-				'parity': 'no',
+				'parity': 'both',
 				'name': 'no',
 				'type': 'no',
 				'auditory': 'no',
@@ -680,7 +680,7 @@ var lessons = {
 			'lessons': true,
 			1: {
 				'index': 1,
-				'parity': 'no',
+				'parity': 'both',
 				'name': 'no',
 				'type': 'no',
 				'auditory': 'no',
@@ -690,17 +690,26 @@ var lessons = {
 			2: {
 				'index': 2,
 				'parity': 'both',
-				'name': 'АИП и ЧФ',
-				'type': 'ПЗ',
-				'auditory': '3204',
-				'teacher': 'Худолей Е.В.'
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
 			},
+
 			3: {
 				'index': 3,
 				'parity': 'both',
 				'name': 'АИП и ЧФ',
 				'type': 'ЛК',
-				'auditory': '3204',
+				'auditory': '1402',
+				'teacher': 'Худолей Е.В.'
+			},
+			4: {
+				'index': 4,
+				'parity': 'both',
+				'name': 'АИП и ЧФ',
+				'type': 'ПЗ',
+				'auditory': '1404',
 				'teacher': 'Худолей Е.В.'
 			},
 
@@ -739,15 +748,6 @@ var lessons = {
 				'auditory': '3203',
 				'teacher': 'Дубовский А.В.'
 			},
-			4: {
-				'index': 4,
-				'parity': 'both',
-				'name': 'ОПВД',
-				'type': 'ПЗ',
-				'auditory': '3204',
-				'teacher': 'Вишневский Р.А.'
-			},
-
 		},
 
 		// ? Вторник
@@ -765,10 +765,10 @@ var lessons = {
 			2: {
 				'index': 2,
 				'parity': 'both',
-				'name': 'no',
-				'type': 'no',
-				'auditory': 'no',
-				'teacher': 'no'
+				'name': 'ОПВД',
+				'type': 'ПЗ',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
 			},
 			3: {
 				'index': 3,
@@ -933,57 +933,96 @@ var lessons = {
 				'auditory': 'no',
 				'teacher': 'no'
 			},
-
 			2: {
 				'index': 2,
 				'parity': 'both',
-				'name': 'no',
-				'type': 'no',
-				'auditory': 'no',
-				'teacher': 'no'
+				'name': 'АИП и ЧФ',
+				'type': 'ПЗ',
+				'auditory': '1402',
+				'teacher': 'Худолей Е.В.'
 			},
 			3: {
 				'index': 3,
 				'parity': 'both',
 				'name': 'АИП и ЧФ',
 				'type': 'ЛК',
-				'auditory': '3204',
-				'teacher': 'Худолей Е.В.'
-			},
-			4: {
-				'index': 4,
-				'parity': 'both',
-				'name': 'АИП и ЧФ',
-				'type': 'ПЗ',
-				'auditory': '3207',
+				'auditory': '1402',
 				'teacher': 'Худолей Е.В.'
 			},
 
 		},
 	},
 }
-console.log('Расписание У117:');
-console.log(lessonsU117);
-console.log('Расписание У217:');
-console.log(lessonsU217);
+// console.log('Расписание У117:');
+// console.log(lessonsU117);
+// console.log('Расписание У217:');
+// console.log(lessonsU217);
+console.log('Расписания', lessons);
 
 function scheduleNew(group) {
-	var groupTag = `#u${group}-target`
+	let groupTag = `#u${group}-target`
+
 	for (var i = 1; i <= 6; i++) {
-		var currentSchedule = $(groupTag).children(`.day_${i}`).children('.day__timetable');
-		currentSchedule.empty();
-		var schedule = lessons[group][i];
-		if (schedule['lessons']) {
+
+		let currentDay = $(groupTag).children(`.day_${i}`).children('.day__timetable');
+		currentDay.empty();
+		let currentDaySchedule = lessons[group][i];
+
+		if (currentDaySchedule['lessons']) {
 			var j = 1;
-			while (schedule[j] != undefined) {
-				console.log('asdadssadads');
+			while (currentDaySchedule[j] != undefined) {
+				currentDay.append(`<li class="day__lesson lesson lesson_${currentDaySchedule[j]['index']}"></li>`);
+				let bufer = currentDay.children('.lesson').last();
+				switch (currentDaySchedule[j]['parity']) {
+					case 'both':
+						bufer.addClass('lesson_odd lesson_even')
+						break;
+					case 'even':
+						bufer.addClass('lesson_even')
+						break;
+					case 'odd':
+						bufer.addClass('lesson_odd')
+						break;
+				}
+
+				bufer.append(`
+					<div class="lesson__time time time_${currentDaySchedule[j]['index']} lesson__item">
+						<div class="time__start"></div>
+						<div class="time__end"></div>
+					</div>
+				`);
+
+				if (currentDaySchedule[j]['name'] == 'no') {
+					let flag = true;
+					for (let k = j; k >= 1; k--) {
+						if (currentDaySchedule[k]['name'] != 'no')
+							flag = false;
+					}
+
+					if (flag) {
+						bufer.append(`<div class="lesson__item lesson_out"><span class="icon-sleep"></span>Можно спать<span class="icon-sleep"></span></div>`);
+					} else {
+						bufer.append(`<div class="lesson__item lesson_out"><span class="icon-sad"></span>Форточка<span class="icon-sad"></span></div>`);
+					}
+
+					flag = true;
+				} else {
+					bufer.append(`
+						<div class="lesson__name lesson__item">${currentDaySchedule[j]['name']}</div>
+						<div class="lesson__type lesson__item">${currentDaySchedule[j]['type']}</div>
+						<div class="lesson__autidory lesson__item">${currentDaySchedule[j]['auditory']}</div>
+						<div class="lesson__teacher lesson__item">${currentDaySchedule[j]['teacher']}</div>
+					`);
+				}
 				j++;
 			}
 		}
 	}
 }
 
-// scheduleNew(117);
+
+scheduleNew(117);
+scheduleNew(217);
 
 function schedule() {
 	// ! Объявление переменных
@@ -1009,11 +1048,11 @@ function schedule() {
 		currentDay217 = $('#u217-target').children(`.day_${dayIndex}`);
 
 		// ? Добавление текущему дню имени и расписания
-		currentDay117.append(`<h2 class="day__name">${lessonsDayName[dayIndex]}</h2>`);
-		currentDay117.append(`<ul class="day__timetable"></ul>`);
+		currentDay117.append(`< h2 class= "day__name" > ${lessonsDayName[dayIndex]}</ > `);
+		currentDay117.append(`< ul class= "day__timetable" ></ > `);
 		// ! ===============================================
-		currentDay217.append(`<h2 class="day__name">${lessonsDayName[dayIndex]}</h2>`);
-		currentDay217.append(`<ul class="day__timetable"></ul>`);
+		currentDay217.append(`< h2 class= "day__name" > ${lessonsDayName[dayIndex]}</ > `);
+		currentDay217.append(`< ul class= "day__timetable" ></ > `);
 
 		// ? Текущее расписание в переменную
 		currentTime117table = currentDay117.children('.day__timetable');
@@ -1027,7 +1066,7 @@ function schedule() {
 				lessonNow117 = lessonsU117[dayIndex][i];
 
 				// ? Добавление пары
-				currentTime117table.append(`<li class="day__lesson lesson lesson_${lessonNow117['index']}"></li>`);
+				currentTime117table.append(`< li class= "day__lesson lesson lesson_${lessonNow117['index']}" ></ > `);
 				currentLesson117 = currentTime117table.children().last();
 
 				// ? Добавление текущей паре класса чётности
@@ -1045,7 +1084,7 @@ function schedule() {
 
 				// ? Добавление остальной информации текущей пары
 
-				currentLesson117.append(`<div class="lesson__time time time_${lessonNow117['index']} lesson__item"></div>`);
+				currentLesson117.append(`< div class= "lesson__time time time_${lessonNow117['index']} lesson__item" ></ > `);
 
 				currentTime117 = currentLesson117.children().last();
 				currentTime117.append('<div class="time__start"></div>').append('<div class="time__end"></div>')
@@ -1053,17 +1092,17 @@ function schedule() {
 				if (lessonNow117['name'] == 'no') {
 					switch (lessonNow117['index']) {
 						case 1:
-							currentLesson117.append(`<div class="lesson__item lesson_out"><span class="icon-sleep"></spanМожно спать между прочим!<span class="icon-sleep"></span></div>`)
+							currentLesson117.append(`< div class= "lesson__item lesson_out" > <span class="icon-sleep"></spanМожно спать между прочим! < span class= "icon-sleep" ></ ></div > `)
 							break;
 						default:
-							currentLesson117.append(`<div class="lesson__item lesson_out"><span class="icon-sad"></span>Форточка<span class="icon-sad"></span></div>`)
+							currentLesson117.append(`< div class= "lesson__item lesson_out" > <span class="icon-sad"></span>Форточка < span class= "icon-sad" ></ ></div > `)
 							break;
 					}
 				} else {
-					currentLesson117.append(`<div class="lesson__name lesson__item">${lessonNow117['name']}</div>`)
-					currentLesson117.append(`<div class="lesson__type lesson__item">${lessonNow117['type']}</div>`)
-					currentLesson117.append(`<div class="lesson__autidory lesson__item">${lessonNow117['auditory']}</div>`)
-					currentLesson117.append(`<div class="lesson__teacher lesson__item">${lessonNow117['teacher']}</div>`)
+					currentLesson117.append(`< div class= "lesson__name lesson__item" > ${lessonNow117['name']}</ > `)
+					currentLesson117.append(`< div class= "lesson__type lesson__item" > ${lessonNow117['type']}</ > `)
+					currentLesson117.append(`< div class= "lesson__autidory lesson__item" > ${lessonNow117['auditory']}</ > `)
+					currentLesson117.append(`< div class= "lesson__teacher lesson__item" > ${lessonNow117['teacher']}</ > `)
 				}
 				i++;
 			}
@@ -1075,7 +1114,7 @@ function schedule() {
 				lessonNow217 = lessonsU217[dayIndex][j];
 
 				// ? Добавление пары
-				currentTime217table.append(`<li class="day__lesson lesson lesson_${lessonNow217['index']}"></li>`);
+				currentTime217table.append(`< li class= "day__lesson lesson lesson_${lessonNow217['index']}" ></ > `);
 				currentLesson217 = currentTime217table.children().last();
 
 				// ? Добавление текущей паре класса чётности
@@ -1093,7 +1132,7 @@ function schedule() {
 
 				// ? Добавление остальной информации текущей пары
 
-				currentLesson217.append(`<div class="lesson__time time time_${lessonNow217['index']} lesson__item"></div>`);
+				currentLesson217.append(`< div class= "lesson__time time time_${lessonNow217['index']} lesson__item" ></ > `);
 
 				currentTime217 = currentLesson217.children().last();
 				currentTime217.append('<div class="time__start"></div>').append('<div class="time__end"></div>')
@@ -1101,17 +1140,17 @@ function schedule() {
 				if (lessonNow217['name'] == 'no') {
 					switch (lessonNow217['index']) {
 						case 1:
-							currentLesson217.append(`<div class="lesson__item lesson_out"><span class="icon-sleep"></span>Можно спать между прочим!<span class="icon-sleep"></span></div>`)
+							currentLesson217.append(`< div class= "lesson__item lesson_out" > <span class="icon-sleep"></span>Можно спать между прочим! < span class= "icon-sleep" ></ ></div > `)
 							break;
 						default:
-							currentLesson217.append(`<div class="lesson__item lesson_out"><span class="icon-sad"></span>Форточка<span class="icon-sad"></span></div>`)
+							currentLesson217.append(`< div class= "lesson__item lesson_out" > <span class="icon-sad"></span>Форточка < span class= "icon-sad" ></ ></div > `)
 							break;
 					}
 				} else {
-					currentLesson217.append(`<div class="lesson__name lesson__item">${lessonNow217['name']}</div>`)
-					currentLesson217.append(`<div class="lesson__type lesson__item">${lessonNow217['type']}</div>`)
-					currentLesson217.append(`<div class="lesson__autidory lesson__item">${lessonNow217['auditory']}</div>`)
-					currentLesson217.append(`<div class="lesson__teacher lesson__item">${lessonNow217['teacher']}</div>`)
+					currentLesson217.append(`< div class= "lesson__name lesson__item" > ${lessonNow217['name']}</ > `)
+					currentLesson217.append(`< div class= "lesson__type lesson__item" > ${lessonNow217['type']}</ > `)
+					currentLesson217.append(`< div class= "lesson__autidory lesson__item" > ${lessonNow217['auditory']}</ > `)
+					currentLesson217.append(`< div class= "lesson__teacher lesson__item" > ${lessonNow217['teacher']}</ > `)
 				}
 				j++;
 			}
@@ -1119,4 +1158,4 @@ function schedule() {
 	}
 }
 
-$(document).ready(schedule);
+// $(document).ready(schedule);

@@ -1,4 +1,3 @@
-const nowWeekIndex = getWeekIndex();
 var nowLessonArray = {
 	117: {
 		1: {
@@ -118,21 +117,29 @@ if (lessons[117][dayIndex]['lessons'] == false) {
 	// ! ========================= Update ===================================
 	function nowUpdate(group) {
 		// console.log('check updates', timeInSeconds);
-		if (timeInSeconds == 0 || timeInSeconds == lessonTimeSeconds[getLessonAmount(group)]['end']) {
+		if (timeInSeconds >= 0 && timeInSeconds <= 5) {
+			makeNowLessonArray(group);
+			makeNowNextLessonArray(group);
+			nowCheckAfter(group);
+			nowCheck(group);
+			nowNextLesson(group);
+			$(`#now_${group}`).children('.now__gone').slideUp(300);
+		}
+		if (timeInSeconds >= lessonTimeSeconds[getLessonAmount(group)]['end'] && timeInSeconds <= (lessonTimeSeconds[getLessonAmount(group)]['end'] + 3)) {
 			console.log('update1');
 			nowCheckAfter(group);
 			nowCheck(group);
 			nowNextLesson(group);
+			nowLesson(group);
 		}
-		if (getCurrentLessonIndex() != undefined)
-			if (timeInSeconds == lessonTimeSeconds[getCurrentLessonIndex()]['begin'] || timeInSeconds == lessonTimeSeconds[getCurrentLessonIndex()]['end']) {
-				console.log('update1');
+		if (timeInSeconds >= lessonTimeSeconds[1]['begin'] && timeInSeconds <= (lessonTimeSeconds[getLessonAmount(group)]['end'] + 3)) {
+			if (getCurrentLessonIndex() == undefined) {
+				console.log('update2');
 				nowCheck(group);
 				nowLesson(group);
 				nowNextLesson(group);
 			}
-		if (timeInSeconds == 0)
-			$(`#now_${group}`).children('.now__gone').slideUp(300);
+		}
 	}
 
 	setInterval(nowUpdate, 500, 117);
@@ -141,61 +148,32 @@ if (lessons[117][dayIndex]['lessons'] == false) {
 	// ! ================= Массив пар сегодняшних ===========================
 	function makeNowLessonArray(group) {
 		var i = 1;
-		switch (group) {
-			case 117:
-				while (lessonsU117[dayIndex][i] != undefined) {
-					switch (lessonsU117[dayIndex][i]['parity']) {
-						case 'both':
-							nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['name'] = lessonsU117[dayIndex][i]['name'];
-							nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['type'] = lessonsU117[dayIndex][i]['type'];
-							nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['auditory'] = lessonsU117[dayIndex][i]['auditory'];
-							break;
-						case 'odd':
-							if (nowWeekIndex % 2 != 0) {
-								nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['name'] = lessonsU117[dayIndex][i]['name'];
-								nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['type'] = lessonsU117[dayIndex][i]['type'];
-								nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['auditory'] = lessonsU117[dayIndex][i]['auditory'];
-							}
-							break;
-						case 'even':
-							if (nowWeekIndex % 2 == 0) {
-								nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['name'] = lessonsU117[dayIndex][i]['name'];
-								nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['type'] = lessonsU117[dayIndex][i]['type'];
-								nowLessonArray[group][lessonsU117[dayIndex][i]['index']]['auditory'] = lessonsU117[dayIndex][i]['auditory'];
-							}
-							break;
+		while (lessons[group][dayIndex][i] != undefined) {
+			switch (lessons[group][dayIndex][i]['parity']) {
+				case 'both':
+					nowLessonArray[group][lessons[group][dayIndex][i]['index']]['name'] = lessons[group][dayIndex][i]['name'];
+					nowLessonArray[group][lessons[group][dayIndex][i]['index']]['type'] = lessons[group][dayIndex][i]['type'];
+					nowLessonArray[group][lessons[group][dayIndex][i]['index']]['auditory'] = lessons[group][dayIndex][i]['auditory'];
+					break;
+				case 'odd':
+					if (nowWeekIndex % 2 != 0) {
+						nowLessonArray[group][lessons[group][dayIndex][i]['index']]['name'] = lessons[group][dayIndex][i]['name'];
+						nowLessonArray[group][lessons[group][dayIndex][i]['index']]['type'] = lessons[group][dayIndex][i]['type'];
+						nowLessonArray[group][lessons[group][dayIndex][i]['index']]['auditory'] = lessons[group][dayIndex][i]['auditory'];
 					}
-					i++;
-				}
-				break;
-			case 217:
-				while (lessonsU217[dayIndex][i] != undefined) {
-					switch (lessonsU217[dayIndex][i]['parity']) {
-						case 'both':
-							nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['name'] = lessonsU217[dayIndex][i]['name'];
-							nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['type'] = lessonsU217[dayIndex][i]['type'];
-							nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['auditory'] = lessonsU217[dayIndex][i]['auditory'];
-							break;
-						case 'odd':
-							if (nowWeekIndex % 2 != 0) {
-								nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['name'] = lessonsU217[dayIndex][i]['name'];
-								nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['type'] = lessonsU217[dayIndex][i]['type'];
-								nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['auditory'] = lessonsU217[dayIndex][i]['auditory'];
-							}
-							break;
-						case 'even':
-							if (nowWeekIndex % 2 == 0) {
-								nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['name'] = lessonsU217[dayIndex][i]['name'];
-								nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['type'] = lessonsU217[dayIndex][i]['type'];
-								nowLessonArray[group][lessonsU217[dayIndex][i]['index']]['auditory'] = lessonsU217[dayIndex][i]['auditory'];
-							}
-							break;
+					break;
+				case 'even':
+					if (nowWeekIndex % 2 == 0) {
+						nowLessonArray[group][lessons[group][dayIndex][i]['index']]['name'] = lessons[group][dayIndex][i]['name'];
+						nowLessonArray[group][lessons[group][dayIndex][i]['index']]['type'] = lessons[group][dayIndex][i]['type'];
+						nowLessonArray[group][lessons[group][dayIndex][i]['index']]['auditory'] = lessons[group][dayIndex][i]['auditory'];
 					}
-					i++;
-				}
-				break;
+					break;
+			}
+			i++;
 		}
 	}
+
 
 	makeNowLessonArray(117);
 	makeNowLessonArray(217);
@@ -205,6 +183,8 @@ if (lessons[117][dayIndex]['lessons'] == false) {
 	function makeNowNextLessonArray(group) {
 		var i = 0;
 		while (i < getLessonAmount(group)) {
+			console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+
 			j = i + 1;
 			while (nowLessonArray[group][j]['name'] == 'no')
 				j++;
@@ -282,7 +262,7 @@ if (lessons[117][dayIndex]['lessons'] == false) {
 				$(groupTag).children('.current').slideUp(300);
 			else $(groupTag).children('.current').slideDown(300, function () { $(this).css('display', 'flex'); });*/
 			nowLessonTimeUpdate(group);
-			setInterval(nowLessonTimeUpdate, 1000, group);
+			setInterval(nowLessonTimeUpdate, 500, group);
 		}
 	}
 

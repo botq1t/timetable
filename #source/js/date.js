@@ -8,7 +8,7 @@ let nextDayLastLessonTime;
 let currentLessonBegin, currentLessonEnd;
 // * =================================================
 // ! Получение текущей даты, дня недели и времени в секундах
-var date, dayIndex, timeInSeconds;
+let date, dayIndex, timeInSeconds;
 function getDate() {
 	date = new Date();
 	dayIndex = date.getDay();
@@ -16,6 +16,17 @@ function getDate() {
 }
 getDate();
 setInterval(getDate, 1000);
+
+function testDate(tDate, delay) {
+	var temp = new Date();
+	temp = temp.getTime;
+	date = new Date(temp - tDate);
+
+	dayIndex = date.getDay();
+	timeInSeconds = (date.getHours() * 3600) + (date.getMinutes() * 60) + (date.getSeconds());
+}
+// testDate(1630636252000, 5);
+// setInterval(testDate, 1000);
 console.log('Дата:', date);
 console.log('Номер дня:', dayIndex);
 console.log('Время в секундах:', timeInSeconds);
@@ -51,15 +62,15 @@ function getHMS(time) {
 // * ===========================================
 // ! Осталось до конца семестра
 function getRemain() {
-	var remainTime = remainEnd - date.getTime();
+	let remainTime = remainEnd - date.getTime();
 	remainTime = Math.floor(remainTime / 1000);
 
-	var remainDays = Math.floor(remainTime / 86400);
-	var remainInSeconds = remainTime - (remainDays * 86400);
-	var remainHMS = getHMS(remainInSeconds);
+	let remainDays = Math.floor(remainTime / 86400);
+	let remainInSeconds = remainTime - (remainDays * 86400);
+	let remainHMS = getHMS(remainInSeconds);
 
-	var remainTimeString = getTimeString(remainHMS['hours'], remainHMS['minutes'], remainHMS['seconds']);
-	var remain = `${remainDays} дней, ${remainTimeString}`
+	let remainTimeString = getTimeString(remainHMS['hours'], remainHMS['minutes'], remainHMS['seconds']);
+	let remain = `${remainDays} дней, ${remainTimeString}`
 
 	$('.footer__time').text(`До сессии осталось ${remain}`)
 }
@@ -75,6 +86,7 @@ function getWeekIndex() {
 	return (Math.floor(weekPassTime / weekCheck) + 1)
 }
 var weekIndex = getWeekIndex();
+const nowWeekIndex = getWeekIndex();
 console.log('Номер текущей недели:', weekIndex);
 // * ===========================================
 // ! Чётности недели
@@ -106,7 +118,7 @@ function setWeekParity() {
 function getLessonAmount(group, day) {
 	var day;
 	if (day == undefined) day = dayIndex;
-	if (day == 6 || day == 0)
+	if (day == 0)
 		day = 1;
 
 	var groupTag = `#u${group}-target`;
@@ -123,7 +135,7 @@ console.log('Завтра:', dayName[nextDayIndex]);
 function setNextDay(group, delay) {
 	function getNextDay(group, delay) {
 		var groupTag = `#u${group}-target`;
-		if (dayIndex != 6 && dayIndex != 0) {
+		if (dayIndex != 0) {
 			if (timeInSeconds >= lessonTimeSeconds[lessonAmount]['end'] + delay) {
 				$(groupTag).children(`.day_${nextDayIndex}`).children('.day__name').addClass('nextDay slide').next().css('display', 'grid');
 				$(groupTag).children(`.day_${dayIndex}`).children('.day__name').removeClass('slide').next().slideUp();
@@ -133,7 +145,7 @@ function setNextDay(group, delay) {
 			$(groupTag).children(`.day_${dayIndex}`).children('.day__name').removeClass('slide').next().slideUp();
 		}
 	}
-	var lessonAmount = getLessonAmount(group);
+	let lessonAmount = getLessonAmount(group);
 	console.log(`Количество пар У${group} сегодня:`, lessonAmount);
 	getNextDay(group, delay);
 }
