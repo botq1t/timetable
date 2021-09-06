@@ -97,6 +97,14 @@ h1, h2, h3, h4, h5, h6 {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-moon:before {
+  content: "";
+}
+
+.icon-sun:before {
+  content: "";
+}
+
 .icon-happy:before {
   content: "";
 }
@@ -153,6 +161,9 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 820px;
   padding: 0 10px;
   margin: 0 auto;
+}
+.container_nav {
+  padding: 0;
 }
 
 body {
@@ -251,7 +262,7 @@ body {
 .week__date, .week__time {
   font-style: italic;
 }
-.week__even-odd {
+.week__parity {
   display: inline-block;
   cursor: pointer;
   padding: 5px 25px;
@@ -263,17 +274,17 @@ body {
   -webkit-transition: all 500ms ease 0s;
   transition: all 500ms ease 0s;
 }
-.week__even-odd:hover, .week__even-odd:active {
+.week__parity:hover, .week__parity:active {
   top: 2px;
   -webkit-box-shadow: 0 1px 0 #464646;
           box-shadow: 0 1px 0 #464646;
 }
-.week__even-odd.even {
+.week__parity.even {
   background: rgba(57, 252, 252, 0.39);
   -webkit-transition: all 500ms ease 0s;
   transition: all 500ms ease 0s;
 }
-.week__even-odd.odd {
+.week__parity.odd {
   background: rgba(218, 70, 255, 0.363);
   -webkit-transition: all 500ms ease 0s;
   transition: all 500ms ease 0s;
@@ -652,7 +663,6 @@ body {
   background: rgba(255, 153, 0, 0.2);
 }
 .now__auditory {
-  color: black;
   text-align: center;
   font-weight: 700;
   padding: 5px;
@@ -718,10 +728,163 @@ body {
           align-items: center;
 }
 .footer__time {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
   font-size: calc(17px + 9 * ((100vw - 320px) / 704));
   padding: 10px 0;
   color: white;
   font-weight: 700;
   font-style: italic;
   text-shadow: 0 0 5px black;
+}
+.footer__time::before, .footer__time::after {
+  content: "";
+  font-family: "iconfont" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+}
+.footer__time::before {
+  margin: 0 10px 0 0;
+}
+.footer__time::after {
+  margin: 0 0 0 10px;
+}
+
+.dark.header__body {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.dark.header__title {
+  color: white;
+}
+.dark.week__today {
+  border-top: 1px solid #cacaca;
+  color: white;
+}
+.dark.week__parity {
+  color: rgba(0, 0, 0, 0.9);
+}
+.dark.week__parity.even {
+  background-color: rgba(69, 245, 245, 0.829);
+}
+.dark.week__parity.odd {
+  background-color: rgba(217, 85, 250, 0.897);
+}
+.dark.nav {
+  border-top: 1px solid #cacaca;
+}
+.dark.nav__tab {
+  color: white;
+}
+.dark.nav__tab.active {
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+}
+.dark.nav__tab.active.even {
+  background: transparent;
+  -webkit-transition: background 300ms ease 0s;
+  transition: background 300ms ease 0s;
+}
+.dark.nav__tab.active.odd {
+  background: transparent;
+  -webkit-transition: background 300ms ease 0s;
+  transition: background 300ms ease 0s;
+}
+.dark.nav__tab.active::before {
+  background: white;
+}
+.dark.main.even {
+  background: rgba(0, 0, 0, 0.9) url("../img/stickers.webp") local;
+  -webkit-transition: all 300ms ease 0s;
+  transition: all 300ms ease 0s;
+}
+.dark.main.odd {
+  background: rgba(0, 0, 0, 0.9) url("../img/stickers.webp") local;
+  -webkit-transition: all 300ms ease 0s;
+  transition: all 300ms ease 0s;
+}
+.dark.now__gone {
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+}
+.dark.now__title {
+  border-color: #cacaca;
+  background: rgba(0, 0, 0, 0.9);
+}
+.dark.now__item {
+  border-color: #cacaca;
+}
+.dark.now__card {
+  border-color: #cacaca;
+  color: white;
+}
+.dark.now__name {
+  border-color: #cacaca;
+}
+.dark.current {
+  background: #380000;
+  border-color: #cacaca;
+}
+.dark.next {
+  background: #523101;
+}
+.dark.footer {
+  border-top: 1px solid #cacaca;
+  background: rgba(0, 0, 0, 0.9);
+}
+.dark.footer__time::before, .dark.footer__time::after {
+  content: "";
+}
+.dark.day {
+  border-color: #cacaca;
+}
+.dark.day__name {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: #cacaca;
+}
+.dark.day__name.active {
+  background: #00cc1b;
+}
+.dark.day__name.nextDay {
+  background: #cf8700;
+}
+.dark.lesson {
+  color: white;
+  background: rgba(0, 0, 0, 0.9);
+  border-color: #cacaca;
+}
+.dark.lesson.active {
+  background: #be0000;
+}
+.dark.lesson_practice {
+  background: #381b00;
+}
+.dark.lesson_practice:hover {
+  background: #5f2e00;
+  -webkit-transition: all 300ms ease 0s;
+  transition: all 300ms ease 0s;
+}
+.dark.lesson_lection {
+  background: #003823;
+  -webkit-transition: all 300ms ease 0s;
+  transition: all 300ms ease 0s;
+}
+.dark.lesson_lection:hover {
+  background: #005a38;
+  -webkit-transition: all 300ms ease 0s;
+  transition: all 300ms ease 0s;
+}
+.dark.lesson__item {
+  border-color: #cacaca;
 }

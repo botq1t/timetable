@@ -17,16 +17,6 @@ function getDate() {
 getDate();
 setInterval(getDate, 1000);
 
-function testDate(tDate, delay) {
-	var temp = new Date();
-	temp = temp.getTime;
-	date = new Date(temp - tDate);
-
-	dayIndex = date.getDay();
-	timeInSeconds = (date.getHours() * 3600) + (date.getMinutes() * 60) + (date.getSeconds());
-}
-// testDate(1630636252000, 5);
-// setInterval(testDate, 1000);
 console.log('Дата:', date);
 console.log('Номер дня:', dayIndex);
 console.log('Время в секундах:', timeInSeconds);
@@ -72,7 +62,7 @@ function getRemain() {
 	let remainTimeString = getTimeString(remainHMS['hours'], remainHMS['minutes'], remainHMS['seconds']);
 	let remain = `${remainDays} дней, ${remainTimeString}`
 
-	$('.footer__time').text(`До сессии осталось ${remain}`)
+	$('.footer__time').text(`До сессии: ${remain}`)
 }
 // * ===========================================
 // ! Выделение текущего дня недели
@@ -92,7 +82,7 @@ console.log('Номер текущей недели:', weekIndex);
 // ! Чётности недели
 function setWeekParity() {
 	if (weekIndex % 2 == 0) {
-		$('.week__even-odd').removeClass('odd').addClass('even').text('Чётная неделя');
+		$('.week__parity').removeClass('odd').addClass('even').text('Чётная неделя');
 		$('.main').removeClass('odd').addClass('even');
 		$('.nav__tab').removeClass('odd').addClass('even');
 
@@ -102,7 +92,7 @@ function setWeekParity() {
 			if ($(this).hasClass('lesson_even') == false) $(this).css('display', 'none');
 		})
 	} else {
-		$('.week__even-odd').removeClass('even').addClass('odd').text('Нечётная неделя');
+		$('.week__parity').removeClass('even').addClass('odd').text('Нечётная неделя');
 		$('.main').removeClass('even').addClass('odd');
 		$('.nav__tab').removeClass('even').addClass('odd');
 
@@ -193,7 +183,7 @@ $(document).ready(function () {
 
 	// ! Вывод и смена чётности недели
 	setWeekParity();
-	$('.week__even-odd').click(setWeekParity);
+	$('.week__parity').click(setWeekParity);
 
 	// ! Расписание следующего дня
 	setNextDay(117, 300);
