@@ -3,7 +3,7 @@ let dayName = ['Воскресенье', 'Понедельник', 'Вторни
 
 const remainEnd = 1640552400000;		//? Конец семестра в миллисекундах
 const weekCheck = 604800000; 							//? Одна неделя в миллисекундах
-const semBegin = 1630454400000; 			//? Начало семестра в миллисекундах
+const semBegin = 1630270800000; 			//? Начало семестра в миллисекундах
 let nextDayLastLessonTime;
 let currentLessonBegin, currentLessonEnd;
 // * =================================================
