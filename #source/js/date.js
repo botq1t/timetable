@@ -1,9 +1,9 @@
-let monthName = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'илюя', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
-let dayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];		//? Название дней недели
+const monthName = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'илюя', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+const dayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];		//? Название дней недели
 
 const remainEnd = 1640552400000;		//? Конец семестра в миллисекундах
 const weekCheck = 604800000; 							//? Одна неделя в миллисекундах
-const semBegin = 1630454400000; 			//? Начало семестра в миллисекундах
+const semBegin = 1630270800000; 			//? Начало семестра в миллисекундах
 let nextDayLastLessonTime;
 let currentLessonBegin, currentLessonEnd;
 // * =================================================
@@ -165,7 +165,7 @@ function getCurrentLessonIndex() {
 			var lessonIndex = i;
 	return lessonIndex;
 }
-function getCurrentLesson() {
+function highlightCurrentLesson() {
 	var lessonIndex = getCurrentLessonIndex();
 	$(`.day_${dayIndex}`).children('.day__timetable').children('.lesson').each(function () { $(this).removeClass('active') })
 	$(`.day_${dayIndex}`).children('.day__timetable').children(`.lesson_${lessonIndex}`).each(function () { $(this).addClass('active') })
@@ -200,6 +200,6 @@ $(document).ready(function () {
 	setNextDay(217, 300);
 
 	// ! Выделение текущей пары
-	getCurrentLesson();
-	setInterval(getCurrentLesson, 1000)
+	highlightCurrentLesson();
+	setInterval(highlightCurrentLesson, 1000)
 });

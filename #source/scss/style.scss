@@ -387,8 +387,13 @@ body {
 	flex-wrap: wrap;
 	justify-content: space-around;
 	align-items: baseline;
+	&__lesson {
+		display: none;
+		flex-direction: column;
+	}
 	&__gone {
 		display: none;
+		// display: flex;
 		justify-content: center;
 		align-items: center;
 		text-align: center;
@@ -438,6 +443,10 @@ body {
 		display: none;
 		flex-direction: column;
 		@include adaptiv-font(23, 20);
+		&__lesson {
+			display: flex;
+			flex-direction: column;
+		}
 		&.current {
 			background: rgba(255, 0, 0, 0.2);
 			border-bottom: 2px solid $accent-color;
@@ -446,7 +455,6 @@ body {
 			}
 		}
 		&.next {
-			display: flex;
 			background: rgba(255, 153, 0, 0.2);
 		}
 	}
@@ -461,7 +469,7 @@ body {
 		border-bottom: 1px solid $accent-color;
 	}
 
-	&__lesson {
+	&__body {
 		// background: white;
 		display: flex;
 		font-style: italic;
