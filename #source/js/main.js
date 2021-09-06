@@ -6,3 +6,4 @@
 // @prepros-append "lectionsPractice.js"
 // @prepros-append "now.js"
 // @prepros-append "titleChanger.js"
+// @prepros-append "darkMode.js"
