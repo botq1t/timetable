@@ -97,6 +97,14 @@ h1, h2, h3, h4, h5, h6 {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-cake:before {
+  content: "";
+}
+
+.icon-bokal:before {
+  content: "";
+}
+
 .icon-bells:before {
   content: "";
 }
@@ -165,6 +173,15 @@ body {
           align-items: center;
 }
 .header__title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 100%;
   text-align: center;
   color: #0b08db;
@@ -435,8 +452,8 @@ body {
 .lesson {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 45px 1fr 30px 40px 103px;
-      grid-template: 1fr/45px 1fr 30px 40px 103px;
+  -ms-grid-columns: 45px 1fr 30px 40px 110px;
+      grid-template: 1fr/45px 1fr 30px 40px 110px;
       grid-template-areas: "time out out out out";
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -542,6 +559,28 @@ body {
       -ms-flex-align: baseline;
           align-items: baseline;
 }
+.now__gone {
+  display: none;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  font-size: calc(20px + 3 * ((100vw - 320px) / 704));
+  font-weight: 700;
+  padding: 5px;
+}
+.now__gone span {
+  margin: 0 5px;
+}
+.now__item {
+  border-bottom: 1px solid #0b08db;
+}
+.now__item:last-child {
+  border-bottom: none;
+}
 .now__card {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 290px;
@@ -570,30 +609,35 @@ body {
   font-weight: 700;
   text-shadow: 0 0 3px black;
   padding: 10px 0;
-  border-bottom: 1px solid #0b08db;
+  border-bottom: 2px solid #0b08db;
   background: #0b08db;
   color: white;
 }
 .now__content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  font-size: calc(20px + 3 * ((100vw - 320px) / 704));
 }
-.now__content p {
-  font-size: 20px;
-  text-align: center;
-  padding: 23px;
+.now__content.current {
+  background: rgba(255, 0, 0, 0.2);
+  border-bottom: 2px solid #0b08db;
+}
+.now__content.current.noNext {
+  border-bottom: 0px solid #0b08db;
+}
+.now__content.next {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: rgba(255, 153, 0, 0.2);
 }
 .now__auditory {
   color: black;
   text-align: center;
   font-weight: 700;
-  letter-spacing: 3px;
-  font-size: calc(22px + 5 * ((100vw - 320px) / 704));
   padding: 5px;
   border-bottom: 1px solid #0b08db;
 }
@@ -605,7 +649,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: calc(20px + 4 * ((100vw - 320px) / 704));
+  overflow-x: auto;
+}
+.now__lesson.hidden {
+  border-bottom: none;
 }
 .now__name {
   cursor: help;
@@ -621,6 +668,18 @@ body {
       -ms-flex: 0 0 20%;
           flex: 0 0 20%;
   text-align: center;
+  padding: 5px;
+}
+.now__countdown {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+  padding: 5px;
 }
 
 .footer {
