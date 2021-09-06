@@ -85,7 +85,7 @@ function nowCreateLessons(group) {
 		temp.append(`<div class="now__lesson now__lesson_${i}"></div>`);
 		temp = temp.children().last();
 		temp.append(`
-			<div class="now__auditory now__item">${i} Сейчас (${nowLesson[group]['now'][i]['auditory']})</div>
+			<div class="now__auditory now__item">Сейчас (${nowLesson[group]['now'][i]['auditory']})</div>
 			<div class="now__body now__item">
 				<div class="now__name">${nowLesson[group]['now'][i]['name']}</div>
 				<div class="now__type">${nowLesson[group]['now'][i]['type']}</div>
@@ -105,7 +105,7 @@ function nowCreateLessons(group) {
 		temp.append(`<div class="now__lesson now__lesson_${i}"></div>`);
 		temp = temp.children().last();
 		temp.append(`
-			<div class="now__auditory now__item">${i} Следующая (${nowLesson[group]['next'][i]['auditory']})</div>
+			<div class="now__auditory now__item">Следующая (${nowLesson[group]['next'][i]['auditory']})</div>
 			<div class="now__body now__item">
 				<div class="now__name">${nowLesson[group]['next'][i]['name']}</div>
 				<div class="now__type">${nowLesson[group]['next'][i]['type']}</div>
