@@ -19,10 +19,12 @@ let titleChangerArray = [
 	'Ты что игнорируешь? Занятия никто не отменял',
 ]
 let birthFlag = false;
+/*
 let titleChangerHappyBirthday = {
 	'date': ['24.9', '14.10', '3.0'],
 	'name': ['Грузик', 'Корнеслав', 'Медвежонок'],
 }
+
 
 function titleBirthCheker() {
 	var titleDate = `${date.getDate().toString()}.${date.getMonth().toString()}`;
@@ -36,6 +38,34 @@ function titleBirthCheker() {
 	if (birthFlag) {
 		clearInterval(titleChanger);
 		$('.header__title').html(`<span class="icon-cake"></span><p>С Днём Рождения, ${titleChangerHappyBirthday['name'][titleIndex]}!</p><span class="icon-cake"></span>`);
+	} else {
+		setInterval(titleChanger, 5000);
+	}
+}
+
+*/
+
+let titleChangerHappyBirthday = {
+	'24.9': 'Грузик',
+	'14.10': 'Корнеславик',
+	'3.0': 'Медвежонок',
+	'3.0': 'Медвежонок',
+	'13.8': 'Настя Куш',
+	'25.8': 'Маша',
+}
+
+
+function titleBirthCheker() {
+	let titleDate = `${date.getDate().toString()}.${date.getMonth().toString()}`;
+	console.log('title string', titleDate);
+
+	if (titleDate in titleChangerHappyBirthday) {
+		birthFlag = true;
+	}
+
+	if (birthFlag) {
+		clearInterval(titleChanger);
+		$('.header__title').html(`<span class="icon-cake"></span><p>С Днём Рождения, ${titleChangerHappyBirthday[titleDate]}!</p><span class="icon-cake"></span>`);
 	} else {
 		setInterval(titleChanger, 5000);
 	}
