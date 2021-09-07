@@ -1487,111 +1487,6 @@ $(document).ready(function () {
 
 });
 */
-$(document).ready(function () {
-	$('.nav__tab').each(function () {
-		if ($(this).hasClass('active')) {
-			var tabIndex = $(this).attr('id');
-			$(`#${tabIndex}-target`).css('display', 'grid');
-			if ($(`#${tabIndex}-target`).hasClass('now')) { $(`#${tabIndex}-target`).css('display', 'flex'); }
-		}
-	})
-
-
-	$('.nav__tab').click(function (event) {
-		if ($(this).hasClass('active') == false) {
-			$('.nav__tab').removeClass('active');
-			$(this).addClass('active');
-			var tabIndex = $(this).attr('id');
-			$('.main__tab').fadeOut(150);
-			$(`#${tabIndex}-target`).delay(160).fadeIn(150, function () {
-				$(this).css('display', 'grid');
-				if ($(`#${tabIndex}-target`).hasClass('now')) { $(`#${tabIndex}-target`).css('display', 'flex'); }
-			});
-		}
-	});
-
-	$('.day__name').click(function (event) {
-		if ($(this).hasClass('slide')) {
-			$(this).next().slideUp(300)
-		} else {
-			$(this).next().slideDown(300, function () {
-				$(this).css('display', 'grid')
-			})
-		}
-		$(this).toggleClass('slide');
-	})
-});
-let lessonName = {
-	'short': ['ФРО на АЯ', 'АИП и ЧФ', 'ПАП при ОВД', 'ПП и ТОВД', 'ЭО', 'ОПВД', 'АП и ПНК', 'МОМАН'],
-	'full': ['Фразеология радиообмена на английском языке', 'Авиационная инженерная психология и человеческий фактор', 'Предотвращение авиационных происшествий при обслуживании воздушного движения', 'Правила, процедуры и технология обслуживания воздушного движения', 'Экономика отрасли', 'Организация потоков воздушного движения', 'Авиационные приборы и пилотажные навигационные комплексы', 'Метеорологическое обеспечение международной аэронавигации']
-};
-
-let teacherName = {
-	'short': ['Лазовский Г.Б., Швайко Е. П.', 'Науменко А.И.', 'Худолей Е.В.', 'Александров О.В.', 'Дубовский А.В.', 'Лазовский Г.Б.', 'Вишневский Р.А.', 'Пилипчук В.С.', 'Барабан И.И.'],
-	'full': ['Лазовский Георгий Борисович, Швайко Елена Петровна', 'Науменко Александр Иванович', 'Худолей Елена Владимировна', 'Александров Олег Валерьевич', 'Дубовский Алексей Викторович', 'Лазовский Георгий Борисович', 'Вишневский Роман Анатольевич', 'Пилипчук Владимир Сергеевич', 'Барабан Иван Иванович']
-}
-
-$(document).ready(function () {
-	/*	console.log($('.ttest').text())
-		if (teacherName['short'][8] == $('.ttest').text()) {
-			console.log('true')
-		} else {
-			console.log('false')
-		}*/
-	function fullTeacherName() {
-		// console.log($(this).text());
-		console.log($(this).text());
-		for (let i = 0; i < teacherName['short'].length; i++) {
-			switch ($(this).text()) {
-				case teacherName['short'][i]:
-					$(this).fadeOut(100, function () {
-						$(this).text(teacherName['full'][i]).fadeIn(100)
-					})
-					break;
-
-				case teacherName['full'][i]:
-					$(this).fadeOut(100, function () {
-						$(this).text(teacherName['short'][i]).fadeIn(100)
-					})
-					break;
-			};
-		};
-	}
-
-	function fullLessonName() {
-		// console.log($(this).text())
-		for (let i = 0; i < lessonName['short'].length; i++) {
-
-			switch ($(this).text()) {
-				case lessonName['short'][i]:
-					$(this).fadeOut(100, function () {
-						$(this).text(lessonName['full'][i]).fadeIn(100)
-					})
-					break;
-
-				case lessonName['full'][i]:
-					$(this).fadeOut(100, function () {
-						$(this).text(lessonName['short'][i]).fadeIn(100)
-					})
-					break;
-			};
-		};
-	}
-
-	$('.lesson__name').click(fullLessonName);
-	$('.now__name').click(fullLessonName);
-
-	$('.lesson__teacher').click(fullTeacherName);
-});
-$(document).ready(function () {
-	$('.lesson__type').each(function () {
-		if ($(this).text() == 'ЛК') {
-			$(this).parent('.lesson').addClass('lesson_lection');
-		} else {
-			$(this).parent('.lesson').addClass('lesson_practice');
-		};
-	});
-});
 let nowLesson = {
 	117: { 'now': [], 'next': [] },
 	217: { 'now': [], 'next': [] },
@@ -1900,6 +1795,192 @@ function nowDisplayItemsUpdate(group) {
 	}
 }
 
+if (localStorage['colorScheme'] === undefined)
+	localStorage['colorScheme'] = 'light';
+
+console.log('color scheme:', localStorage['colorScheme'])
+toggleDarkMode(localStorage['colorScheme']);
+
+$('.footer').click(function () {
+	switch (localStorage['colorScheme']) {
+		case 'light':
+			localStorage['colorScheme'] = 'dark';
+			break;
+		case 'dark':
+			localStorage['colorScheme'] = 'light';
+			break;
+	}
+	console.log('color scheme:', localStorage['colorScheme'])
+	toggleDarkMode(localStorage['colorScheme']);
+});
+
+// ? Functions
+function toggleDarkMode(mode) {
+	switch (mode) {
+		case 'dark':
+			$('.header__body').addClass('dark');
+			$('.header__title').addClass('dark');
+			$('.header__nav').addClass('dark');
+
+			$('.week__today').addClass('dark');
+			$('.week__parity').addClass('dark');
+
+			$('.nav__tab').addClass('dark');
+
+			$('.main').addClass('dark');
+
+			$('.now__gone').addClass('dark');
+			$('.now__title').addClass('dark');
+			$('.now__item').not('.now__title').addClass('dark');
+			$('.now__card').addClass('dark');
+			$('.now__name').addClass('dark');
+			$('.current').addClass('dark');
+			$('.next').addClass('dark');
+
+			$('.footer').addClass('dark');
+			$('.footer__time').addClass('dark');
+
+			$('.day__name').addClass('dark');
+			$('.day').addClass('dark');
+			$('.lesson').addClass('dark');
+			$('.lesson__item').addClass('dark');
+			break;
+		case 'light':
+			$('.header__body').removeClass('dark');
+			$('.header__title').removeClass('dark');
+			$('.header__nav').removeClass('dark');
+
+			$('.week__today').removeClass('dark');
+			$('.week__parity').removeClass('dark');
+
+			$('.nav__tab').removeClass('dark');
+
+			$('.main').removeClass('dark');
+
+			$('.now__gone').removeClass('dark');
+			$('.now__title').removeClass('dark');
+			$('.now__item').not('.now__title').removeClass('dark');
+			$('.now__card').removeClass('dark');
+			$('.now__name').removeClass('dark');
+			$('.current').removeClass('dark');
+			$('.next').removeClass('dark');
+
+			$('.footer').removeClass('dark');
+			$('.footer__time').removeClass('dark');
+
+			$('.day__name').removeClass('dark');
+			$('.day').removeClass('dark');
+			$('.lesson').removeClass('dark');
+			$('.lesson__item').removeClass('dark');
+			break;
+	}
+
+}
+$(document).ready(function () {
+	$('.nav__tab').each(function () {
+		if ($(this).hasClass('active')) {
+			var tabIndex = $(this).attr('id');
+			$(`#${tabIndex}-target`).css('display', 'grid');
+			if ($(`#${tabIndex}-target`).hasClass('now')) { $(`#${tabIndex}-target`).css('display', 'flex'); }
+		}
+	})
+
+
+	$('.nav__tab').click(function (event) {
+		if ($(this).hasClass('active') == false) {
+			$('.nav__tab').removeClass('active');
+			$(this).addClass('active');
+			var tabIndex = $(this).attr('id');
+			$('.main__tab').fadeOut(150);
+			$(`#${tabIndex}-target`).delay(160).fadeIn(150, function () {
+				$(this).css('display', 'grid');
+				if ($(`#${tabIndex}-target`).hasClass('now')) { $(`#${tabIndex}-target`).css('display', 'flex'); }
+			});
+		}
+	});
+
+	$('.day__name').click(function (event) {
+		if ($(this).hasClass('slide')) {
+			$(this).next().slideUp(300)
+		} else {
+			$(this).next().slideDown(300, function () {
+				$(this).css('display', 'grid')
+			})
+		}
+		$(this).toggleClass('slide');
+	})
+});
+let lessonName = {
+	'short': ['ФРО на АЯ', 'АИП и ЧФ', 'ПАП при ОВД', 'ПП и ТОВД', 'ЭО', 'ОПВД', 'АП и ПНК', 'МОМАН'],
+	'full': ['Фразеология радиообмена на английском языке', 'Авиационная инженерная психология и человеческий фактор', 'Предотвращение авиационных происшествий при обслуживании воздушного движения', 'Правила, процедуры и технология обслуживания воздушного движения', 'Экономика отрасли', 'Организация потоков воздушного движения', 'Авиационные приборы и пилотажные навигационные комплексы', 'Метеорологическое обеспечение международной аэронавигации']
+};
+
+let teacherName = {
+	'short': ['Лазовский Г.Б., Швайко Е. П.', 'Науменко А.И.', 'Худолей Е.В.', 'Александров О.В.', 'Дубовский А.В.', 'Лазовский Г.Б.', 'Вишневский Р.А.', 'Пилипчук В.С.', 'Барабан И.И.'],
+	'full': ['Лазовский Георгий Борисович, Швайко Елена Петровна', 'Науменко Александр Иванович', 'Худолей Елена Владимировна', 'Александров Олег Валерьевич', 'Дубовский Алексей Викторович', 'Лазовский Георгий Борисович', 'Вишневский Роман Анатольевич', 'Пилипчук Владимир Сергеевич', 'Барабан Иван Иванович']
+}
+
+$(document).ready(function () {
+	/*	console.log($('.ttest').text())
+		if (teacherName['short'][8] == $('.ttest').text()) {
+			console.log('true')
+		} else {
+			console.log('false')
+		}*/
+	function fullTeacherName() {
+		// console.log($(this).text());
+		console.log($(this).text());
+		for (let i = 0; i < teacherName['short'].length; i++) {
+			switch ($(this).text()) {
+				case teacherName['short'][i]:
+					$(this).fadeOut(100, function () {
+						$(this).text(teacherName['full'][i]).fadeIn(100)
+					})
+					break;
+
+				case teacherName['full'][i]:
+					$(this).fadeOut(100, function () {
+						$(this).text(teacherName['short'][i]).fadeIn(100)
+					})
+					break;
+			};
+		};
+	}
+
+	function fullLessonName() {
+		// console.log($(this).text())
+		for (let i = 0; i < lessonName['short'].length; i++) {
+
+			switch ($(this).text()) {
+				case lessonName['short'][i]:
+					$(this).fadeOut(100, function () {
+						$(this).text(lessonName['full'][i]).fadeIn(100)
+					})
+					break;
+
+				case lessonName['full'][i]:
+					$(this).fadeOut(100, function () {
+						$(this).text(lessonName['short'][i]).fadeIn(100)
+					})
+					break;
+			};
+		};
+	}
+
+	$('.lesson__name').click(fullLessonName);
+	$('.now__name').click(fullLessonName);
+
+	$('.lesson__teacher').click(fullTeacherName);
+});
+$(document).ready(function () {
+	$('.lesson__type').each(function () {
+		if ($(this).text() == 'ЛК') {
+			$(this).parent('.lesson').addClass('lesson_lection');
+		} else {
+			$(this).parent('.lesson').addClass('lesson_practice');
+		};
+	});
+});
 let titleChangerArray = [
 	'Хочу передать привет Сивцу P.S. Сашка Бурбик',
 	'Коренислав, где Бурбислав?',
@@ -1986,84 +2067,3 @@ function titleChanger() {
 
 // titleChanger();
 // setInterval(titleChanger, 5000);
-if (localStorage['colorScheme'] === undefined)
-	localStorage['colorScheme'] = 'light';
-
-console.log('color scheme:', localStorage['colorScheme'])
-toggleDarkMode(localStorage['colorScheme']);
-
-$('.footer').click(function () {
-	switch (localStorage['colorScheme']) {
-		case 'light':
-			localStorage['colorScheme'] = 'dark';
-			break;
-		case 'dark':
-			localStorage['colorScheme'] = 'light';
-			break;
-	}
-	console.log('color scheme:', localStorage['colorScheme'])
-	toggleDarkMode(localStorage['colorScheme']);
-});
-
-// ? Functions
-function toggleDarkMode(mode) {
-	switch (mode) {
-		case 'dark':
-			$('.header__body').addClass('dark');
-			$('.header__title').addClass('dark');
-			$('.header__nav').addClass('dark');
-
-			$('.week__today').addClass('dark');
-			$('.week__parity').addClass('dark');
-
-			$('.nav__tab').addClass('dark');
-
-			$('.main').addClass('dark');
-
-			$('.now__gone').addClass('dark');
-			$('.now__title').addClass('dark');
-			$('.now__item').not('.now__title').addClass('dark');
-			$('.now__card').addClass('dark');
-			$('.now__name').addClass('dark');
-			$('.current').addClass('dark');
-			$('.next').addClass('dark');
-
-			$('.footer').addClass('dark');
-			$('.footer__time').addClass('dark');
-
-			$('.day__name').addClass('dark');
-			$('.day').addClass('dark');
-			$('.lesson').addClass('dark');
-			$('.lesson__item').addClass('dark');
-			break;
-		case 'light':
-			$('.header__body').removeClass('dark');
-			$('.header__title').removeClass('dark');
-			$('.header__nav').removeClass('dark');
-
-			$('.week__today').removeClass('dark');
-			$('.week__parity').removeClass('dark');
-
-			$('.nav__tab').removeClass('dark');
-
-			$('.main').removeClass('dark');
-
-			$('.now__gone').removeClass('dark');
-			$('.now__title').removeClass('dark');
-			$('.now__item').not('.now__title').removeClass('dark');
-			$('.now__card').removeClass('dark');
-			$('.now__name').removeClass('dark');
-			$('.current').removeClass('dark');
-			$('.next').removeClass('dark');
-
-			$('.footer').removeClass('dark');
-			$('.footer__time').removeClass('dark');
-
-			$('.day__name').removeClass('dark');
-			$('.day').removeClass('dark');
-			$('.lesson').removeClass('dark');
-			$('.lesson__item').removeClass('dark');
-			break;
-	}
-
-}
