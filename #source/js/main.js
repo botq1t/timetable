@@ -1,4 +1,3 @@
-$('body').css('display', 'none');
 // @prepros-append "date.js"
 // @prepros-append "schedule.js"
 // @prepros-append "lessonTime.js"
@@ -8,4 +7,3 @@ $('body').css('display', 'none');
 // @prepros-append "fullLessonName.js"
 // @prepros-append "lectionsPractice.js"
 // @prepros-append "titleChanger.js"
-$('body').css('display', 'block');
