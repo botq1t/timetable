@@ -160,25 +160,25 @@ function nowUpdate() {
 
 	if (lessons[117][dayIndex]['lessons']) {
 		nowTimeUpdate(117);
-		toggleDarkMode(localStorage['colorScheme']);
+		setColorScheme(settings['colorScheme']);
 	}
 
 	if (lessons[217][dayIndex]['lessons']) {
 		nowTimeUpdate(217);
-		toggleDarkMode(localStorage['colorScheme']);
+		setColorScheme(settings['colorScheme']);
 	}
 
 	if (timeInSeconds >= 0 && timeInSeconds <= 3) {
 		nowDisplayItemsUpdate(117);
 		nowDisplayItemsUpdate(217);
-		toggleDarkMode(localStorage['colorScheme']);
+		setColorScheme(settings['colorScheme']);
 	}
 
 	for (let i = 1; i <= 4; i++) {
 		if ((timeInSeconds >= lessonTimeSeconds[i]['begin'] - 2) && (timeInSeconds <= lessonTimeSeconds[i]['end'] + 2)) {
 			nowDisplayItemsUpdate(117);
 			nowDisplayItemsUpdate(217);
-			toggleDarkMode(localStorage['colorScheme']);
+			setColorScheme(settings['colorScheme']);
 		}
 	}
 

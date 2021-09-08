@@ -1,81 +1,79 @@
-if (localStorage['colorScheme'] === undefined)
-	localStorage['colorScheme'] = 'light';
-
-console.log('color scheme:', localStorage['colorScheme'])
-toggleDarkMode(localStorage['colorScheme']);
-
+console.log('color scheme:', settings['colorScheme']);
+let colorSchemeArray = ['light', 'dark'];
+console.log(colorSchemeArray);
+setColorScheme(settings['colorScheme']);
 $('.footer').click(function () {
-	switch (localStorage['colorScheme']) {
+	switch (settings['colorScheme']) {
 		case 'light':
-			localStorage['colorScheme'] = 'dark';
+			settings['colorScheme'] = 'dark';
+			localStorage['settings'] = JSON.stringify(settings);
 			break;
 		case 'dark':
-			localStorage['colorScheme'] = 'light';
+			settings['colorScheme'] = 'light';
+			localStorage['settings'] = JSON.stringify(settings);
 			break;
 	}
-	console.log('color scheme:', localStorage['colorScheme'])
-	toggleDarkMode(localStorage['colorScheme']);
+	console.log('color scheme:', settings['colorScheme'])
+	setColorScheme(settings['colorScheme']);
 });
 
 // ? Functions
-function toggleDarkMode(mode) {
-	switch (mode) {
-		case 'dark':
-			$('.header__body').addClass('dark');
-			$('.header__title').addClass('dark');
-			$('.header__nav').addClass('dark');
+function setColorScheme(mode) {
+	for (let i = 0; i < colorSchemeArray.length; i++) {
+		$('.header__body').removeClass(colorSchemeArray[i]);
+		$('.header__title').removeClass(colorSchemeArray[i]);
+		$('.header__nav').removeClass(colorSchemeArray[i]);
 
-			$('.week__today').addClass('dark');
-			$('.week__parity').addClass('dark');
+		$('.week__today').removeClass(colorSchemeArray[i]);
+		$('.week__parity').removeClass(colorSchemeArray[i]);
 
-			$('.nav__tab').addClass('dark');
+		$('.nav__tab').removeClass(colorSchemeArray[i]);
+		$('.nav__settings').removeClass(colorSchemeArray[i]);
 
-			$('.main').addClass('dark');
+		$('.main').removeClass(colorSchemeArray[i]);
 
-			$('.now__gone').addClass('dark');
-			$('.now__title').addClass('dark');
-			$('.now__item').not('.now__title').addClass('dark');
-			$('.now__card').addClass('dark');
-			$('.now__name').addClass('dark');
-			$('.current').addClass('dark');
-			$('.next').addClass('dark');
+		$('.now__gone').removeClass(colorSchemeArray[i]);
+		$('.now__title').removeClass(colorSchemeArray[i]);
+		$('.now__item').not('.now__title').removeClass(colorSchemeArray[i]);
+		$('.now__card').removeClass(colorSchemeArray[i]);
+		$('.now__name').removeClass(colorSchemeArray[i]);
+		$('.current').removeClass(colorSchemeArray[i]);
+		$('.next').removeClass(colorSchemeArray[i]);
 
-			$('.footer').addClass('dark');
-			$('.footer__time').addClass('dark');
+		$('.footer').removeClass(colorSchemeArray[i]);
+		$('.footer__time').removeClass(colorSchemeArray[i]);
 
-			$('.day__name').addClass('dark');
-			$('.day').addClass('dark');
-			$('.lesson').addClass('dark');
-			$('.lesson__item').addClass('dark');
-			break;
-		case 'light':
-			$('.header__body').removeClass('dark');
-			$('.header__title').removeClass('dark');
-			$('.header__nav').removeClass('dark');
-
-			$('.week__today').removeClass('dark');
-			$('.week__parity').removeClass('dark');
-
-			$('.nav__tab').removeClass('dark');
-
-			$('.main').removeClass('dark');
-
-			$('.now__gone').removeClass('dark');
-			$('.now__title').removeClass('dark');
-			$('.now__item').not('.now__title').removeClass('dark');
-			$('.now__card').removeClass('dark');
-			$('.now__name').removeClass('dark');
-			$('.current').removeClass('dark');
-			$('.next').removeClass('dark');
-
-			$('.footer').removeClass('dark');
-			$('.footer__time').removeClass('dark');
-
-			$('.day__name').removeClass('dark');
-			$('.day').removeClass('dark');
-			$('.lesson').removeClass('dark');
-			$('.lesson__item').removeClass('dark');
-			break;
+		$('.day__name').removeClass(colorSchemeArray[i]);
+		$('.day').removeClass(colorSchemeArray[i]);
+		$('.lesson').removeClass(colorSchemeArray[i]);
+		$('.lesson__item').removeClass(colorSchemeArray[i]);
 	}
+	$('.header__body').addClass(mode);
+	$('.header__title').addClass(mode);
+	$('.header__nav').addClass(mode);
 
+	$('.week__today').addClass(mode);
+	$('.week__parity').addClass(mode);
+
+	$('.nav__tab').addClass(mode);
+	$('.nav__settings').addClass(mode);
+
+	$('.main').addClass(mode);
+
+	$('.now__gone').addClass(mode);
+	$('.now__title').addClass(mode);
+	$('.now__item').not('.now__title').addClass(mode);
+	$('.now__card').addClass(mode);
+	$('.now__name').addClass(mode);
+	$('.current').addClass(mode);
+	$('.next').addClass(mode);
+
+	$('.footer').addClass(mode);
+	$('.footer__time').addClass(mode);
+
+	$('.day__name').addClass(mode);
+	$('.day').addClass(mode);
+	$('.lesson').addClass(mode);
+	$('.lesson__item').addClass(mode);
 }
+

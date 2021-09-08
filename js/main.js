@@ -1,3 +1,21 @@
+if (localStorage['colorScheme']) {
+	localStorage.clear();
+}
+
+let settings, defaultSettings = {
+	'colorScheme': 'light',
+	'defaultGroup': undefined,
+};
+
+localStorage['settings'] = localStorage['settings'] ?? JSON.stringify(defaultSettings);
+settings = JSON.parse(localStorage['settings']);
+console.log('Settings', settings);
+
+/*if (!settings['defaultGroup']) {
+	settings['defaultGroup'] = prompt('Группа по умолчанию?', [117]);
+	localStorage['settings'] = JSON.stringify(settings);
+
+}*/
 
 const monthName = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'илюя', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 const dayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];		//? Название дней недели
@@ -1486,6 +1504,86 @@ $(document).ready(function () {
 
 });
 */
+console.log('color scheme:', settings['colorScheme']);
+let colorSchemeArray = ['light', 'dark'];
+console.log(colorSchemeArray);
+setColorScheme(settings['colorScheme']);
+$('.footer').click(function () {
+	switch (settings['colorScheme']) {
+		case 'light':
+			settings['colorScheme'] = 'dark';
+			localStorage['settings'] = JSON.stringify(settings);
+			break;
+		case 'dark':
+			settings['colorScheme'] = 'light';
+			localStorage['settings'] = JSON.stringify(settings);
+			break;
+	}
+	console.log('color scheme:', settings['colorScheme'])
+	setColorScheme(settings['colorScheme']);
+});
+
+// ? Functions
+function setColorScheme(mode) {
+	for (let i = 0; i < colorSchemeArray.length; i++) {
+		$('.header__body').removeClass(colorSchemeArray[i]);
+		$('.header__title').removeClass(colorSchemeArray[i]);
+		$('.header__nav').removeClass(colorSchemeArray[i]);
+
+		$('.week__today').removeClass(colorSchemeArray[i]);
+		$('.week__parity').removeClass(colorSchemeArray[i]);
+
+		$('.nav__tab').removeClass(colorSchemeArray[i]);
+		$('.nav__settings').removeClass(colorSchemeArray[i]);
+
+		$('.main').removeClass(colorSchemeArray[i]);
+
+		$('.now__gone').removeClass(colorSchemeArray[i]);
+		$('.now__title').removeClass(colorSchemeArray[i]);
+		$('.now__item').not('.now__title').removeClass(colorSchemeArray[i]);
+		$('.now__card').removeClass(colorSchemeArray[i]);
+		$('.now__name').removeClass(colorSchemeArray[i]);
+		$('.current').removeClass(colorSchemeArray[i]);
+		$('.next').removeClass(colorSchemeArray[i]);
+
+		$('.footer').removeClass(colorSchemeArray[i]);
+		$('.footer__time').removeClass(colorSchemeArray[i]);
+
+		$('.day__name').removeClass(colorSchemeArray[i]);
+		$('.day').removeClass(colorSchemeArray[i]);
+		$('.lesson').removeClass(colorSchemeArray[i]);
+		$('.lesson__item').removeClass(colorSchemeArray[i]);
+	}
+	$('.header__body').addClass(mode);
+	$('.header__title').addClass(mode);
+	$('.header__nav').addClass(mode);
+
+	$('.week__today').addClass(mode);
+	$('.week__parity').addClass(mode);
+
+	$('.nav__tab').addClass(mode);
+	$('.nav__settings').addClass(mode);
+
+	$('.main').addClass(mode);
+
+	$('.now__gone').addClass(mode);
+	$('.now__title').addClass(mode);
+	$('.now__item').not('.now__title').addClass(mode);
+	$('.now__card').addClass(mode);
+	$('.now__name').addClass(mode);
+	$('.current').addClass(mode);
+	$('.next').addClass(mode);
+
+	$('.footer').addClass(mode);
+	$('.footer__time').addClass(mode);
+
+	$('.day__name').addClass(mode);
+	$('.day').addClass(mode);
+	$('.lesson').addClass(mode);
+	$('.lesson__item').addClass(mode);
+}
+
+
 let nowLesson = {
 	117: { 'now': [], 'next': [] },
 	217: { 'now': [], 'next': [] },
@@ -1648,25 +1746,25 @@ function nowUpdate() {
 
 	if (lessons[117][dayIndex]['lessons']) {
 		nowTimeUpdate(117);
-		toggleDarkMode(localStorage['colorScheme']);
+		setColorScheme(settings['colorScheme']);
 	}
 
 	if (lessons[217][dayIndex]['lessons']) {
 		nowTimeUpdate(217);
-		toggleDarkMode(localStorage['colorScheme']);
+		setColorScheme(settings['colorScheme']);
 	}
 
 	if (timeInSeconds >= 0 && timeInSeconds <= 3) {
 		nowDisplayItemsUpdate(117);
 		nowDisplayItemsUpdate(217);
-		toggleDarkMode(localStorage['colorScheme']);
+		setColorScheme(settings['colorScheme']);
 	}
 
 	for (let i = 1; i <= 4; i++) {
 		if ((timeInSeconds >= lessonTimeSeconds[i]['begin'] - 2) && (timeInSeconds <= lessonTimeSeconds[i]['end'] + 2)) {
 			nowDisplayItemsUpdate(117);
 			nowDisplayItemsUpdate(217);
-			toggleDarkMode(localStorage['colorScheme']);
+			setColorScheme(settings['colorScheme']);
 		}
 	}
 
@@ -1800,88 +1898,7 @@ function nowDisplayItemsUpdate(group) {
 	}
 }
 
-if (localStorage['colorScheme'] === undefined)
-	localStorage['colorScheme'] = 'light';
-
-console.log('color scheme:', localStorage['colorScheme'])
-toggleDarkMode(localStorage['colorScheme']);
-
-$('.footer').click(function () {
-	switch (localStorage['colorScheme']) {
-		case 'light':
-			localStorage['colorScheme'] = 'dark';
-			break;
-		case 'dark':
-			localStorage['colorScheme'] = 'light';
-			break;
-	}
-	console.log('color scheme:', localStorage['colorScheme'])
-	toggleDarkMode(localStorage['colorScheme']);
-});
-
-// ? Functions
-function toggleDarkMode(mode) {
-	switch (mode) {
-		case 'dark':
-			$('.header__body').addClass('dark');
-			$('.header__title').addClass('dark');
-			$('.header__nav').addClass('dark');
-
-			$('.week__today').addClass('dark');
-			$('.week__parity').addClass('dark');
-
-			$('.nav__tab').addClass('dark');
-
-			$('.main').addClass('dark');
-
-			$('.now__gone').addClass('dark');
-			$('.now__title').addClass('dark');
-			$('.now__item').not('.now__title').addClass('dark');
-			$('.now__card').addClass('dark');
-			$('.now__name').addClass('dark');
-			$('.current').addClass('dark');
-			$('.next').addClass('dark');
-
-			$('.footer').addClass('dark');
-			$('.footer__time').addClass('dark');
-
-			$('.day__name').addClass('dark');
-			$('.day').addClass('dark');
-			$('.lesson').addClass('dark');
-			$('.lesson__item').addClass('dark');
-			break;
-		case 'light':
-			$('.header__body').removeClass('dark');
-			$('.header__title').removeClass('dark');
-			$('.header__nav').removeClass('dark');
-
-			$('.week__today').removeClass('dark');
-			$('.week__parity').removeClass('dark');
-
-			$('.nav__tab').removeClass('dark');
-
-			$('.main').removeClass('dark');
-
-			$('.now__gone').removeClass('dark');
-			$('.now__title').removeClass('dark');
-			$('.now__item').not('.now__title').removeClass('dark');
-			$('.now__card').removeClass('dark');
-			$('.now__name').removeClass('dark');
-			$('.current').removeClass('dark');
-			$('.next').removeClass('dark');
-
-			$('.footer').removeClass('dark');
-			$('.footer__time').removeClass('dark');
-
-			$('.day__name').removeClass('dark');
-			$('.day').removeClass('dark');
-			$('.lesson').removeClass('dark');
-			$('.lesson__item').removeClass('dark');
-			break;
-	}
-
-}
-$(document).ready(function () {
+/*$(document).ready(function () {
 	$('.nav__tab').each(function () {
 		if ($(this).hasClass('active')) {
 			var tabIndex = $(this).attr('id');
@@ -1889,6 +1906,7 @@ $(document).ready(function () {
 			if ($(`#${tabIndex}-target`).hasClass('now')) { $(`#${tabIndex}-target`).css('display', 'flex'); }
 		}
 	})
+
 
 
 	$('.nav__tab').click(function (event) {
@@ -1914,7 +1932,41 @@ $(document).ready(function () {
 		}
 		$(this).toggleClass('slide');
 	})
+});*/
+// ! ================ Переключение вкладок ============================
+$('.nav__tab').each(function () {
+	if ($(this).hasClass('active')) {
+		let tabIndex = $(this).attr('id');
+		$(`#${tabIndex}-target`).css('display', 'flex');
+	}
 });
+
+$('.nav__tab').click(function () {
+	if (!$(this).hasClass('active')) {
+		let tabIndex = $(this).attr('id');
+		$('.nav__tab').removeClass('active');
+		$(this).addClass('active');
+		$('.main__tab').fadeOut(150);
+		$(`#${tabIndex}-target`).delay(160).fadeIn(150, function () {
+			$(this).css('display', 'flex');
+		});
+	}
+});
+
+// ! ================ Раскрытие списка дня ============================
+$('.day__name').click(function () {
+	if ($(this).hasClass('slide')) {
+		$(this).next().slideUp(300)
+	} else {
+		$(this).next().slideDown(300, function () {
+			$(this).css('display', 'grid')
+		})
+	}
+	$(this).toggleClass('slide');
+})
+
+// ! ================= Прилипающая навигация ==============================
+
 let lessonName = {
 	'short': ['ФРО на АЯ', 'АИП и ЧФ', 'ПАП при ОВД', 'ПП и ТОВД', 'ЭО', 'ОПВД', 'АП и ПНК', 'МОМАН'],
 	'full': ['Фразеология радиообмена на английском языке', 'Авиационная инженерная психология и человеческий фактор', 'Предотвращение авиационных происшествий при обслуживании воздушного движения', 'Правила, процедуры и технология обслуживания воздушного движения', 'Экономика отрасли', 'Организация потоков воздушного движения', 'Авиационные приборы и пилотажные навигационные комплексы', 'Метеорологическое обеспечение международной аэронавигации']
@@ -2005,6 +2057,8 @@ let titleChangerArray = [
 	'Напрягают алкоголики',
 	'Замечательное место',
 	'Ты что игнорируешь? Занятия никто не отменял',
+	'Та ти, ти ти та ти. Или просто ти ти та',
+	'Пугачёва умерла',
 ]
 let birthFlag = false;
 /*
