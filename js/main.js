@@ -7,7 +7,10 @@ let settings, defaultSettings = {
 	'defaultGroup': undefined,
 };
 
-localStorage['settings'] = localStorage['settings'] ?? JSON.stringify(defaultSettings);
+if (!localStorage['settings']) {
+	localStorage['settings'] = JSON.stringify(defaultSettings);
+}
+// localStorage['settings'] = localStorage['settings'] ?? JSON.stringify(defaultSettings);
 settings = JSON.parse(localStorage['settings']);
 console.log('Settings', settings);
 
