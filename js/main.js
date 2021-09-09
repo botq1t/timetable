@@ -1908,7 +1908,6 @@ function nowDisplayItemsUpdate(group) {
 	})
 
 
-
 	$('.nav__tab').click(function (event) {
 		if ($(this).hasClass('active') == false) {
 			$('.nav__tab').removeClass('active');
