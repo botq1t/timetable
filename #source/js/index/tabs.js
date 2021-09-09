@@ -1,4 +1,4 @@
-$(document).ready(function () {
+/*$(document).ready(function () {
 	$('.nav__tab').each(function () {
 		if ($(this).hasClass('active')) {
 			var tabIndex = $(this).attr('id');
@@ -6,7 +6,6 @@ $(document).ready(function () {
 			if ($(`#${tabIndex}-target`).hasClass('now')) { $(`#${tabIndex}-target`).css('display', 'flex'); }
 		}
 	})
-
 
 
 	$('.nav__tab').click(function (event) {
@@ -32,9 +31,9 @@ $(document).ready(function () {
 		}
 		$(this).toggleClass('slide');
 	})
-});
+});*/
 // ! ================ Переключение вкладок ============================
-/*$('.nav__tab').each(function () {
+$('.nav__tab').each(function () {
 	if ($(this).hasClass('active')) {
 		let tabIndex = $(this).attr('id');
 		$(`#${tabIndex}-target`).css('display', 'flex');
@@ -66,4 +65,3 @@ $('.day__name').click(function () {
 })
 
 // ! ================= Прилипающая навигация ==============================
-*/
