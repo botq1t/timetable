@@ -26,6 +26,7 @@ function setColorScheme(mode) {
 
 		$('.week__today').removeClass(colorSchemeArray[i]);
 		$('.week__parity').removeClass(colorSchemeArray[i]);
+		$('.week__update').removeClass(colorSchemeArray[i]);
 
 		$('.nav__tab').removeClass(colorSchemeArray[i]);
 		$('.nav__settings').removeClass(colorSchemeArray[i]);
@@ -54,6 +55,7 @@ function setColorScheme(mode) {
 
 	$('.week__today').addClass(mode);
 	$('.week__parity').addClass(mode);
+	$('.week__update').addClass(mode);
 
 	$('.nav__tab').addClass(mode);
 	$('.nav__settings').addClass(mode);

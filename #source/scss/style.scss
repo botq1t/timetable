@@ -134,6 +134,11 @@ body {
 			transition: all 500ms ease 0s;
 		}
 	}
+
+	&__update {
+		font-size: 15px;
+		font-style: italic;
+	}
 }
 .nav {
 	&__settings {
@@ -524,7 +529,7 @@ body {
 	}
 }
 
-// ================= Footer ========================
+// ! ================= Footer ========================
 .footer {
 	background: $accentColor;
 	&__body {
@@ -532,6 +537,7 @@ body {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		padding: 10px 0;
 	}
 	&__time {
 		display: flex;
@@ -540,7 +546,6 @@ body {
 		text-align: center;
 		@include adaptiv-font(26, 17);
 		// font-size: 20px;
-		padding: 10px 0;
 		color: white;
 		font-weight: 700;
 		font-style: italic;
@@ -589,6 +594,9 @@ body {
 			&.odd {
 				background-color: $oddColorDark;
 			}
+		}
+		&__update {
+			color: white;
 		}
 	}
 

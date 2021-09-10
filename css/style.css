@@ -293,6 +293,10 @@ body {
   -webkit-transition: all 500ms ease 0s;
   transition: all 500ms ease 0s;
 }
+.week__update {
+  font-size: 15px;
+  font-style: italic;
+}
 
 .nav {
   width: 100%;
@@ -749,6 +753,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding: 10px 0;
 }
 .footer__time {
   display: -webkit-box;
@@ -762,7 +767,6 @@ body {
           justify-content: center;
   text-align: center;
   font-size: calc(17px + 9 * ((100vw - 320px) / 704));
-  padding: 10px 0;
   color: white;
   font-weight: 700;
   font-style: italic;
@@ -803,6 +807,9 @@ body {
 }
 .dark.week__parity.odd {
   background-color: rgba(217, 85, 250, 0.897);
+}
+.dark.week__update {
+  color: white;
 }
 .dark.nav {
   border-top: 1px solid #cacaca;
