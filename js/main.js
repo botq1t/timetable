@@ -1,6 +1,27 @@
+if (localStorage['colorScheme']) {
+	localStorage.clear();
+}
 
-let monthName = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'илюя', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
-let dayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];		//? Название дней недели
+let settings, defaultSettings = {
+	'colorScheme': 'light',
+	'defaultGroup': undefined,
+};
+
+if (!localStorage['settings']) {
+	localStorage['settings'] = JSON.stringify(defaultSettings);
+}
+// localStorage['settings'] = localStorage['settings'] ?? JSON.stringify(defaultSettings);
+settings = JSON.parse(localStorage['settings']);
+console.log('Settings', settings);
+
+/*if (!settings['defaultGroup']) {
+	settings['defaultGroup'] = prompt('Группа по умолчанию?', [117]);
+	localStorage['settings'] = JSON.stringify(settings);
+
+}*/
+
+const monthName = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'илюя', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+const dayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];		//? Название дней недели
 
 const remainEnd = 1640552400000;		//? Конец семестра в миллисекундах
 const weekCheck = 604800000; 							//? Одна неделя в миллисекундах
@@ -18,16 +39,6 @@ function getDate() {
 getDate();
 setInterval(getDate, 1000);
 
-function testDate(tDate, delay) {
-	var temp = new Date();
-	temp = temp.getTime;
-	date = new Date(temp - tDate);
-
-	dayIndex = date.getDay();
-	timeInSeconds = (date.getHours() * 3600) + (date.getMinutes() * 60) + (date.getSeconds());
-}
-// testDate(1630636252000, 5);
-// setInterval(testDate, 1000);
 console.log('Дата:', date);
 console.log('Номер дня:', dayIndex);
 console.log('Время в секундах:', timeInSeconds);
@@ -73,7 +84,7 @@ function getRemain() {
 	let remainTimeString = getTimeString(remainHMS['hours'], remainHMS['minutes'], remainHMS['seconds']);
 	let remain = `${remainDays} дней, ${remainTimeString}`
 
-	$('.footer__time').text(`До сессии осталось ${remain}`)
+	$('.footer__time').text(`До сессии: ${remain}`)
 }
 // * ===========================================
 // ! Выделение текущего дня недели
@@ -95,7 +106,7 @@ console.log('Номер текущей недели:', weekIndex);
 // ! Чётности недели
 function setWeekParity() {
 	if (weekIndex % 2 == 0) {
-		$('.week__even-odd').removeClass('odd').addClass('even').text('Чётная неделя');
+		$('.week__parity').removeClass('odd').addClass('even').text('Чётная неделя');
 		$('.main').removeClass('odd').addClass('even');
 		$('.nav__tab').removeClass('odd').addClass('even');
 
@@ -105,7 +116,7 @@ function setWeekParity() {
 			if ($(this).hasClass('lesson_even') == false) $(this).css('display', 'none');
 		})
 	} else {
-		$('.week__even-odd').removeClass('even').addClass('odd').text('Нечётная неделя');
+		$('.week__parity').removeClass('even').addClass('odd').text('Нечётная неделя');
 		$('.main').removeClass('even').addClass('odd');
 		$('.nav__tab').removeClass('even').addClass('odd');
 
@@ -168,7 +179,7 @@ function getCurrentLessonIndex() {
 			var lessonIndex = i;
 	return lessonIndex;
 }
-function getCurrentLesson() {
+function highlightCurrentLesson() {
 	var lessonIndex = getCurrentLessonIndex();
 	$(`.day_${dayIndex}`).children('.day__timetable').children('.lesson').each(function () { $(this).removeClass('active') })
 	$(`.day_${dayIndex}`).children('.day__timetable').children(`.lesson_${lessonIndex}`).each(function () { $(this).addClass('active') })
@@ -180,7 +191,7 @@ function getCurrentLesson() {
 $(document).ready(function () {
 	// ! Вывод текущей даты и времени
 	function displayDate() {
-		$('.week__date').text(`Сегодня: ${date.getDate()} ${monthName[date.getMonth()]} ${date.getFullYear()} г. (${dayName[dayIndex]}, ${nowWeekIndex}-ая неделя)`);
+		$('.week__date').html(`Сегодня: ${date.getDate()} ${monthName[date.getMonth()]} ${date.getFullYear()} г.<br>(${dayName[dayIndex]}, ${nowWeekIndex}-ая неделя)`);
 		var currentTime = getTimeString(date.getHours(), date.getMinutes(), date.getSeconds());
 		$('.week__time').text(`Время: ${currentTime}`);
 	}
@@ -196,15 +207,15 @@ $(document).ready(function () {
 
 	// ! Вывод и смена чётности недели
 	setWeekParity();
-	$('.week__even-odd').click(setWeekParity);
+	$('.week__parity').click(setWeekParity);
 
 	// ! Расписание следующего дня
 	setNextDay(117, 300);
 	setNextDay(217, 300);
 
 	// ! Выделение текущей пары
-	getCurrentLesson();
-	setInterval(getCurrentLesson, 1000)
+	highlightCurrentLesson();
+	setInterval(highlightCurrentLesson, 1000)
 });
 let lessonsDayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
 
@@ -1498,7 +1509,401 @@ $(document).ready(function () {
 
 });
 */
-$(document).ready(function () {
+console.log('color scheme:', settings['colorScheme']);
+let colorSchemeArray = ['light', 'dark'];
+console.log(colorSchemeArray);
+setColorScheme(settings['colorScheme']);
+$('.footer').click(function () {
+	switch (settings['colorScheme']) {
+		case 'light':
+			settings['colorScheme'] = 'dark';
+			localStorage['settings'] = JSON.stringify(settings);
+			break;
+		case 'dark':
+			settings['colorScheme'] = 'light';
+			localStorage['settings'] = JSON.stringify(settings);
+			break;
+	}
+	console.log('color scheme:', settings['colorScheme'])
+	setColorScheme(settings['colorScheme']);
+});
+
+// ? Functions
+function setColorScheme(mode) {
+	for (let i = 0; i < colorSchemeArray.length; i++) {
+		$('.header__body').removeClass(colorSchemeArray[i]);
+		$('.header__title').removeClass(colorSchemeArray[i]);
+		$('.header__nav').removeClass(colorSchemeArray[i]);
+
+		$('.week__today').removeClass(colorSchemeArray[i]);
+		$('.week__parity').removeClass(colorSchemeArray[i]);
+
+		$('.nav__tab').removeClass(colorSchemeArray[i]);
+		$('.nav__settings').removeClass(colorSchemeArray[i]);
+
+		$('.main').removeClass(colorSchemeArray[i]);
+
+		$('.now__gone').removeClass(colorSchemeArray[i]);
+		$('.now__title').removeClass(colorSchemeArray[i]);
+		$('.now__item').not('.now__title').removeClass(colorSchemeArray[i]);
+		$('.now__card').removeClass(colorSchemeArray[i]);
+		$('.now__name').removeClass(colorSchemeArray[i]);
+		$('.current').removeClass(colorSchemeArray[i]);
+		$('.next').removeClass(colorSchemeArray[i]);
+
+		$('.footer').removeClass(colorSchemeArray[i]);
+		$('.footer__time').removeClass(colorSchemeArray[i]);
+
+		$('.day__name').removeClass(colorSchemeArray[i]);
+		$('.day').removeClass(colorSchemeArray[i]);
+		$('.lesson').removeClass(colorSchemeArray[i]);
+		$('.lesson__item').removeClass(colorSchemeArray[i]);
+	}
+	$('.header__body').addClass(mode);
+	$('.header__title').addClass(mode);
+	$('.header__nav').addClass(mode);
+
+	$('.week__today').addClass(mode);
+	$('.week__parity').addClass(mode);
+
+	$('.nav__tab').addClass(mode);
+	$('.nav__settings').addClass(mode);
+
+	$('.main').addClass(mode);
+
+	$('.now__gone').addClass(mode);
+	$('.now__title').addClass(mode);
+	$('.now__item').not('.now__title').addClass(mode);
+	$('.now__card').addClass(mode);
+	$('.now__name').addClass(mode);
+	$('.current').addClass(mode);
+	$('.next').addClass(mode);
+
+	$('.footer').addClass(mode);
+	$('.footer__time').addClass(mode);
+
+	$('.day__name').addClass(mode);
+	$('.day').addClass(mode);
+	$('.lesson').addClass(mode);
+	$('.lesson__item').addClass(mode);
+}
+
+
+let nowLesson = {
+	117: { 'now': [], 'next': [] },
+	217: { 'now': [], 'next': [] },
+};
+let nowDayIndex = null;
+
+
+
+nowUpdate();
+setInterval(nowUpdate, 1000);
+nowUpdate();
+setInterval(nowUpdate, 1000);
+
+nowDisplayItems(117);
+nowDisplayItems(217);
+// setInterval(nowDisplayItemsUpdate, 1000, 117);
+// setInterval(nowDisplayItemsUpdate, 1000, 217);
+
+// ? Functions
+function nowCreateArray(group) {
+	nowLesson[group] = { 'now': [], 'next': [] };
+	var i = 1;
+	var j = 1;
+	nowLesson[group]['now'].push(null);
+	// ! Now
+	while (lessons[group][dayIndex][i] != undefined) {
+		switch (lessons[group][dayIndex][i]['parity']) {
+			case 'both':
+				nowLesson[group]['now'].push({ 'name': '', 'type': '', 'auditory': '', 'endTime': 0 });
+				nowLesson[group]['now'][j]['name'] = lessons[group][dayIndex][i]['name'];
+				nowLesson[group]['now'][j]['type'] = lessons[group][dayIndex][i]['type'];
+				nowLesson[group]['now'][j]['auditory'] = lessons[group][dayIndex][i]['auditory'];
+				nowLesson[group]['now'][j]['endTime'] = lessonTimeSeconds[j]['end'];
+				j++;
+				break;
+			case 'odd':
+				if (weekIndex % 2 != 0) {
+					nowLesson[group]['now'].push({ 'name': '', 'type': '', 'auditory': '', 'endTime': 0 });
+					nowLesson[group]['now'][j]['name'] = lessons[group][dayIndex][i]['name'];
+					nowLesson[group]['now'][j]['type'] = lessons[group][dayIndex][i]['type'];
+					nowLesson[group]['now'][j]['auditory'] = lessons[group][dayIndex][i]['auditory'];
+					nowLesson[group]['now'][j]['endTime'] = lessonTimeSeconds[j]['end'];
+					j++;
+				}
+				break;
+			case 'even':
+				if (weekIndex % 2 == 0) {
+					nowLesson[group]['now'].push({ 'name': '', 'type': '', 'auditory': '', 'endTime': 0 });
+					nowLesson[group]['now'][j]['name'] = lessons[group][dayIndex][i]['name'];
+					nowLesson[group]['now'][j]['type'] = lessons[group][dayIndex][i]['type'];
+					nowLesson[group]['now'][j]['auditory'] = lessons[group][dayIndex][i]['auditory'];
+					nowLesson[group]['now'][j]['endTime'] = lessonTimeSeconds[j]['end'];
+					j++;
+				}
+				break;
+		}
+
+		i++;
+	}
+	// ! Next
+
+	for (let i = 0; i < (nowLesson[group]['now'].length - 1); i++) {
+		nowLesson[group]['next'].push({ 'name': '', 'type': '', 'auditory': '', 'beginTime': 0 });
+		j = i + 1;
+		while (nowLesson[group]['now'][j]['name'] == 'no') {
+			j++;
+		}
+		nowLesson[group]['next'][i]['name'] = nowLesson[group]['now'][j]['name'];
+		nowLesson[group]['next'][i]['type'] = nowLesson[group]['now'][j]['type'];
+		nowLesson[group]['next'][i]['auditory'] = nowLesson[group]['now'][j]['auditory'];
+		nowLesson[group]['next'][i]['beginTime'] = lessonTimeSeconds[j]['begin'];
+
+
+	}
+}
+
+function nowCreateLessons(group) {
+	let groupTag = `#now-${group}`;
+
+	// ? Текущие пары
+	let temp = $(groupTag).children('.current');
+	temp.empty();
+	for (let i = 1; i < nowLesson[group]['now'].length; i++) {
+		temp = $(groupTag).children('.current');
+		temp.append(`<div class="now__lesson now__lesson_${i}"></div>`);
+		temp = temp.children().last();
+		temp.append(`
+			<div class="now__auditory now__item">Сейчас (${nowLesson[group]['now'][i]['auditory']})</div>
+			<div class="now__body now__item">
+				<div class="now__name">${nowLesson[group]['now'][i]['name']}</div>
+				<div class="now__type">${nowLesson[group]['now'][i]['type']}</div>
+			</div>
+			<div class="now__countdown now__item">End in MM minutes (lil break in MM)</div>
+		`);
+
+		if (nowLesson[group]['now'][i]['name'] == 'no')
+			temp.remove()
+	}
+
+	// ? Следующие пары
+	temp = $(groupTag).children('.next');
+	temp.empty();
+	for (let i = 0; i < nowLesson[group]['next'].length; i++) {
+		temp = $(groupTag).children('.next');
+		temp.append(`<div class="now__lesson now__lesson_${i}"></div>`);
+		temp = temp.children().last();
+		temp.append(`
+			<div class="now__auditory now__item">Следующая (${nowLesson[group]['next'][i]['auditory']})</div>
+			<div class="now__body now__item">
+				<div class="now__name">${nowLesson[group]['next'][i]['name']}</div>
+				<div class="now__type">${nowLesson[group]['next'][i]['type']}</div>
+			</div>
+			<div class="now__countdown now__item">Begin in MM minutes</div>
+		`);
+	}
+}
+
+function nowTimeUpdate(group) {
+	let groupTag = `#now-${group}`;
+	let nowIndex = getCurrentLessonIndex();
+	// ? Now
+	if (nowIndex && nowIndex <= getLessonAmount(group)) {
+		// console.log('nowTimeUpdate');
+		let temp = $(groupTag).children('.current').children(`.now__lesson_${nowIndex}`).children('.now__countdown');
+		let nowCurrentTimeRemain = nowLesson[group]['now'][nowIndex]['endTime'] - timeInSeconds;
+		nowCurrentTimeRemain = getHMS(nowCurrentTimeRemain);
+		nowCurrentTimeRemain = getTimeString(nowCurrentTimeRemain['hours'], nowCurrentTimeRemain['minutes'], nowCurrentTimeRemain['seconds']);
+		temp.html(`До конца пары: ${nowCurrentTimeRemain}`);
+	}
+
+	// ? Next
+	if (nowIndex === undefined)
+		if (timeInSeconds < lessonTimeSeconds[1]['begin'])
+			nowIndex = 0;
+		else
+			nowIndex = getCurrentBreakIndex();
+
+	if (nowIndex != undefined && nowIndex < getLessonAmount(group)) {
+		// console.log('nextTimeUpdate');
+		let temp = $(groupTag).children('.next').children(`.now__lesson_${nowIndex}`).children('.now__countdown');
+		let nowCurrentTimeRemain = nowLesson[group]['next'][nowIndex]['beginTime'] - timeInSeconds;
+		nowCurrentTimeRemain = getHMS(nowCurrentTimeRemain);
+		nowCurrentTimeRemain = getTimeString(nowCurrentTimeRemain['hours'], nowCurrentTimeRemain['minutes'], nowCurrentTimeRemain['seconds']);
+		temp.html(`До начала пары: ${nowCurrentTimeRemain}`);
+	}
+
+}
+
+function nowUpdate() {
+	if (nowDayIndex != dayIndex) {
+		nowDayIndex = dayIndex;
+		console.log('now update');
+		nowCreateArray(117);
+		nowCreateArray(217);
+		nowCreateLessons(117)
+		nowCreateLessons(217)
+		console.log('Сегодняшние пары', nowLesson);
+
+	}
+
+	if (lessons[117][dayIndex]['lessons']) {
+		nowTimeUpdate(117);
+		setColorScheme(settings['colorScheme']);
+	}
+
+	if (lessons[217][dayIndex]['lessons']) {
+		nowTimeUpdate(217);
+		setColorScheme(settings['colorScheme']);
+	}
+
+	if (timeInSeconds >= 0 && timeInSeconds <= 3) {
+		nowDisplayItemsUpdate(117);
+		nowDisplayItemsUpdate(217);
+		setColorScheme(settings['colorScheme']);
+	}
+
+	for (let i = 1; i <= 4; i++) {
+		if ((timeInSeconds >= lessonTimeSeconds[i]['begin'] - 2) && (timeInSeconds <= lessonTimeSeconds[i]['end'] + 2)) {
+			nowDisplayItemsUpdate(117);
+			nowDisplayItemsUpdate(217);
+			setColorScheme(settings['colorScheme']);
+		}
+	}
+
+}
+
+function nowDisplayItems(group) {
+	let groupTag = `#now-${group}`;
+	if (lessons[group][dayIndex]['lessons'] === false) {
+		$(groupTag).children('.now__gone').addClass('active').css('display', 'flex').html(`<span class="icon-bokal"></span>Выходной!<span class="icon-bokal"></span>`);
+	} else {
+		if (timeInSeconds < lessonTimeSeconds[1]['begin']) {
+			$(groupTag).children('.next').addClass('active').css('display', 'flex');
+			$(groupTag).children('.next').children('.now__lesson_0').addClass('active').css('display', 'flex');
+		} else if (timeInSeconds >= lessonTimeSeconds[getLessonAmount(group)]['end']) {
+
+			$(groupTag).children('.now__gone').addClass('active').html(`<span class="icon-happy"></span>На сегодня пары закончились!<span class="icon-happy"></span>`).css('display', 'flex');
+		} else {
+			$(groupTag).children('.now__content').addClass('active').css('display', 'flex');
+
+			// ? Now
+			let nowIndex = getCurrentLessonIndex();
+			if (nowIndex) {
+				$(groupTag).children('.current').children(`.now__lesson_${nowIndex}`).addClass('active').css('display', 'flex');
+			}
+
+			if (nowIndex == getLessonAmount(group))
+				$(groupTag).children(`.current`).addClass('noNext');
+
+			// ? Next
+			if (nowIndex === undefined)
+				nowIndex = getCurrentBreakIndex();
+			if (nowIndex != undefined && nowIndex < getLessonAmount(group)) {
+				$(groupTag).children('.next').children(`.now__lesson_${nowIndex}`).addClass('active').css('display', 'flex');
+			}
+		}
+	}
+}
+
+function nowDisplayItemsUpdate(group) {
+	let groupTag = `#now-${group}`;
+	if (lessons[group][dayIndex]['lessons'] === false) {
+		if ($(groupTag).children('.now__content').hasClass('active'))
+			$(groupTag).children('.now__content').removeClass('active').slideUp(300);
+
+		if ($(groupTag).children('.now__gone').hasClass('active') === false)
+			$(groupTag).children('.now__gone').addClass('active').slideDown(300, function () {
+				$(this).css('display', 'flex');
+			})
+
+		$(groupTag).children('.now__gone').html(`<span class="icon-bokal"></span>Выходной!<span class="icon-bokal"></span>`)
+
+	} else {
+		if (timeInSeconds < lessonTimeSeconds[1]['begin']) {
+			if ($(groupTag).children('.now__gone').hasClass('active'))
+				$(groupTag).children('.now__gone').removeClass('active').slideUp(300);
+
+			if ($(groupTag).children('.current').hasClass('active'))
+				$(groupTag).children('.current').removeClass('active').slideUp(300);
+
+			if ($(groupTag).children('.next').hasClass('active') === false)
+				$(groupTag).children('.next').addClass('active').delay(300).slideDown(300, function () {
+					$(this).css('display', 'flex');
+				})
+
+			$(groupTag).children('.next').children().not('.now__lesson_0').each(function () {
+				if ($(this).hasClass('active'))
+					$(this).removeClass('active').slideUp(300);
+			});
+
+			if ($(groupTag).children('.next').children('.now__lesson_0').hasClass('active') === false)
+				$(groupTag).children('.next').children('.now__lesson_0').addClass('active').slideDown(300, function () {
+					$(this).css('display', 'flex');
+				})
+		} else if (timeInSeconds >= lessonTimeSeconds[getLessonAmount(group)]['end']) {
+			if ($(groupTag).children('.now__content').hasClass('active'))
+				$(groupTag).children('.now__content').removeClass('active').slideUp(300);
+
+			if ($(groupTag).children('.now__gone').hasClass('active') === false)
+				$(groupTag).children('.now__gone').addClass('active').html(`<span class="icon-happy"></span>На сегодня пары закончились!<span class="icon-happy"></span>`).slideDown(300, function () {
+					$(this).css('display', 'flex');
+				})
+		} else {
+			if ($(groupTag).children('.now__content').hasClass('active') === false)
+				$(groupTag).children('.now__content').addClass('active').slideDown(300, function () {
+					$(this).css('display', 'flex');
+				});
+
+			if ($(groupTag).children('.now__gone').hasClass('active'))
+				$(groupTag).children('.now__gone').removeClass('active').slideUp(300);
+
+			// ? Now
+			let nowIndex = getCurrentLessonIndex();
+			if (nowIndex) {
+				$(groupTag).children('.current').children().not(`.now__lesson_${nowIndex}`).each(function () {
+					if ($(this).hasClass('active'))
+						$(this).removeClass('active').slideUp(300);
+				});
+
+				if ($(groupTag).children('.current').children(`.now__lesson_${nowIndex}`).hasClass('active') === false)
+					$(groupTag).children('.current').children(`.now__lesson_${nowIndex}`).addClass('active').slideDown(300, function () {
+						$(this).css('display', 'flex');
+					})
+			} else {
+				if ($(groupTag).children('.current').children('.now__lesson').hasClass('active'))
+					$(groupTag).children('.current').children('.now__lesson').removeClass('active').slideUp(300);
+			}
+
+			if (nowIndex == getLessonAmount(group))
+				if ($(groupTag).children(`.current`).hasClass('noNext') === false)
+					$(groupTag).children(`.current`).addClass('noNext');
+
+			// ? Next
+			if (nowIndex === undefined)
+				nowIndex = getCurrentBreakIndex();
+			if (nowIndex != undefined && nowIndex < getLessonAmount(group)) {
+				$(groupTag).children('.next').children().not(`.now__lesson_${nowIndex}`).each(function () {
+					if ($(this).hasClass('active'))
+						$(this).removeClass('active').slideUp(300);
+				});
+
+				if ($(groupTag).children('.next').children(`.now__lesson_${nowIndex}`).hasClass('active') === false)
+					$(groupTag).children('.next').children(`.now__lesson_${nowIndex}`).addClass('active').slideDown(300, function () {
+						$(this).css('display', 'flex');
+					});
+			} else {
+				if ($(groupTag).children('.next').children('.now__lesson').hasClass('active'))
+					$(groupTag).children('.next').children('.now__lesson').removeClass('active').slideUp(300);
+			}
+		}
+
+	}
+}
+
+/*$(document).ready(function () {
 	$('.nav__tab').each(function () {
 		if ($(this).hasClass('active')) {
 			var tabIndex = $(this).attr('id');
@@ -1531,7 +1936,41 @@ $(document).ready(function () {
 		}
 		$(this).toggleClass('slide');
 	})
+});*/
+// ! ================ Переключение вкладок ============================
+$('.nav__tab').each(function () {
+	if ($(this).hasClass('active')) {
+		let tabIndex = $(this).attr('id');
+		$(`#${tabIndex}-target`).css('display', 'flex');
+	}
 });
+
+$('.nav__tab').click(function () {
+	if (!$(this).hasClass('active')) {
+		let tabIndex = $(this).attr('id');
+		$('.nav__tab').removeClass('active');
+		$(this).addClass('active');
+		$('.main__tab').fadeOut(150);
+		$(`#${tabIndex}-target`).delay(160).fadeIn(150, function () {
+			$(this).css('display', 'flex');
+		});
+	}
+});
+
+// ! ================ Раскрытие списка дня ============================
+$('.day__name').click(function () {
+	if ($(this).hasClass('slide')) {
+		$(this).next().slideUp(300)
+	} else {
+		$(this).next().slideDown(300, function () {
+			$(this).css('display', 'grid')
+		})
+	}
+	$(this).toggleClass('slide');
+})
+
+// ! ================= Прилипающая навигация ==============================
+
 let lessonName = {
 	'short': ['ФРО на АЯ', 'АИП и ЧФ', 'ПАП при ОВД', 'ПП и ТОВД', 'ЭО', 'ОПВД', 'АП и ПНК', 'МОМАН'],
 	'full': ['Фразеология радиообмена на английском языке', 'Авиационная инженерная психология и человеческий фактор', 'Предотвращение авиационных происшествий при обслуживании воздушного движения', 'Правила, процедуры и технология обслуживания воздушного движения', 'Экономика отрасли', 'Организация потоков воздушного движения', 'Авиационные приборы и пилотажные навигационные комплексы', 'Метеорологическое обеспечение международной аэронавигации']
@@ -1603,322 +2042,6 @@ $(document).ready(function () {
 		};
 	});
 });
-var nowLessonArray = {
-	117: {
-		1: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no'
-		},
-		2: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no'
-		},
-		3: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no'
-		},
-		4: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no'
-		}
-	},
-	217: {
-		1: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no'
-		},
-		2: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no'
-		},
-		3: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no'
-		},
-		4: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no'
-		}
-	}
-}
-var nowNextLessonArray = {
-	117: {
-		0: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no',
-			'begin': 0,
-			'index': 0,
-		},
-		1: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no',
-			'begin': 0,
-			'index': 0,
-		},
-		2: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no',
-			'begin': 0,
-			'index': 0,
-		},
-		3: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no',
-			'begin': 0,
-			'index': 0,
-		},
-	},
-	217: {
-		0: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no',
-			'begin': 0,
-			'index': 0,
-		},
-		1: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no',
-			'begin': 0,
-			'index': 0,
-		},
-		2: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no',
-			'begin': 0,
-			'index': 0,
-		},
-		3: {
-			'name': 'no',
-			'type': 'no',
-			'auditory': 'no',
-			'begin': 0,
-			'index': 0,
-		},
-	},
-}
-
-if (lessons[117][dayIndex]['lessons'] == false) {
-	$('#now_117').children('.now__content').slideUp(300);
-	$('#now_117').children('.now__gone').html(`<span class="icon-bokal"></span>Выходной<span class="icon-bokal"></span>`).slideDown(300, function () { $(this).css('display', 'flex'); })
-	$('#now_217').children('.now__content').slideUp(300);
-	$('#now_217').children('.now__gone').html('<span class="icon-bokal"></span>Выходной<span class="icon-bokal"></span>').slideDown(300, function () { $(this).css('display', 'flex'); })
-} else {
-	// * ====================================================================
-	// ! ========================= Update ===================================
-	function nowUpdate(group) {
-		// console.log('check updates', timeInSeconds);
-		if (timeInSeconds >= 0 && timeInSeconds <= 5) {
-			makeNowLessonArray(group);
-			makeNowNextLessonArray(group);
-			nowCheckAfter(group);
-			nowCheck(group);
-			nowNextLesson(group);
-			$(`#now_${group}`).children('.now__gone').slideUp(300);
-		}
-		if (timeInSeconds >= lessonTimeSeconds[getLessonAmount(group)]['end'] && timeInSeconds <= (lessonTimeSeconds[getLessonAmount(group)]['end'] + 3)) {
-			console.log('update1');
-			nowCheckAfter(group);
-			nowCheck(group);
-			nowNextLesson(group);
-			nowLesson(group);
-		}
-		if (timeInSeconds >= lessonTimeSeconds[1]['begin'] && timeInSeconds <= (lessonTimeSeconds[getLessonAmount(group)]['end'] + 3)) {
-			if (getCurrentLessonIndex() == undefined) {
-				console.log('update2');
-				nowCheck(group);
-				nowLesson(group);
-				nowNextLesson(group);
-			}
-		}
-	}
-
-	setInterval(nowUpdate, 500, 117);
-	setInterval(nowUpdate, 500, 217);
-	// * ====================================================================
-	// ! ================= Массив пар сегодняшних ===========================
-	function makeNowLessonArray(group) {
-		var i = 1;
-		while (lessons[group][dayIndex][i] != undefined) {
-			switch (lessons[group][dayIndex][i]['parity']) {
-				case 'both':
-					nowLessonArray[group][lessons[group][dayIndex][i]['index']]['name'] = lessons[group][dayIndex][i]['name'];
-					nowLessonArray[group][lessons[group][dayIndex][i]['index']]['type'] = lessons[group][dayIndex][i]['type'];
-					nowLessonArray[group][lessons[group][dayIndex][i]['index']]['auditory'] = lessons[group][dayIndex][i]['auditory'];
-					break;
-				case 'odd':
-					if (nowWeekIndex % 2 != 0) {
-						nowLessonArray[group][lessons[group][dayIndex][i]['index']]['name'] = lessons[group][dayIndex][i]['name'];
-						nowLessonArray[group][lessons[group][dayIndex][i]['index']]['type'] = lessons[group][dayIndex][i]['type'];
-						nowLessonArray[group][lessons[group][dayIndex][i]['index']]['auditory'] = lessons[group][dayIndex][i]['auditory'];
-					}
-					break;
-				case 'even':
-					if (nowWeekIndex % 2 == 0) {
-						nowLessonArray[group][lessons[group][dayIndex][i]['index']]['name'] = lessons[group][dayIndex][i]['name'];
-						nowLessonArray[group][lessons[group][dayIndex][i]['index']]['type'] = lessons[group][dayIndex][i]['type'];
-						nowLessonArray[group][lessons[group][dayIndex][i]['index']]['auditory'] = lessons[group][dayIndex][i]['auditory'];
-					}
-					break;
-			}
-			i++;
-		}
-	}
-
-
-	makeNowLessonArray(117);
-	makeNowLessonArray(217);
-	console.log('nowLessonArray', nowLessonArray)
-	// * ====================================================================
-	// ! ================== Массив пар следующих ============================
-	function makeNowNextLessonArray(group) {
-		var i = 0;
-		while (i < getLessonAmount(group)) {
-			console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-
-			j = i + 1;
-			while (nowLessonArray[group][j]['name'] == 'no')
-				j++;
-			nowNextLessonArray[group][i]['name'] = nowLessonArray[group][j]['name'];
-			nowNextLessonArray[group][i]['type'] = nowLessonArray[group][j]['type'];
-			nowNextLessonArray[group][i]['auditory'] = nowLessonArray[group][j]['auditory'];
-			nowNextLessonArray[group][i]['begin'] = lessonTimeSeconds[j]['begin'];
-			nowNextLessonArray[group][i]['index'] = j;
-			// console.log(group, 'для', i, 'это', j);
-			i++;
-		}
-	}
-
-	makeNowNextLessonArray(117);
-	makeNowNextLessonArray(217);
-	console.log('nowNextLessonArray', nowNextLessonArray)
-	// * ====================================================================
-	// ! ============== Проверка окончания пар =========================
-	function nowCheckAfter(group) {
-		var groupTag = `#now_${group}`;
-		if (timeInSeconds >= lessonTimeSeconds[getLessonAmount(group)]['end']) {
-			console.log(group, 'сейчас после окончания пар')
-			$(groupTag).children('.current').slideUp(300);
-			$(groupTag).children('.now__gone').html('На сегодня пары закончились!').slideDown(300, function () { $(this).css('display', 'flex'); })
-		} /*else {
-			$(groupTag).children('.now__gone').slideUp(300);
-			$(groupTag).children('.current').slideDown(300, function () { $(this).css('display', 'flex'); });
-		}*/
-
-
-	}
-
-	$(document).ready(function () {
-		nowCheckAfter(117);
-		nowCheckAfter(217);
-	})
-	// * ====================================================================
-	// ! ============== Проверка наличия текущей пары =======================
-	function nowCheck(group) {
-		var groupTag = `#now_${group}`;
-		var nowLessonIndex = getCurrentLessonIndex();
-		if (nowLessonIndex == undefined) {
-			console.log(group, 'сейчас нет пары');
-			$(groupTag).children('.current').slideUp(300);
-		} else if (nowLessonArray[group][nowLessonIndex]['name'] != 'no' && timeInSeconds < lessonTimeSeconds[getLessonAmount(group)]['end']) {
-			console.log(group, 'сейчас есть пара');
-			$(groupTag).children('.current').slideDown(300, function () { $(this).css('display', 'flex'); });
-		}
-	}
-
-	$(document).ready(function () {
-		nowCheck(117);
-		nowCheck(217);
-	})
-	// * ====================================================================
-	// ! ================ Прописывание текущей пары =========================
-	function nowLesson(group) {
-		var groupTag = `#now_${group}`;
-		var nowLessonIndex = getCurrentLessonIndex();
-		if (nowLessonIndex != undefined) {
-			$(groupTag).children('.current').children('.now__auditory').html(`Сейчас: ${nowLessonIndex}-ая (${nowLessonArray[group][nowLessonIndex]['auditory']})`);
-			$(groupTag).children('.current').children('.now__lesson').children('.now__name').html(nowLessonArray[group][nowLessonIndex]['name']);
-			$(groupTag).children('.current').children('.now__lesson').children('.now__type').html(nowLessonArray[group][nowLessonIndex]['type']);
-
-			function nowLessonTimeUpdate(group) {
-				var groupTag = `#now_${group}`;
-				var nowLessonTimeEstimateInSeconds = lessonTimeSeconds[nowLessonIndex]['end'] - timeInSeconds;
-				var nowLessonTimeEstimate = getHMS(nowLessonTimeEstimateInSeconds);
-				var nowLessonTimeString = getTimeString(nowLessonTimeEstimate['hours'], nowLessonTimeEstimate['minutes'], nowLessonTimeEstimate['seconds']);
-
-				$(groupTag).children('.current').children('.now__countdown').html(`До конца: ${nowLessonTimeString}`)
-				// console.log(group, 'now lesson time updated')
-			}
-			/*if (nowLessonArray[group][nowLessonIndex]['name'] == 'no')
-				$(groupTag).children('.current').slideUp(300);
-			else $(groupTag).children('.current').slideDown(300, function () { $(this).css('display', 'flex'); });*/
-			nowLessonTimeUpdate(group);
-			setInterval(nowLessonTimeUpdate, 500, group);
-		}
-	}
-
-	$(document).ready(function () {
-		nowLesson(117);
-		// setInterval(nowLesson, 1000, 117);
-		nowLesson(217);
-		// setInterval(nowLesson, 1000, 217);
-	})
-	// * ====================================================================
-	// ! ================ Прописывание следующей пары =======================
-	// * ====================================================================
-	function nowNextLesson(group) {
-		var groupTag = `#now_${group}`;
-		console.log(group, 'сегодня пар', getLessonAmount(group));
-		var i;
-		if (timeInSeconds < lessonTimeSeconds[1]['begin']) {
-			console.log(group, 'перед первой парой');
-			i = 0;
-		} else if (timeInSeconds >= lessonTimeSeconds[1]['begin'] && timeInSeconds < lessonTimeSeconds[getLessonAmount(group)]['begin']) {
-			i = getCurrentLessonIndex(group)
-			if (i == undefined)
-				i = getCurrentBreakIndex(group)
-			console.log(group, 'между началом первой и началом последней');
-		} else if (timeInSeconds >= lessonTimeSeconds[getLessonAmount(group)]['begin']) {
-			$(groupTag).children('.next').slideUp(300);
-			$(groupTag).children('.current').addClass('noNext');
-			console.log(group, 'после начала последней');
-			return;
-		}
-		console.log(group, 'текущая пара', i);
-		var bufer = $(groupTag).children('.next');
-		bufer.slideDown(300, function () { $(this).css('display', 'flex') });
-		bufer.children('.now__auditory').html(`Следующая: ${nowNextLessonArray[group][i]['index']}-ая (${nowNextLessonArray[group][i]['auditory']})`)
-		bufer.children('.now__lesson').children('.now__name').html(nowNextLessonArray[group][i]['name'])
-		bufer.children('.now__lesson').children('.now__type').html(nowNextLessonArray[group][i]['type'])
-
-		function nowNextLessonTimeUpdate(group) {
-			var temp = nowNextLessonArray[group][i]['begin'] - timeInSeconds;
-			temp2 = getHMS(temp);
-			temp3 = getTimeString(temp2['hours'], temp2['minutes'], temp2['seconds'])
-			bufer.children('.now__countdown').html(`До начала: ${temp3}`);
-			// console.log(group, 'next lesson time updated')
-		}
-		nowNextLessonTimeUpdate(group);
-		setInterval(nowNextLessonTimeUpdate, 500, group);
-	}
-
-	nowNextLesson(117);
-	nowNextLesson(217);
-}
 let titleChangerArray = [
 	'Хочу передать привет Сивцу P.S. Сашка Бурбик',
 	'Коренислав, где Бурбислав?',
@@ -1938,12 +2061,16 @@ let titleChangerArray = [
 	'Напрягают алкоголики',
 	'Замечательное место',
 	'Ты что игнорируешь? Занятия никто не отменял',
+	'Та ти, ти ти та ти. Или просто ти ти та',
+	'Пугачёва умерла',
 ]
 let birthFlag = false;
+/*
 let titleChangerHappyBirthday = {
 	'date': ['24.9', '14.10', '3.0'],
 	'name': ['Грузик', 'Корнеслав', 'Медвежонок'],
 }
+
 
 function titleBirthCheker() {
 	var titleDate = `${date.getDate().toString()}.${date.getMonth().toString()}`;
@@ -1957,6 +2084,34 @@ function titleBirthCheker() {
 	if (birthFlag) {
 		clearInterval(titleChanger);
 		$('.header__title').html(`<span class="icon-cake"></span><p>С Днём Рождения, ${titleChangerHappyBirthday['name'][titleIndex]}!</p><span class="icon-cake"></span>`);
+	} else {
+		setInterval(titleChanger, 5000);
+	}
+}
+
+*/
+
+let titleChangerHappyBirthday = {
+	'24.9': 'Грузик',
+	'14.10': 'Корнеславик',
+	'3.0': 'Медвежонок',
+	'3.0': 'Медвежонок',
+	'13.8': 'Настя Куш',
+	'25.8': 'Маша',
+}
+
+
+function titleBirthCheker() {
+	let titleDate = `${date.getDate().toString()}.${date.getMonth().toString()}`;
+	console.log('title string', titleDate);
+
+	if (titleDate in titleChangerHappyBirthday) {
+		birthFlag = true;
+	}
+
+	if (birthFlag) {
+		clearInterval(titleChanger);
+		$('.header__title').html(`<span class="icon-cake"></span><p>С Днём Рождения, ${titleChangerHappyBirthday[titleDate]}!</p><span class="icon-cake"></span>`);
 	} else {
 		setInterval(titleChanger, 5000);
 	}

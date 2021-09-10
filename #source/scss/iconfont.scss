@@ -25,6 +25,18 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-prefs:before {
+	content: "\e90c";
+}
+.icon-moon:before {
+	content: "\e90a";
+}
+.icon-sun:before {
+	content: "\e90b";
+}
+.icon-happy:before {
+	content: "\e909";
+}
 .icon-cake:before {
 	content: "\e908";
 }
