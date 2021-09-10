@@ -95,8 +95,6 @@ function hlToday() {
 // ! Получение номера недели
 function getWeekIndex() {
 	var weekPassTime = date.getTime() - semBegin;
-	console.log('weekPassTime', weekPassTime);
-	console.log('weekCheck', weekCheck);
 	return (Math.floor(weekPassTime / weekCheck) + 1)
 }
 var weekIndex = getWeekIndex();
