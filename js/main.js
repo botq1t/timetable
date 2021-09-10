@@ -2064,6 +2064,7 @@ let titleChangerArray = [
 	'Ты что игнорируешь? Занятия никто не отменял',
 	'Та ти, ти ти та ти. Или просто ти ти та',
 	'Пугачёва умерла',
+	'Ты меня презираешь',
 ]
 let birthFlag = false;
 /*
@@ -2093,12 +2094,19 @@ function titleBirthCheker() {
 */
 
 let titleChangerHappyBirthday = {
-	'24.9': 'Грузик',
-	'14.10': 'Корнеславик',
 	'3.0': 'Медвежонок',
-	'3.0': 'Медвежонок',
+	'10.0': 'Таня',
+	'10.2': 'Артурчик Крутилкин',
+	'20.2': 'Иветта',
+	'18.4': 'Юля Танцовщица',
+	'25.6': 'Даша Квак',
+	'2.6': 'Юля',
+	'18.7': 'Саша фром Финлядния',
 	'13.8': 'Настя Куш',
 	'25.8': 'Маша',
+	'24.9': 'Грузик',
+	'2.10': 'Ягрон',
+	'14.10': 'Корнеславик',
 }
 
 
@@ -2127,10 +2135,6 @@ function titleChanger() {
 		$(this).fadeIn(400).children('p').html(titleChangerArray[Math.floor(Math.random() * titleChangerArray.length)]);
 	})
 }
-
-
-// titleChanger();
-// setInterval(titleChanger, 5000);
 let soundsObject = {
 	'Пилипчук': [
 		new Audio('https://github.com/botq1t/timetable/blob/main/audio/victor/pepuk-1.mp3?raw=true'),
