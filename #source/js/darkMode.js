@@ -2,7 +2,7 @@ console.log('color scheme:', settings['colorScheme']);
 let colorSchemeArray = ['light', 'dark'];
 console.log(colorSchemeArray);
 setColorScheme(settings['colorScheme']);
-$('.footer').click(function () {
+/*$('.footer').click(function () {
 	switch (settings['colorScheme']) {
 		case 'light':
 			settings['colorScheme'] = 'dark';
@@ -15,7 +15,7 @@ $('.footer').click(function () {
 	}
 	console.log('color scheme:', settings['colorScheme'])
 	setColorScheme(settings['colorScheme']);
-});
+});*/
 
 // ? Functions
 function setColorScheme(mode) {
