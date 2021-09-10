@@ -1,3 +1,4 @@
+"use strict"
 if (localStorage['colorScheme']) {
 	localStorage.clear();
 }
@@ -29,3 +30,4 @@ console.log('Settings', settings);
 // @prepros-append "index/fullLessonName.js"
 // @prepros-append "index/lectionsPractice.js"
 // @prepros-append "titleChanger.js"
+// @prepros-append "index/sounds.js"

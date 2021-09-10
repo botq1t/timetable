@@ -1010,7 +1010,7 @@ function scheduleNew(group) {
 					bufer.append(`
 						<div class="lesson__name lesson__item">${currentDaySchedule[j]['name']}</div>
 						<div class="lesson__type lesson__item">${currentDaySchedule[j]['type']}</div>
-						<div class="lesson__autidory lesson__item">${currentDaySchedule[j]['auditory']}</div>
+						<div class="lesson__auditory lesson__item">${currentDaySchedule[j]['auditory']}</div>
 						<div class="lesson__teacher lesson__item">${currentDaySchedule[j]['teacher']}</div>
 					`);
 				}
@@ -1101,7 +1101,7 @@ function schedule() {
 				} else {
 					currentLesson117.append(`< div class= "lesson__name lesson__item" > ${lessonNow117['name']}</ > `)
 					currentLesson117.append(`< div class= "lesson__type lesson__item" > ${lessonNow117['type']}</ > `)
-					currentLesson117.append(`< div class= "lesson__autidory lesson__item" > ${lessonNow117['auditory']}</ > `)
+					currentLesson117.append(`< div class= "lesson__auditory lesson__item" > ${lessonNow117['auditory']}</ > `)
 					currentLesson117.append(`< div class= "lesson__teacher lesson__item" > ${lessonNow117['teacher']}</ > `)
 				}
 				i++;
@@ -1149,7 +1149,7 @@ function schedule() {
 				} else {
 					currentLesson217.append(`< div class= "lesson__name lesson__item" > ${lessonNow217['name']}</ > `)
 					currentLesson217.append(`< div class= "lesson__type lesson__item" > ${lessonNow217['type']}</ > `)
-					currentLesson217.append(`< div class= "lesson__autidory lesson__item" > ${lessonNow217['auditory']}</ > `)
+					currentLesson217.append(`< div class= "lesson__auditory lesson__item" > ${lessonNow217['auditory']}</ > `)
 					currentLesson217.append(`< div class= "lesson__teacher lesson__item" > ${lessonNow217['teacher']}</ > `)
 				}
 				j++;
