@@ -1,0 +1,15 @@
+.main {
+	flex: 1 0 auto;
+	// background: rgb(255, 254, 195);
+	transition: all 300ms ease 0s;
+	&.even {
+		background: $evenColor url("../img/stickers.webp") local;
+		transition: all 300ms ease 0s;
+	}
+	&.odd {
+		background: $oddColor url("../img/stickers.webp") local;
+		transition: all 300ms ease 0s;
+	}
+
+	padding: 15px 0;
+}

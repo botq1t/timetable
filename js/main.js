@@ -1972,6 +1972,31 @@ $('.day__name').click(function () {
 
 // ! ================= Прилипающая навигация ==============================
 
+$('#prefs_colorScheme').children().each(function () {
+	if ($(this).attr('value') == settings['colorScheme']) {
+		$(this).prop('selected', true);
+	}
+})
+
+$('#prefs').click(function () {
+	$('#prefs-target').addClass('active').fadeIn(300, function () {
+		$(this).css('display', 'flex');
+	});
+});
+
+$('.prefs__close').click(function () {
+	$('#prefs-target').removeClass('active').fadeOut(300);
+});
+
+$('#prefs_appearance-button').click(function () {
+	let select;
+	select = document.getElementById('prefs_colorScheme');
+	settings['colorScheme'] = select.value;
+
+	select = document.getElementById('prefs_group');
+	settings['defauldGroup'] = select.value;
+	localStorage['settings'] = JSON.stringify(settings);
+});
 let lessonName = {
 	'short': ['ФРО на АЯ', 'АИП и ЧФ', 'ПАП при ОВД', 'ПП и ТОВД', 'ЭО', 'ОПВД', 'АП и ПНК', 'МОМАН'],
 	'full': ['Фразеология радиообмена на английском языке', 'Авиационная инженерная психология и человеческий фактор', 'Предотвращение авиационных происшествий при обслуживании воздушного движения', 'Правила, процедуры и технология обслуживания воздушного движения', 'Экономика отрасли', 'Организация потоков воздушного движения', 'Авиационные приборы и пилотажные навигационные комплексы', 'Метеорологическое обеспечение международной аэронавигации']
@@ -2268,7 +2293,7 @@ $('.lesson__teacher').click(function () {
 $('.lesson__name').click(function () {
 	let name = $(this).next().next().next().text();
 	name = name.split(' ')[0];
-	console.log(name);
+	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
@@ -2276,7 +2301,7 @@ $('.lesson__time').click(function () {
 	let name = $(this).text();
 	name = name.split(':')[0];
 	name = name.slice(-2);
-	console.log(name);
+	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
@@ -2286,7 +2311,7 @@ $('.lesson__auditory').click(function () {
 
 $('.lesson_out').click(function () {
 	let name = $(this).text();
-	console.log(name);
+	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
@@ -2313,7 +2338,7 @@ $('.now__title').click(function () {
 
 $('.now__gone').click(function () {
 	let name = $(this).text();
-	console.log(name);
+	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 

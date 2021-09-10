@@ -27,6 +27,7 @@ console.log('Settings', settings);
 // @prepros-append "darkMode.js"
 // @prepros-append "index/now.js"
 // @prepros-append "index/tabs.js"
+// @prepros-append "index/prefs.js"
 // @prepros-append "index/fullLessonName.js"
 // @prepros-append "index/lectionsPractice.js"
 // @prepros-append "titleChanger.js"

@@ -1,0 +1,182 @@
+.timetable {
+	// &_117 {
+	// 	display: none;
+	// }
+	// &_217 {
+	// 	display: none;
+	// }
+	display: none;
+	flex-direction: column;
+	// grid-template-columns: 1fr;
+	// grid-auto-rows: auto;
+}
+.day {
+	background: rgb(252, 252, 252);
+	border: 2px solid $accentColor;
+	// display: grid;
+	// grid-template: auto auto / 1fr;
+	display: flex;
+	flex-direction: column;
+	margin: 0 0 20px 0;
+	border-radius: 15px;
+	overflow: hidden;
+	&__name {
+		position: relative;
+		cursor: pointer;
+		width: 100%;
+		flex: 0 0 auto;
+		// height: 100%;
+		text-align: center;
+		@include adaptiv-font(27, 22);
+		font-weight: 700;
+		text-shadow: 0 0 3px black;
+		padding: 10px 0;
+		border-bottom: 0px solid $accentColor;
+		transition: all 300ms ease 0s;
+		background: $accentColor;
+		color: white;
+		&::before,
+		&::after {
+			content: "\e906";
+			font-family: "iconfont" !important;
+			speak: never;
+			font-style: normal;
+			font-weight: normal;
+			font-variant: normal;
+			text-transform: none;
+			line-height: 1;
+
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			// border-top: calc(5px * 3) solid white;
+			// border-left: calc(3px * 3) solid transparent;
+			// border-right: calc(3px * 3) solid transparent;
+			transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+		}
+		&::before {
+			left: 15%;
+		}
+		&::after {
+			right: 15%;
+		}
+		&.slide {
+			border-bottom: 2px solid $accentColor;
+			transition: all 300ms ease 0s;
+
+			&::before {
+				transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+				transform: rotate(180deg) translateY(50%);
+				left: 10px;
+			}
+			&::after {
+				transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+				transform: rotate(-180deg) translateY(50%);
+				right: 10px;
+			}
+		}
+		&.active {
+			background: rgb(0, 255, 34);
+		}
+		&.nextDay {
+			background: rgb(255, 166, 0);
+		}
+	}
+
+	&__timetable {
+		display: none;
+		flex: 1 0 auto;
+		grid-auto-rows: 1fr;
+		grid-template-columns: 1fr;
+		overflow-x: auto;
+	}
+}
+
+.lesson {
+	display: grid;
+	grid-template: 1fr / 45px 1fr 30px 40px 110px;
+	grid-template-areas: "time out out out out";
+	align-items: center;
+	padding: 5px 0;
+	border-bottom: 1px solid $accentColor;
+	&_lection {
+		background: rgba(49, 240, 167, 0.2);
+		transition: all 300ms ease 0s;
+		&:hover {
+			background: rgba(49, 240, 167, 0.4);
+			transition: all 300ms ease 0s;
+		}
+	}
+	&_practice {
+		background: rgba(255, 123, 0, 0.2);
+		&:hover {
+			background: rgba(255, 123, 0, 0.4);
+			transition: all 300ms ease 0s;
+		}
+	}
+	&_out {
+		grid-area: out;
+		span {
+			margin: 0 5px;
+		}
+	}
+	&:last-child {
+		border-bottom: none;
+	}
+
+	&.active {
+		background: rgb(255, 0, 0);
+		color: rgb(255, 255, 255);
+		text-shadow: 0 0 1px black;
+		font-weight: 700;
+	}
+
+	&__item {
+		padding: 3px 3px;
+		border-right: 1px dashed $accentColor;
+		height: 100%;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		// font-size: 15px;
+		@include adaptiv-font(15, 15);
+		line-height: 17px;
+
+		&:last-child {
+			border-right: none;
+		}
+	}
+
+	&__name {
+		font-style: italic;
+		border-right: none;
+		cursor: help;
+	}
+
+	&__type {
+		border-left: 1px dashed $accentColor;
+	}
+
+	&__auditory {
+		font-weight: 700;
+	}
+
+	&__teacher {
+		cursor: help;
+		font-style: italic;
+	}
+}
+.time {
+	font-weight: 700;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	&__start {
+	}
+
+	&__end {
+	}
+}

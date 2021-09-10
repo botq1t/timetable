@@ -131,7 +131,7 @@ $('.lesson__teacher').click(function () {
 $('.lesson__name').click(function () {
 	let name = $(this).next().next().next().text();
 	name = name.split(' ')[0];
-	console.log(name);
+	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
@@ -139,7 +139,7 @@ $('.lesson__time').click(function () {
 	let name = $(this).text();
 	name = name.split(':')[0];
 	name = name.slice(-2);
-	console.log(name);
+	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
@@ -149,7 +149,7 @@ $('.lesson__auditory').click(function () {
 
 $('.lesson_out').click(function () {
 	let name = $(this).text();
-	console.log(name);
+	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
@@ -176,7 +176,7 @@ $('.now__title').click(function () {
 
 $('.now__gone').click(function () {
 	let name = $(this).text();
-	console.log(name);
+	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 

@@ -1,0 +1,39 @@
+.footer {
+	background: $accentColor;
+	&__body {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 10px 0;
+	}
+	&__time {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		@include adaptiv-font(26, 17);
+		// font-size: 20px;
+		color: white;
+		font-weight: 700;
+		font-style: italic;
+		text-shadow: 0 0 5px black;
+		&::before,
+		&::after {
+			content: "\e90b";
+			font-family: "iconfont" !important;
+			speak: never;
+			font-style: normal;
+			font-weight: normal;
+			font-variant: normal;
+			text-transform: none;
+			line-height: 1;
+		}
+		&::before {
+			margin: 0 10px 0 0;
+		}
+		&::after {
+			margin: 0 0 0 10px;
+		}
+	}
+}

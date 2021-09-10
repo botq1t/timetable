@@ -30,7 +30,7 @@
 		<nav class="header__nav nav">
 			<div class="container container_nav">
 				<ul class="nav__menu">
-					<!-- <il class="nav__settings"><span class="icon-home"></span></il> -->
+					<il id="prefs" class="nav__settings"><span class="icon-home"></span></il>
 					<il id="now" class="nav__tab active">Сейчас</il>
 					<il id="u117" class="nav__tab">У117</il>
 					<il id="u217" class="nav__tab">У217</il>
@@ -711,7 +711,48 @@
 			<p class="footer__time">Наум, пепук, дубич, да за шо...</p>
 		</div>
 	</div>
-</footer>	</div>
+</footer><div id="prefs-target" class="prefs">
+	<div class="prefs__content">
+		<div class="prefs__close"></div>
+
+		<div id="prefs_appearance" class="prefs__block">
+			<form>
+				<h2 class="prefs__title">Внешний вид</h2>
+				<div class="prefs__body">
+
+					<div class="prefs__item">
+						<h3 class="prefs__description">Тема</h3>
+
+						<div class="prefs__option">
+							<select name="colorScheme" id="prefs_colorScheme">
+								<option value="light">Светлая</option>
+								<option value="dark">Тёмная</option>
+							</select>
+						</div>
+
+					</div>
+
+					<div class="prefs__item">
+						<h3 class="prefs__description">Группа</h3>
+
+						<div class="prefs__option">
+							<select name="group" id="prefs_group">
+								<option value="117">У117</option>
+								<option value="217">У217</option>
+							</select>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="prefs__button">
+					<button id="prefs_appearance-button" type="submit" value="apply">Применить</button>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</div>	</div>
 	<script src="js/libs/jquery-3.6.0.min.js"></script>
 	<script src="js/main.js"></script>
 </body>
