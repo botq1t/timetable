@@ -35,7 +35,7 @@ $('#prefs_button-reset').click(function () {
 });
 // ! Popups
 if (settings['defaultGroup'] == 'undefined') {
-	setTimeout(chooseDefaultGroup, 2000);
+	setTimeout(chooseDefaultGroup, 1000);
 }
 
 $('#popup_group').children('.popup__option').children('div').click(function () {
