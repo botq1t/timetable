@@ -33,7 +33,7 @@ let currentLessonBegin, currentLessonEnd;
 // ! Получение текущей даты, дня недели и времени в секундах
 let date, dayIndex, timeInSeconds;
 function getDate() {
-	date = new Date(1);
+	date = new Date();
 	dayIndex = date.getDay();
 	timeInSeconds = (date.getHours() * 3600) + (date.getMinutes() * 60) + (date.getSeconds());
 }
