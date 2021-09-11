@@ -15,6 +15,8 @@ if (!localStorage['settings']) {
 settings = JSON.parse(localStorage['settings']);
 console.log('Settings', settings);
 
+
+
 /*if (!settings['defaultGroup']) {
 	settings['defaultGroup'] = prompt('Группа по умолчанию?', [117]);
 	localStorage['settings'] = JSON.stringify(settings);

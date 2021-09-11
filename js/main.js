@@ -15,6 +15,8 @@ if (!localStorage['settings']) {
 settings = JSON.parse(localStorage['settings']);
 console.log('Settings', settings);
 
+
+
 /*if (!settings['defaultGroup']) {
 	settings['defaultGroup'] = prompt('Группа по умолчанию?', [117]);
 	localStorage['settings'] = JSON.stringify(settings);
@@ -218,7 +220,7 @@ $(document).ready(function () {
 });
 let lessonsDayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
 
-let lessonsU117 = {
+/*let lessonsU117 = {
 	// ? Понедельник
 	1: {
 		'lessons': true,
@@ -698,7 +700,7 @@ let lessonsU217 = {
 		'lessons': false,
 	},
 
-}
+}*/
 
 var lessons = {
 	117: {
@@ -919,7 +921,7 @@ var lessons = {
 				'parity': 'both',
 				'name': 'АИП и ЧФ',
 				'type': 'ЛК',
-				'auditory': '1402',
+				'auditory': '3209',
 				'teacher': 'Худолей Е.В.'
 			},
 			4: {
@@ -927,7 +929,7 @@ var lessons = {
 				'parity': 'both',
 				'name': 'АИП и ЧФ',
 				'type': 'ПЗ',
-				'auditory': '1404',
+				'auditory': '3209',
 				'teacher': 'Худолей Е.В.'
 			},
 
@@ -1025,7 +1027,7 @@ var lessons = {
 				'parity': 'both',
 				'name': 'ПАП при ОВД',
 				'type': 'ПЗ',
-				'auditory': '3207',
+				'auditory': '3203',
 				'teacher': 'Александров О.В.'
 			},
 			4: {
@@ -1156,7 +1158,7 @@ var lessons = {
 				'parity': 'both',
 				'name': 'АИП и ЧФ',
 				'type': 'ПЗ',
-				'auditory': '1402',
+				'auditory': '3209',
 				'teacher': 'Худолей Е.В.'
 			},
 			3: {
@@ -1164,7 +1166,7 @@ var lessons = {
 				'parity': 'both',
 				'name': 'АИП и ЧФ',
 				'type': 'ЛК',
-				'auditory': '1402',
+				'auditory': '3209',
 				'teacher': 'Худолей Е.В.'
 			},
 
@@ -1972,7 +1974,7 @@ $('.day__name').click(function () {
 
 // ! ================= Прилипающая навигация ==============================
 
-$('#prefs-target').hide();
+// $('#prefs-target').hide();
 
 $('#prefs_colorScheme').children().each(function () {
 	if ($(this).attr('value') == settings['colorScheme']) {

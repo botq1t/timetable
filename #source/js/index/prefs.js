@@ -1,4 +1,4 @@
-$('#prefs-target').hide();
+// $('#prefs-target').hide();
 
 $('#prefs_colorScheme').children().each(function () {
 	if ($(this).attr('value') == settings['colorScheme']) {
