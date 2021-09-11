@@ -15,8 +15,6 @@ if (!localStorage['settings']) {
 settings = JSON.parse(localStorage['settings']);
 console.log('Settings', settings);
 
-
-
 /*if (!settings['defaultGroup']) {
 	settings['defaultGroup'] = prompt('Группа по умолчанию?', [117]);
 	localStorage['settings'] = JSON.stringify(settings);
@@ -1989,13 +1987,11 @@ $('#prefs_group').children().each(function () {
 });
 
 $('#prefs').click(function () {
-	$('#prefs-target').addClass('active').fadeIn(300, function () {
-		$(this).css('display', 'flex');
-	});
+	$('#prefs-target').addClass('active');
 });
 
 $('.prefs__close').click(function () {
-	$('#prefs-target').removeClass('active').fadeOut(300);
+	$('#prefs-target').removeClass('active');
 });
 
 $('#prefs_appearance-button').click(function () {

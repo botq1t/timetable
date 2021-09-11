@@ -13,13 +13,11 @@ $('#prefs_group').children().each(function () {
 });
 
 $('#prefs').click(function () {
-	$('#prefs-target').addClass('active').fadeIn(300, function () {
-		$(this).css('display', 'flex');
-	});
+	$('#prefs-target').addClass('active');
 });
 
 $('.prefs__close').click(function () {
-	$('#prefs-target').removeClass('active').fadeOut(300);
+	$('#prefs-target').removeClass('active');
 });
 
 $('#prefs_appearance-button').click(function () {
