@@ -1,11 +1,11 @@
 "use strict"
-if (localStorage['colorScheme']) {
-	localStorage.clear();
-}
 
 let settings, defaultSettings = {
 	'colorScheme': 'light',
-	'defaultGroup': undefined,
+	'colorSchemeDark': 'dark',
+	'defaultGroup': 'undefined',
+	'dynamicTitle': 'true',
+	'sounds': 'true',
 };
 
 if (!localStorage['settings']) {

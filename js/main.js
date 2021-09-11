@@ -1,11 +1,11 @@
 "use strict"
-if (localStorage['colorScheme']) {
-	localStorage.clear();
-}
 
 let settings, defaultSettings = {
 	'colorScheme': 'light',
-	'defaultGroup': undefined,
+	'colorSchemeDark': 'dark',
+	'defaultGroup': 'undefined',
+	'dynamicTitle': 'true',
+	'sounds': 'true',
 };
 
 if (!localStorage['settings']) {
@@ -217,6 +217,546 @@ $(document).ready(function () {
 	setInterval(highlightCurrentLesson, 1000)
 });
 let lessonsDayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+
+let lessons = {
+	117: {
+		// ? Воскресенье
+		0: {
+			'lessons': false,
+		},
+
+		// ? Понедельник
+		1: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ПАП при ОВД',
+				'type': 'ПЗ',
+				'auditory': '3204',
+				'teacher': 'Александров О.В.'
+			},
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПП и ТОВД',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Дубовский А.В.'
+			},
+			4: {
+				'index': 4,
+				'parity': 'both',
+				'name': 'ФРО на АЯ',
+				'type': 'ПЗ',
+				'auditory': '1305',
+				'teacher': 'Лазовский Г.Б.'
+			},
+
+		},
+
+		// ? Вторник
+		2: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'ЭО',
+				'type': 'ЛК',
+				'auditory': '3103',
+				'teacher': 'Науменко А.И.'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ЭО',
+				'type': 'ПЗ',
+				'auditory': '3209',
+				'teacher': 'Науменко А.И.'
+			},
+		},
+
+		// ? Среда
+		3: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'ОПВД',
+				'type': 'ПЗ',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ФРО на АЯ',
+				'type': 'ПЗ',
+				'auditory': '1305',
+				'teacher': 'Лазовский Г.Б.'
+			},
+
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПП и ТОВД',
+				'type': 'ПЗ',
+				'auditory': '3204',
+				'teacher': 'Дубовский А.В.'
+			},
+		},
+
+		// ? Четверг
+		4: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'odd',
+				'name': 'МОМАН',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Барабан И.И.'
+			},
+
+			2: {
+				'index': 1,
+				'parity': 'even',
+				'name': 'АП и ПНК',
+				'type': 'ЛК',
+				'auditory': '3103',
+				'teacher': 'Пилипчук В.С.'
+			},
+			3: {
+				'index': 2,
+				'parity': 'odd',
+				'name': 'ОПВД',
+				'type': 'ЛК',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
+			},
+			4: {
+				'index': 2,
+				'parity': 'even',
+				'name': 'ОПВД',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Вишневский Р.А.'
+			},
+			5: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПАП при ОВД',
+				'type': 'ЛК',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
+			},
+
+		},
+
+		// ? Пятница
+		5: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'odd',
+				'name': 'АП и ПНК',
+				'type': 'ПЗ',
+				'auditory': '3103',
+				'teacher': 'Пилипчук В.С.'
+			},
+			3: {
+				'index': 2,
+				'parity': 'even',
+				'name': 'МОМАН',
+				'type': 'ПЗ',
+				'auditory': '3203',
+				'teacher': 'Барабан И.И.'
+			},
+			4: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПП и ТОВД',
+				'type': 'ПЗ',
+				'auditory': '3203',
+				'teacher': 'Дубовский А.В.'
+			},
+			5: {
+				'index': 4,
+				'parity': 'both',
+				'name': 'ФРО на АЯ',
+				'type': 'ПЗ',
+				'auditory': '1305',
+				'teacher': 'Лазовский Г.Б.'
+			},
+
+		},
+
+		// ? Суббота
+		6: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'АИП и ЧФ',
+				'type': 'ЛК',
+				'auditory': '3209',
+				'teacher': 'Худолей Е.В.'
+			},
+			4: {
+				'index': 4,
+				'parity': 'both',
+				'name': 'АИП и ЧФ',
+				'type': 'ПЗ',
+				'auditory': '3209',
+				'teacher': 'Худолей Е.В.'
+			},
+
+		},
+	},
+	217: {
+		// ? Воскресенье
+		0: {
+			'lessons': false,
+		},
+		// ? Понедельник
+		1: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ФРО на АЯ',
+				'type': 'ПЗ',
+				'auditory': '1305, 1307',
+				'teacher': 'Лазовский Г.Б., Швайко Е. П.'
+			},
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПП и ТОВД',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Дубовский А.В.'
+			},
+		},
+
+		// ? Вторник
+		2: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'ЭО',
+				'type': 'ЛК',
+				'auditory': '3103',
+				'teacher': 'Науменко А.И.'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ОПВД',
+				'type': 'ПЗ',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
+			},
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ЭО',
+				'type': 'ПЗ',
+				'auditory': '3209',
+				'teacher': 'Науменко А.И.'
+			},
+
+		},
+
+		// ? Среда
+		3: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ПП и ТОВД',
+				'type': 'ПЗ',
+				'auditory': '3204',
+				'teacher': 'Дубовский А.В.'
+			},
+
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПАП при ОВД',
+				'type': 'ПЗ',
+				'auditory': '3203',
+				'teacher': 'Александров О.В.'
+			},
+			4: {
+				'index': 4,
+				'parity': 'both',
+				'name': 'ФРО на АЯ',
+				'type': 'ПЗ',
+				'auditory': '1305, 1307',
+				'teacher': 'Лазовский Г.Б., Швайко Е. П.'
+			},
+		},
+
+		// ? Четверг
+		4: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'odd',
+				'name': 'МОМАН',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Барабан И.И.'
+			},
+
+			2: {
+				'index': 1,
+				'parity': 'even',
+				'name': 'АП и ПНК',
+				'type': 'ЛК',
+				'auditory': '3103',
+				'teacher': 'Пилипчук В.С.'
+			},
+			3: {
+				'index': 2,
+				'parity': 'odd',
+				'name': 'ОПВД',
+				'type': 'ЛК',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
+			},
+			4: {
+				'index': 2,
+				'parity': 'even',
+				'name': 'ОПВД',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Вишневский Р.А.'
+			},
+			5: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'ПАП при ОВД',
+				'type': 'ЛК',
+				'auditory': '3204',
+				'teacher': 'Вишневский Р.А.'
+			},
+
+		},
+
+		// ? Пятница
+		5: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'odd',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+
+			2: {
+				'index': 1,
+				'parity': 'even',
+				'name': 'МОМАН',
+				'type': 'ПЗ',
+				'auditory': '3203',
+				'teacher': 'Барабан И.И.'
+			},
+			3: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'ФРО на АЯ',
+				'type': 'ПЗ',
+				'auditory': '1305, 1307',
+				'teacher': 'Лазовский Г.Б., Швайко Е. П.'
+			},
+			4: {
+				'index': 3,
+				'parity': 'odd',
+				'name': 'АП и ПНК',
+				'type': 'ПЗ',
+				'auditory': '3103',
+				'teacher': 'Пилипчук В.С.'
+			},
+			5: {
+				'index': 3,
+				'parity': 'even',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+			6: {
+				'index': 4,
+				'parity': 'both',
+				'name': 'ПП и ТОВД',
+				'type': 'ПЗ',
+				'auditory': '3203',
+				'teacher': 'Дубовский А.В.'
+			},
+
+		},
+
+		// ? Суббота
+		6: {
+			'lessons': true,
+			1: {
+				'index': 1,
+				'parity': 'both',
+				'name': 'no',
+				'type': 'no',
+				'auditory': 'no',
+				'teacher': 'no'
+			},
+			2: {
+				'index': 2,
+				'parity': 'both',
+				'name': 'АИП и ЧФ',
+				'type': 'ПЗ',
+				'auditory': '3209',
+				'teacher': 'Худолей Е.В.'
+			},
+			3: {
+				'index': 3,
+				'parity': 'both',
+				'name': 'АИП и ЧФ',
+				'type': 'ЛК',
+				'auditory': '3209',
+				'teacher': 'Худолей Е.В.'
+			},
+
+		},
+	},
+}
+
+console.log('Расписания', lessons);
+
+function createSchedule(group) {
+	let groupTag = `#u${group}-target`
+
+	for (var i = 1; i <= 6; i++) {
+
+		let currentDay = $(groupTag).children(`.day_${i}`).children('.day__timetable');
+		currentDay.empty();
+		let currentDaySchedule = lessons[group][i];
+
+		if (currentDaySchedule['lessons']) {
+			var j = 1;
+			while (currentDaySchedule[j] != undefined) {
+				currentDay.append(`<li class="day__lesson lesson lesson_${currentDaySchedule[j]['index']}"></li>`);
+				let bufer = currentDay.children('.lesson').last();
+				switch (currentDaySchedule[j]['parity']) {
+					case 'both':
+						bufer.addClass('lesson_odd lesson_even')
+						break;
+					case 'even':
+						bufer.addClass('lesson_even')
+						break;
+					case 'odd':
+						bufer.addClass('lesson_odd')
+						break;
+				}
+
+				bufer.append(`
+					<div class="lesson__time time time_${currentDaySchedule[j]['index']} lesson__item">
+						<div class="time__start"></div>
+						<div class="time__end"></div>
+					</div>
+				`);
+
+				if (currentDaySchedule[j]['name'] == 'no') {
+					let flag = true;
+					for (let k = j; k >= 1; k--) {
+						if (currentDaySchedule[k]['name'] != 'no')
+							flag = false;
+					}
+
+					if (flag) {
+						bufer.append(`<div class="lesson__item lesson_out"><span class="icon-sleep"></span>Можно спать<span class="icon-sleep"></span></div>`);
+					} else {
+						bufer.append(`<div class="lesson__item lesson_out"><span class="icon-sad"></span>Форточка<span class="icon-sad"></span></div>`);
+					}
+
+					flag = true;
+				} else {
+					bufer.append(`
+						<div class="lesson__name lesson__item">${currentDaySchedule[j]['name']}</div>
+						<div class="lesson__type lesson__item">${currentDaySchedule[j]['type']}</div>
+						<div class="lesson__auditory lesson__item">${currentDaySchedule[j]['auditory']}</div>
+						<div class="lesson__teacher lesson__item">${currentDaySchedule[j]['teacher']}</div>
+					`);
+				}
+				j++;
+			}
+		}
+	}
+}
+
+createSchedule(117);
+createSchedule(217);
+
+
 
 /*let lessonsU117 = {
 	// ? Понедельник
@@ -700,549 +1240,7 @@ let lessonsU217 = {
 
 }*/
 
-var lessons = {
-	117: {
-		// ? Воскресенье
-		0: {
-			'lessons': false,
-		},
-
-		// ? Понедельник
-		1: {
-			'lessons': true,
-			1: {
-				'index': 1,
-				'parity': 'both',
-				'name': 'no',
-				'type': 'no',
-				'auditory': 'no',
-				'teacher': 'no'
-			},
-
-			2: {
-				'index': 2,
-				'parity': 'both',
-				'name': 'ПАП при ОВД',
-				'type': 'ПЗ',
-				'auditory': '3204',
-				'teacher': 'Александров О.В.'
-			},
-			3: {
-				'index': 3,
-				'parity': 'both',
-				'name': 'ПП и ТОВД',
-				'type': 'ЛК',
-				'auditory': '3203',
-				'teacher': 'Дубовский А.В.'
-			},
-			4: {
-				'index': 4,
-				'parity': 'both',
-				'name': 'ФРО на АЯ',
-				'type': 'ПЗ',
-				'auditory': '1305',
-				'teacher': 'Лазовский Г.Б.'
-			},
-
-		},
-
-		// ? Вторник
-		2: {
-			'lessons': true,
-			1: {
-				'index': 1,
-				'parity': 'both',
-				'name': 'ЭО',
-				'type': 'ЛК',
-				'auditory': '3103',
-				'teacher': 'Науменко А.И.'
-			},
-
-			2: {
-				'index': 2,
-				'parity': 'both',
-				'name': 'ЭО',
-				'type': 'ПЗ',
-				'auditory': '3209',
-				'teacher': 'Науменко А.И.'
-			},
-		},
-
-		// ? Среда
-		3: {
-			'lessons': true,
-			1: {
-				'index': 1,
-				'parity': 'both',
-				'name': 'ОПВД',
-				'type': 'ПЗ',
-				'auditory': '3204',
-				'teacher': 'Вишневский Р.А.'
-			},
-
-			2: {
-				'index': 2,
-				'parity': 'both',
-				'name': 'ФРО на АЯ',
-				'type': 'ПЗ',
-				'auditory': '1305',
-				'teacher': 'Лазовский Г.Б.'
-			},
-
-			3: {
-				'index': 3,
-				'parity': 'both',
-				'name': 'ПП и ТОВД',
-				'type': 'ПЗ',
-				'auditory': '3204',
-				'teacher': 'Дубовский А.В.'
-			},
-		},
-
-		// ? Четверг
-		4: {
-			'lessons': true,
-			1: {
-				'index': 1,
-				'parity': 'odd',
-				'name': 'МОМАН',
-				'type': 'ЛК',
-				'auditory': '3203',
-				'teacher': 'Барабан И.И.'
-			},
-
-			2: {
-				'index': 1,
-				'parity': 'even',
-				'name': 'АП и ПНК',
-				'type': 'ЛК',
-				'auditory': '3103',
-				'teacher': 'Пилипчук В.С.'
-			},
-			3: {
-				'index': 2,
-				'parity': 'odd',
-				'name': 'ОПВД',
-				'type': 'ЛК',
-				'auditory': '3204',
-				'teacher': 'Вишневский Р.А.'
-			},
-			4: {
-				'index': 2,
-				'parity': 'even',
-				'name': 'ОПВД',
-				'type': 'ЛК',
-				'auditory': '3203',
-				'teacher': 'Вишневский Р.А.'
-			},
-			5: {
-				'index': 3,
-				'parity': 'both',
-				'name': 'ПАП при ОВД',
-				'type': 'ЛК',
-				'auditory': '3204',
-				'teacher': 'Вишневский Р.А.'
-			},
-
-		},
-
-		// ? Пятница
-		5: {
-			'lessons': true,
-			1: {
-				'index': 1,
-				'parity': 'both',
-				'name': 'no',
-				'type': 'no',
-				'auditory': 'no',
-				'teacher': 'no'
-			},
-
-			2: {
-				'index': 2,
-				'parity': 'odd',
-				'name': 'АП и ПНК',
-				'type': 'ПЗ',
-				'auditory': '3103',
-				'teacher': 'Пилипчук В.С.'
-			},
-			3: {
-				'index': 2,
-				'parity': 'even',
-				'name': 'МОМАН',
-				'type': 'ПЗ',
-				'auditory': '3203',
-				'teacher': 'Барабан И.И.'
-			},
-			4: {
-				'index': 3,
-				'parity': 'both',
-				'name': 'ПП и ТОВД',
-				'type': 'ПЗ',
-				'auditory': '3203',
-				'teacher': 'Дубовский А.В.'
-			},
-			5: {
-				'index': 4,
-				'parity': 'both',
-				'name': 'ФРО на АЯ',
-				'type': 'ПЗ',
-				'auditory': '1305',
-				'teacher': 'Лазовский Г.Б.'
-			},
-
-		},
-
-		// ? Суббота
-		6: {
-			'lessons': true,
-			1: {
-				'index': 1,
-				'parity': 'both',
-				'name': 'no',
-				'type': 'no',
-				'auditory': 'no',
-				'teacher': 'no'
-			},
-
-			2: {
-				'index': 2,
-				'parity': 'both',
-				'name': 'no',
-				'type': 'no',
-				'auditory': 'no',
-				'teacher': 'no'
-			},
-
-			3: {
-				'index': 3,
-				'parity': 'both',
-				'name': 'АИП и ЧФ',
-				'type': 'ЛК',
-				'auditory': '3209',
-				'teacher': 'Худолей Е.В.'
-			},
-			4: {
-				'index': 4,
-				'parity': 'both',
-				'name': 'АИП и ЧФ',
-				'type': 'ПЗ',
-				'auditory': '3209',
-				'teacher': 'Худолей Е.В.'
-			},
-
-		},
-	},
-	217: {
-		// ? Воскресенье
-		0: {
-			'lessons': false,
-		},
-		// ? Понедельник
-		1: {
-			'lessons': true,
-			1: {
-				'index': 1,
-				'parity': 'both',
-				'name': 'no',
-				'type': 'no',
-				'auditory': 'no',
-				'teacher': 'no'
-			},
-
-			2: {
-				'index': 2,
-				'parity': 'both',
-				'name': 'ФРО на АЯ',
-				'type': 'ПЗ',
-				'auditory': '1305, 1307',
-				'teacher': 'Лазовский Г.Б., Швайко Е. П.'
-			},
-			3: {
-				'index': 3,
-				'parity': 'both',
-				'name': 'ПП и ТОВД',
-				'type': 'ЛК',
-				'auditory': '3203',
-				'teacher': 'Дубовский А.В.'
-			},
-		},
-
-		// ? Вторник
-		2: {
-			'lessons': true,
-			1: {
-				'index': 1,
-				'parity': 'both',
-				'name': 'ЭО',
-				'type': 'ЛК',
-				'auditory': '3103',
-				'teacher': 'Науменко А.И.'
-			},
-
-			2: {
-				'index': 2,
-				'parity': 'both',
-				'name': 'ОПВД',
-				'type': 'ПЗ',
-				'auditory': '3204',
-				'teacher': 'Вишневский Р.А.'
-			},
-			3: {
-				'index': 3,
-				'parity': 'both',
-				'name': 'ЭО',
-				'type': 'ПЗ',
-				'auditory': '3209',
-				'teacher': 'Науменко А.И.'
-			},
-
-		},
-
-		// ? Среда
-		3: {
-			'lessons': true,
-			1: {
-				'index': 1,
-				'parity': 'both',
-				'name': 'no',
-				'type': 'no',
-				'auditory': 'no',
-				'teacher': 'no'
-			},
-
-			2: {
-				'index': 2,
-				'parity': 'both',
-				'name': 'ПП и ТОВД',
-				'type': 'ПЗ',
-				'auditory': '3204',
-				'teacher': 'Дубовский А.В.'
-			},
-
-			3: {
-				'index': 3,
-				'parity': 'both',
-				'name': 'ПАП при ОВД',
-				'type': 'ПЗ',
-				'auditory': '3203',
-				'teacher': 'Александров О.В.'
-			},
-			4: {
-				'index': 4,
-				'parity': 'both',
-				'name': 'ФРО на АЯ',
-				'type': 'ПЗ',
-				'auditory': '1305, 1307',
-				'teacher': 'Лазовский Г.Б., Швайко Е. П.'
-			},
-		},
-
-		// ? Четверг
-		4: {
-			'lessons': true,
-			1: {
-				'index': 1,
-				'parity': 'odd',
-				'name': 'МОМАН',
-				'type': 'ЛК',
-				'auditory': '3203',
-				'teacher': 'Барабан И.И.'
-			},
-
-			2: {
-				'index': 1,
-				'parity': 'even',
-				'name': 'АП и ПНК',
-				'type': 'ЛК',
-				'auditory': '3103',
-				'teacher': 'Пилипчук В.С.'
-			},
-			3: {
-				'index': 2,
-				'parity': 'odd',
-				'name': 'ОПВД',
-				'type': 'ЛК',
-				'auditory': '3204',
-				'teacher': 'Вишневский Р.А.'
-			},
-			4: {
-				'index': 2,
-				'parity': 'even',
-				'name': 'ОПВД',
-				'type': 'ЛК',
-				'auditory': '3203',
-				'teacher': 'Вишневский Р.А.'
-			},
-			5: {
-				'index': 3,
-				'parity': 'both',
-				'name': 'ПАП при ОВД',
-				'type': 'ЛК',
-				'auditory': '3204',
-				'teacher': 'Вишневский Р.А.'
-			},
-
-		},
-
-		// ? Пятница
-		5: {
-			'lessons': true,
-			1: {
-				'index': 1,
-				'parity': 'odd',
-				'name': 'no',
-				'type': 'no',
-				'auditory': 'no',
-				'teacher': 'no'
-			},
-
-			2: {
-				'index': 1,
-				'parity': 'even',
-				'name': 'МОМАН',
-				'type': 'ПЗ',
-				'auditory': '3203',
-				'teacher': 'Барабан И.И.'
-			},
-			3: {
-				'index': 2,
-				'parity': 'both',
-				'name': 'ФРО на АЯ',
-				'type': 'ПЗ',
-				'auditory': '1305, 1307',
-				'teacher': 'Лазовский Г.Б., Швайко Е. П.'
-			},
-			4: {
-				'index': 3,
-				'parity': 'odd',
-				'name': 'АП и ПНК',
-				'type': 'ПЗ',
-				'auditory': '3103',
-				'teacher': 'Пилипчук В.С.'
-			},
-			5: {
-				'index': 3,
-				'parity': 'even',
-				'name': 'no',
-				'type': 'no',
-				'auditory': 'no',
-				'teacher': 'no'
-			},
-			6: {
-				'index': 4,
-				'parity': 'both',
-				'name': 'ПП и ТОВД',
-				'type': 'ПЗ',
-				'auditory': '3203',
-				'teacher': 'Дубовский А.В.'
-			},
-
-		},
-
-		// ? Суббота
-		6: {
-			'lessons': true,
-			1: {
-				'index': 1,
-				'parity': 'both',
-				'name': 'no',
-				'type': 'no',
-				'auditory': 'no',
-				'teacher': 'no'
-			},
-			2: {
-				'index': 2,
-				'parity': 'both',
-				'name': 'АИП и ЧФ',
-				'type': 'ПЗ',
-				'auditory': '3209',
-				'teacher': 'Худолей Е.В.'
-			},
-			3: {
-				'index': 3,
-				'parity': 'both',
-				'name': 'АИП и ЧФ',
-				'type': 'ЛК',
-				'auditory': '3209',
-				'teacher': 'Худолей Е.В.'
-			},
-
-		},
-	},
-}
-// console.log('Расписание У117:');
-// console.log(lessonsU117);
-// console.log('Расписание У217:');
-// console.log(lessonsU217);
-console.log('Расписания', lessons);
-
-function scheduleNew(group) {
-	let groupTag = `#u${group}-target`
-
-	for (var i = 1; i <= 6; i++) {
-
-		let currentDay = $(groupTag).children(`.day_${i}`).children('.day__timetable');
-		currentDay.empty();
-		let currentDaySchedule = lessons[group][i];
-
-		if (currentDaySchedule['lessons']) {
-			var j = 1;
-			while (currentDaySchedule[j] != undefined) {
-				currentDay.append(`<li class="day__lesson lesson lesson_${currentDaySchedule[j]['index']}"></li>`);
-				let bufer = currentDay.children('.lesson').last();
-				switch (currentDaySchedule[j]['parity']) {
-					case 'both':
-						bufer.addClass('lesson_odd lesson_even')
-						break;
-					case 'even':
-						bufer.addClass('lesson_even')
-						break;
-					case 'odd':
-						bufer.addClass('lesson_odd')
-						break;
-				}
-
-				bufer.append(`
-					<div class="lesson__time time time_${currentDaySchedule[j]['index']} lesson__item">
-						<div class="time__start"></div>
-						<div class="time__end"></div>
-					</div>
-				`);
-
-				if (currentDaySchedule[j]['name'] == 'no') {
-					let flag = true;
-					for (let k = j; k >= 1; k--) {
-						if (currentDaySchedule[k]['name'] != 'no')
-							flag = false;
-					}
-
-					if (flag) {
-						bufer.append(`<div class="lesson__item lesson_out"><span class="icon-sleep"></span>Можно спать<span class="icon-sleep"></span></div>`);
-					} else {
-						bufer.append(`<div class="lesson__item lesson_out"><span class="icon-sad"></span>Форточка<span class="icon-sad"></span></div>`);
-					}
-
-					flag = true;
-				} else {
-					bufer.append(`
-						<div class="lesson__name lesson__item">${currentDaySchedule[j]['name']}</div>
-						<div class="lesson__type lesson__item">${currentDaySchedule[j]['type']}</div>
-						<div class="lesson__auditory lesson__item">${currentDaySchedule[j]['auditory']}</div>
-						<div class="lesson__teacher lesson__item">${currentDaySchedule[j]['teacher']}</div>
-					`);
-				}
-				j++;
-			}
-		}
-	}
-}
-
-
-scheduleNew(117);
-scheduleNew(217);
-
-function schedule() {
+/*function schedule() {
 	// ! Объявление переменных
 	let i, lessonNow117, currentLesson117, currentTime117, currentDay117, currentTime117table;
 	let j, lessonNow217, currentLesson217, currentTime217, currentDay217, currentTime217table;
@@ -1374,7 +1372,7 @@ function schedule() {
 			}
 		}
 	}
-}
+}*/
 
 // $(document).ready(schedule);
 let lessonTime = {
@@ -1508,10 +1506,16 @@ $(document).ready(function () {
 
 });
 */
-console.log('color scheme:', settings['colorScheme']);
 let colorSchemeArray = ['light', 'dark'];
+
 console.log(colorSchemeArray);
-setColorScheme(settings['colorScheme']);
+
+if (timeInSeconds >= 20 * 3600 || timeInSeconds < 8 * 3600) {
+	setColorScheme(settings['colorSchemeDark']);
+} else {
+	setColorScheme(settings['colorScheme']);
+}
+
 /*$('.footer').click(function () {
 	switch (settings['colorScheme']) {
 		case 'light':
@@ -1530,7 +1534,8 @@ setColorScheme(settings['colorScheme']);
 // ? Functions
 function setColorScheme(mode) {
 	for (let i = 0; i < colorSchemeArray.length; i++) {
-		$('.header__body').removeClass(colorSchemeArray[i]);
+		$('body').removeClass(colorSchemeArray[i]);
+		/*$('.header__body').removeClass(colorSchemeArray[i]);
 		$('.header__title').removeClass(colorSchemeArray[i]);
 		$('.header__nav').removeClass(colorSchemeArray[i]);
 
@@ -1557,9 +1562,10 @@ function setColorScheme(mode) {
 		$('.day__name').removeClass(colorSchemeArray[i]);
 		$('.day').removeClass(colorSchemeArray[i]);
 		$('.lesson').removeClass(colorSchemeArray[i]);
-		$('.lesson__item').removeClass(colorSchemeArray[i]);
+		$('.lesson__item').removeClass(colorSchemeArray[i]);*/
 	}
-	$('.header__body').addClass(mode);
+	$('body').addClass(mode);
+	/*$('.header__body').addClass(mode);
 	$('.header__title').addClass(mode);
 	$('.header__nav').addClass(mode);
 
@@ -1586,7 +1592,7 @@ function setColorScheme(mode) {
 	$('.day__name').addClass(mode);
 	$('.day').addClass(mode);
 	$('.lesson').addClass(mode);
-	$('.lesson__item').addClass(mode);
+	$('.lesson__item').addClass(mode);*/
 }
 
 
@@ -1752,25 +1758,21 @@ function nowUpdate() {
 
 	if (lessons[117][dayIndex]['lessons']) {
 		nowTimeUpdate(117);
-		setColorScheme(settings['colorScheme']);
 	}
 
 	if (lessons[217][dayIndex]['lessons']) {
 		nowTimeUpdate(217);
-		setColorScheme(settings['colorScheme']);
 	}
 
 	if (timeInSeconds >= 0 && timeInSeconds <= 3) {
 		nowDisplayItemsUpdate(117);
 		nowDisplayItemsUpdate(217);
-		setColorScheme(settings['colorScheme']);
 	}
 
 	for (let i = 1; i <= 4; i++) {
 		if ((timeInSeconds >= lessonTimeSeconds[i]['begin'] - 2) && (timeInSeconds <= lessonTimeSeconds[i]['end'] + 2)) {
 			nowDisplayItemsUpdate(117);
 			nowDisplayItemsUpdate(217);
-			setColorScheme(settings['colorScheme']);
 		}
 	}
 
@@ -1972,20 +1974,19 @@ $('.day__name').click(function () {
 
 // ! ================= Прилипающая навигация ==============================
 
-// $('#prefs-target').hide();
 
-$('#prefs_colorScheme').children().each(function () {
-	if ($(this).attr('value') == settings['colorScheme']) {
-		$(this).prop('selected', true);
-	}
-});
+// ! Selected
+$('.prefs__option').children('select').each(function () {
+	let id = $(this).attr('id');
+	id = id.split('_')[1];
+	$(`#prefs_${id}`).children().each(function () {
+		if ($(this).attr('value') == settings[`${id}`]) {
+			$(this).prop('selected', true);
+		}
+	});
 
-$('#prefs_group').children().each(function () {
-	if ($(this).attr('value') == settings['defaultGroup']) {
-		$(this).prop('selected', true);
-	}
-});
-
+})
+// ! Click events
 $('#prefs').click(function () {
 	$('#prefs-target').addClass('active');
 });
@@ -1994,15 +1995,36 @@ $('.prefs__close').click(function () {
 	$('#prefs-target').removeClass('active');
 });
 
-$('#prefs_appearance-button').click(function () {
-	let select;
-	select = document.getElementById('prefs_colorScheme');
-	settings['colorScheme'] = select.value;
-
-	select = document.getElementById('prefs_group');
-	settings['defaultGroup'] = select.value;
+$('#prefs_button-submit').click(function () {
+	$('.prefs__option').each(function () {
+		let select = $(this).children('select');
+		let id = select.attr('id');
+		id = id.split('_')[1];
+		settings[id] = select.val();
+	})
 	localStorage['settings'] = JSON.stringify(settings);
 });
+
+$('#prefs_button-reset').click(function () {
+	localStorage.clear();
+	document.location.reload();
+});
+// ! Popups
+if (settings['defaultGroup'] == 'undefined') {
+	setTimeout(chooseDefaultGroup, 2000);
+}
+
+$('#popup_group').children('.popup__option').children('div').click(function () {
+	let id = $(this).attr('id');
+	id = id.split('_')[1];
+	settings['defaultGroup'] = id;
+	localStorage['settings'] = JSON.stringify(settings);
+	document.location.reload();
+})
+
+function chooseDefaultGroup() {
+	$('.popup').css('display', 'flex');
+}
 let lessonName = {
 	'short': ['ФРО на АЯ', 'АИП и ЧФ', 'ПАП при ОВД', 'ПП и ТОВД', 'ЭО', 'ОПВД', 'АП и ПНК', 'МОМАН'],
 	'full': ['Фразеология радиообмена на английском языке', 'Авиационная инженерная психология и человеческий фактор', 'Предотвращение авиационных происшествий при обслуживании воздушного движения', 'Правила, процедуры и технология обслуживания воздушного движения', 'Экономика отрасли', 'Организация потоков воздушного движения', 'Авиационные приборы и пилотажные навигационные комплексы', 'Метеорологическое обеспечение международной аэронавигации']
@@ -2152,7 +2174,7 @@ function titleBirthCheker() {
 	if (birthFlag) {
 		clearInterval(titleChanger);
 		$('.header__title').html(`<span class="icon-cake"></span><p>С Днём Рождения, ${titleChangerHappyBirthday[titleDate]}!</p><span class="icon-cake"></span>`);
-	} else {
+	} else if (settings['dynamicTitle'] == 'true') {
 		setInterval(titleChanger, 5000);
 	}
 }
@@ -2290,69 +2312,82 @@ let soundsObject = {
 }
 
 $('.lesson__teacher').click(function () {
+	if (settings['sounds'] == 'false') return;
+
 	let name = $(this).text();
 	name = name.split(' ')[0];
-	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
 $('.lesson__name').click(function () {
+	if (settings['sounds'] == 'false') return;
 	let name = $(this).next().next().next().text();
 	name = name.split(' ')[0];
-	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
 $('.lesson__time').click(function () {
+	if (settings['sounds'] == 'false') return;
+
 	let name = $(this).text();
 	name = name.split(':')[0];
 	name = name.slice(-2);
-	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
 $('.lesson__auditory').click(function () {
+	if (settings['sounds'] == 'false') return;
+
 	playSound('auditory');
 });
 
 $('.lesson_out').click(function () {
+	if (settings['sounds'] == 'false') return;
+
 	let name = $(this).text();
-	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
 $('.nav__tab').click(function () {
+	if (settings['sounds'] == 'false') return;
+
 	let name = $(this).text();
 	name = name.split(' ')[0];
-	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
 $('.day__name').click(function () {
+	if (settings['sounds'] == 'false') return;
+
 	let name = $(this).text();
 	name = name.split(' ')[0];
-	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
 $('.now__title').click(function () {
+	if (settings['sounds'] == 'false') return;
+
 	let name = $(this).text();
 	name = name.split(' ')[0];
-	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
 $('.now__gone').click(function () {
+	if (settings['sounds'] == 'false') return;
+
 	let name = $(this).text();
-	// console.log(name);
 	if (name in soundsObject) playSound(name);
 });
 
 $('.week__parity').click(function () {
+	if (settings['sounds'] == 'false') return;
+
 	playSound('parity');
 });
 
 $('.header__title').click(function () {
+	if (settings['sounds'] == 'false') return;
+
 	playSound('Сейчас');
 });
 

@@ -715,14 +715,13 @@
 </footer><div id="prefs-target" class="prefs">
 	<div class="prefs__content">
 		<div class="prefs__close"></div>
-
-		<div id="prefs_appearance" class="prefs__block">
-			<form>
+		<!-- ! Настройки -->
+		<form>
+			<div class="prefs__block">
 				<h2 class="prefs__title">Внешний вид</h2>
 				<div class="prefs__body">
-
 					<div class="prefs__item">
-						<h3 class="prefs__description">Тема</h3>
+						<h3 class="prefs__description">Тема днём</h3>
 
 						<div class="prefs__option">
 							<select name="colorScheme" id="prefs_colorScheme">
@@ -732,26 +731,71 @@
 						</div>
 
 					</div>
+					<div class="prefs__item">
+						<h3 class="prefs__description">Тема ночью (c 20:00 до 8:00)</h3>
+
+						<div class="prefs__option">
+							<select name="colorSchemeDark" id="prefs_colorSchemeDark">
+								<option value="dark">Тёмная</option>
+								<option value="light">Светлая</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="prefs__block">
+				<h2 class="prefs__title">Остальное</h2>
+				<div class="prefs__body">
 
 					<div class="prefs__item">
 						<h3 class="prefs__description">Группа</h3>
-
 						<div class="prefs__option">
-							<select name="group" id="prefs_group">
+							<select name="group" id="prefs_defaultGroup">
 								<option value="117">У117</option>
 								<option value="217">У217</option>
 							</select>
 						</div>
-
 					</div>
 
-				</div>
-				<div class="prefs__button">
-					<button id="prefs_appearance-button" type="submit" value="apply">Применить</button>
-				</div>
-			</form>
-		</div>
+					<div class="prefs__item">
+						<h3 class="prefs__description">Динамическая шапка</h3>
+						<div class="prefs__option">
+							<select name="dynamicTitle" id="prefs_dynamicTitle">
+								<option value="true">Вкл</option>
+								<option value="false">Выкл</option>
+							</select>
+						</div>
+					</div>
 
+					<div class="prefs__item">
+						<h3 class="prefs__description">Звуковое сопровождение</h3>
+						<div class="prefs__option">
+							<select name="sounds" id="prefs_sounds">
+								<option value="true">НАДА!</option>
+								<option value="false">Мне не нада</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="prefs__button">
+				<button id="prefs_button-submit" class="prefs__submit" type="submit" value="apply">Применить</button>
+				<div id="prefs_button-reset" class="prefs__reset">Сброс</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="popup">
+	<div class="popup__body">
+		<div id="popup_group" class="popup__item">
+			<h2 class="popup__title">Выберите вашу группу</h2>
+			<div class="popup__option">
+				<div id="popup_117">У117</div>
+				<div id="popup_217">У217</div>
+			</div>
+		</div>
 	</div>
 </div>	</div>
 	<script src="js/libs/jquery-3.6.0.min.js"></script>

@@ -1,7 +1,13 @@
-console.log('color scheme:', settings['colorScheme']);
 let colorSchemeArray = ['light', 'dark'];
+
 console.log(colorSchemeArray);
-setColorScheme(settings['colorScheme']);
+
+if (timeInSeconds >= 20 * 3600 || timeInSeconds < 8 * 3600) {
+	setColorScheme(settings['colorSchemeDark']);
+} else {
+	setColorScheme(settings['colorScheme']);
+}
+
 /*$('.footer').click(function () {
 	switch (settings['colorScheme']) {
 		case 'light':
@@ -20,7 +26,8 @@ setColorScheme(settings['colorScheme']);
 // ? Functions
 function setColorScheme(mode) {
 	for (let i = 0; i < colorSchemeArray.length; i++) {
-		$('.header__body').removeClass(colorSchemeArray[i]);
+		$('body').removeClass(colorSchemeArray[i]);
+		/*$('.header__body').removeClass(colorSchemeArray[i]);
 		$('.header__title').removeClass(colorSchemeArray[i]);
 		$('.header__nav').removeClass(colorSchemeArray[i]);
 
@@ -47,9 +54,10 @@ function setColorScheme(mode) {
 		$('.day__name').removeClass(colorSchemeArray[i]);
 		$('.day').removeClass(colorSchemeArray[i]);
 		$('.lesson').removeClass(colorSchemeArray[i]);
-		$('.lesson__item').removeClass(colorSchemeArray[i]);
+		$('.lesson__item').removeClass(colorSchemeArray[i]);*/
 	}
-	$('.header__body').addClass(mode);
+	$('body').addClass(mode);
+	/*$('.header__body').addClass(mode);
 	$('.header__title').addClass(mode);
 	$('.header__nav').addClass(mode);
 
@@ -76,6 +84,6 @@ function setColorScheme(mode) {
 	$('.day__name').addClass(mode);
 	$('.day').addClass(mode);
 	$('.lesson').addClass(mode);
-	$('.lesson__item').addClass(mode);
+	$('.lesson__item').addClass(mode);*/
 }
 

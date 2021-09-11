@@ -113,12 +113,71 @@
 	}
 	&__button {
 		display: flex;
-		justify-content: flex-end;
-		button {
-			@include adaptiv-font(18, 14);
+		justify-content: space-between;
+	}
+	&__submit {
+		@include adaptiv-font(18, 14);
+		background-color: white;
+		padding: 2px 5px;
+		border-radius: 8px;
+	}
+	&__reset {
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@include adaptiv-font(18, 14);
+		background-color: rgb(255, 63, 63);
+		padding: 2px 5px;
+		border-radius: 8px;
+	}
+}
+
+.popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	background-color: rgba(0, 0, 0, 0.6);
+	flex-direction: column;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	padding: 20px 10px;
+	&__body {
+		padding: 20px 30px;
+		background-color: $accentColor;
+		border-radius: 10px;
+	}
+
+	&__item {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__title {
+		@include adaptiv-font(30, 20);
+		color: white;
+		margin: 0 0 60px 0;
+		font-weight: 700;
+	}
+
+	&__option {
+		display: flex;
+		justify-content: space-around;
+		div {
+			cursor: pointer;
 			background-color: white;
-			padding: 2px 5px;
-			border-radius: 8px;
+			padding: 3px 10px;
+			@include adaptiv-font(25, 18);
+			transition: background-color 300ms ease 0s;
+			border-radius: 10px;
+			&:active {
+				background-color: red;
+				transition: background-color 300ms ease 0s;
+			}
 		}
 	}
 }
