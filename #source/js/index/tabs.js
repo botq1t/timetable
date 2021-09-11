@@ -33,12 +33,16 @@
 	})
 });*/
 // ! ================ Переключение вкладок ============================
-if (dayIndex == 0 || timeInSeconds < lessonTimeSeconds[1]['begin'] || timeInSeconds >= lessonTimeSeconds[getLessonAmount(settings['defaultGroup'])]['end']) {
-	/*$('#now').removeClass('active');
-	$('#now-target').css('display', 'none');
+if (settings['defaultGroup'] != 'undefined') {
+	if (dayIndex == 0 ||
+		timeInSeconds < lessonTimeSeconds[1]['begin'] ||
+		timeInSeconds >= lessonTimeSeconds[getLessonAmount(settings['defaultGroup'])]['end']) {
+		$('#now').removeClass('active');
+		$('#now-target').css('display', 'none');
 
-	$(`#u${settings['defaultGroup']}`).addClass('active');
-	$(`#u${settings['defaultGroup']}-target`).css('display', 'flex');*/
+		$(`#u${settings['defaultGroup']}`).addClass('active');
+		$(`#u${settings['defaultGroup']}-target`).css('display', 'flex');
+	}
 }
 
 $('.nav__tab').each(function () {
