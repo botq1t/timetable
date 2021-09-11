@@ -430,10 +430,16 @@ body {
   transition: all 500ms ease 0s;
 }
 .week__update {
+  color: black;
   display: block;
   font-size: 15px;
   font-style: italic;
   text-decoration: underline;
+  -webkit-transition: color 100ms ease 0s;
+  transition: color 100ms ease 0s;
+}
+.week__update:active {
+  color: red;
   -webkit-transition: color 100ms ease 0s;
   transition: color 100ms ease 0s;
 }
@@ -958,6 +964,13 @@ body {
 }
 .dark.week__update {
   color: white;
+  -webkit-transition: color 300ms ease 0s;
+  transition: color 300ms ease 0s;
+}
+.dark.week__update:active {
+  color: red;
+  -webkit-transition: color 300ms ease 0s;
+  transition: color 300ms ease 0s;
 }
 .dark.nav {
   border-top: 1px solid #cacaca;

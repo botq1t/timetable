@@ -24,6 +24,11 @@
 		}
 		&__update {
 			color: white;
+			transition: color 300ms ease 0s;
+			&:active {
+				color: red;
+				transition: color 300ms ease 0s;
+			}
 		}
 	}
 
