@@ -1,62 +1,63 @@
 let lessonName = {
-	'short': ['ФРО на АЯ', 'АИП и ЧФ', 'ПАП при ОВД', 'ПП и ТОВД', 'ЭО', 'ОПВД', 'АП и ПНК', 'МОМАН'],
-	'full': ['Фразеология радиообмена на английском языке', 'Авиационная инженерная психология и человеческий фактор', 'Предотвращение авиационных происшествий при обслуживании воздушного движения', 'Правила, процедуры и технология обслуживания воздушного движения', 'Экономика отрасли', 'Организация потоков воздушного движения', 'Авиационные приборы и пилотажные навигационные комплексы', 'Метеорологическое обеспечение международной аэронавигации']
-};
-
-let teacherName = {
-	'short': ['Лазовский Г.Б., Швайко Е. П.', 'Науменко А.И.', 'Худолей Е.В.', 'Александров О.В.', 'Дубовский А.В.', 'Лазовский Г.Б.', 'Вишневский Р.А.', 'Пилипчук В.С.', 'Барабан И.И.'],
-	'full': ['Лазовский Георгий Борисович, Швайко Елена Петровна', 'Науменко Александр Иванович', 'Худолей Елена Владимировна', 'Александров Олег Валерьевич', 'Дубовский Алексей Викторович', 'Лазовский Георгий Борисович', 'Вишневский Роман Анатольевич', 'Пилипчук Владимир Сергеевич', 'Барабан Иван Иванович']
+	'ФРО на АЯ': 'Фразеология радиообмена на английском языке',
+	'АИП и ЧФ': 'Авиационная инженерная психология и человеческий фактор',
+	'ПАП при ОВД': 'Предотвращение авиационных происшествий при обслуживании воздушного движения',
+	'ПП и ТОВД': 'Правила, процедуры и технология обслуживания воздушного движения',
+	'ЭО': 'Экономика отрасли',
+	'ОПВД': 'Организация потоков воздушного движения',
+	'АП и ПНК': 'Авиационные приборы и пилотажные навигационные комплексы',
+	'МОМАН': 'Метеорологическое обеспечение международной аэронавигации'
 }
 
-$(document).ready(function () {
-	/*	console.log($('.ttest').text())
-		if (teacherName['short'][8] == $('.ttest').text()) {
-			console.log('true')
-		} else {
-			console.log('false')
-		}*/
-	function fullTeacherName() {
-		// console.log($(this).text());
-		console.log($(this).text());
-		for (let i = 0; i < teacherName['short'].length; i++) {
-			switch ($(this).text()) {
-				case teacherName['short'][i]:
-					$(this).fadeOut(100, function () {
-						$(this).text(teacherName['full'][i]).fadeIn(100)
-					})
-					break;
+let teacherName = {
+	'Лазовский Г.Б., Швайко Е. П.': 'Лазовский Георгий Борисович, Швайко Елена Петровна',
+	'Науменко А.И.': 'Науменко Александр Иванович',
+	'Худолей Е.В.': 'Худолей Елена Владимировна',
+	'Александров О.В.': 'Александров Олег Валерьевич',
+	'Дубовский А.В.': 'Дубовский Алексей Викторович',
+	'Лазовский Г.Б.': 'Лазовский Георгий Борисович',
+	'Вишневский Р.А.': 'Вишневский Роман Анатольевич',
+	'Пилипчук В.С.': 'Пилипчук Владимир Сергеевич',
+	'Барабан И.И.': 'Барабан Иван Иванович'
+}
 
-				case teacherName['full'][i]:
-					$(this).fadeOut(100, function () {
-						$(this).text(teacherName['short'][i]).fadeIn(100)
-					})
-					break;
-			};
-		};
+$('.lesson__name').click(fullLessonName);
+$('.now__name').click(fullLessonName);
+
+$('.lesson__teacher').click(fullTeacherName);
+
+function fullTeacherName() {
+	let teacher = $(this);
+	// console.log(teacher.text() in teacherName);
+
+	if (teacher.text() in teacherName) {
+		teacher.fadeOut(100, function () {
+			teacher.text(teacherName[teacher.text()]).fadeIn(100);
+		});
+	} else {
+		for (let key in teacherName) if (teacherName[key] == teacher.text()) {
+			teacher.fadeOut(100, function () {
+				teacher.text(key).fadeIn(100);
+			});
+			break;
+		}
 	}
+}
 
-	function fullLessonName() {
-		// console.log($(this).text())
-		for (let i = 0; i < lessonName['short'].length; i++) {
+function fullLessonName() {
+	let lesson = $(this);
+	// console.log(lesson.text() in lessonName);
 
-			switch ($(this).text()) {
-				case lessonName['short'][i]:
-					$(this).fadeOut(100, function () {
-						$(this).text(lessonName['full'][i]).fadeIn(100)
-					})
-					break;
-
-				case lessonName['full'][i]:
-					$(this).fadeOut(100, function () {
-						$(this).text(lessonName['short'][i]).fadeIn(100)
-					})
-					break;
-			};
-		};
+	if (lesson.text() in lessonName) {
+		lesson.fadeOut(100, function () {
+			lesson.text(lessonName[lesson.text()]).fadeIn(100);
+		});
+	} else {
+		for (let key in lessonName) if (lessonName[key] == lesson.text()) {
+			lesson.fadeOut(100, function () {
+				lesson.text(key).fadeIn(100);
+			});
+			break;
+		}
 	}
-
-	$('.lesson__name').click(fullLessonName);
-	$('.now__name').click(fullLessonName);
-
-	$('.lesson__teacher').click(fullTeacherName);
-});
+}

@@ -1,5 +1,5 @@
 "use strict"
-
+console.log('====================== main.js ========================');
 let settings, defaultSettings = {
 	'colorScheme': 'light',
 	'colorSchemeDark': 'dark',
@@ -11,15 +11,9 @@ let settings, defaultSettings = {
 if (!localStorage['settings']) {
 	localStorage['settings'] = JSON.stringify(defaultSettings);
 }
-// localStorage['settings'] = localStorage['settings'] ?? JSON.stringify(defaultSettings);
+
 settings = JSON.parse(localStorage['settings']);
 console.log('Settings', settings);
-
-/*if (!settings['defaultGroup']) {
-	settings['defaultGroup'] = prompt('Группа по умолчанию?', [117]);
-	localStorage['settings'] = JSON.stringify(settings);
-
-}*/
 
 const monthName = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'илюя', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 const dayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];		//? Название дней недели
@@ -27,8 +21,6 @@ const dayName = ['Воскресенье', 'Понедельник', 'Вторн
 const remainEnd = 1640552400000;		//? Конец семестра в миллисекундах
 const weekCheck = 604800000; 							//? Одна неделя в миллисекундах
 const semBegin = 1630270800000; 			//? Начало семестра в миллисекундах
-let nextDayLastLessonTime;
-let currentLessonBegin, currentLessonEnd;
 // * =================================================
 // ! Получение текущей даты, дня недели и времени в секундах
 let date, dayIndex, timeInSeconds;
@@ -39,17 +31,15 @@ function getDate() {
 }
 getDate();
 setInterval(getDate, 1000);
-
+console.log('====================== date.js ========================');
 console.log('Дата:', date);
 console.log('Номер дня:', dayIndex);
 console.log('Время в секундах:', timeInSeconds);
-console.log();
 
 // * =================================================
 // ! Секунды в красивую строку
 function getTimeString(h, m, s) {
-	var h, m, s;
-	var timeString = ''
+	let timeString = ''
 	if (h < 10) { timeString = timeString + '0' }
 	timeString = timeString + h + ':';
 	if (m < 10) { timeString = timeString + '0' }
@@ -61,8 +51,7 @@ function getTimeString(h, m, s) {
 // * =================================================
 // ! Выделение часов, минут и секунд из секунд
 function getHMS(time) {
-	var time;
-	var output = {
+	let output = {
 		'hours': 0,
 		'minutes': 0,
 		'seconds': 0
@@ -129,25 +118,24 @@ function setWeekParity() {
 // * ===========================================
 // ! Количество пар сегодня
 function getLessonAmount(group, day) {
-	var day;
 	if (day == undefined) day = dayIndex;
-	if (day == 0)
-		day = 1;
+	if (day == 0) day = 1;
 
-	var groupTag = `#u${group}-target`;
-	var today = $(groupTag).children(`.day_${day}`).children('.day__timetable').children('.lesson').last();
-	var i = 5;
+	let groupTag = `#u${group}-target`;
+	let today = $(groupTag).children(`.day_${day}`).children('.day__timetable').children('.lesson').last();
+	let i = 5;
 	while (today.hasClass(`lesson_${i}`) == false) i--;
 	return i;
 }
 // * ===========================================
 // ! ====== Расписание следующего дня ==========
-var nextDayIndex = dayIndex + 1;
+let nextDayIndex = dayIndex + 1;
 if (nextDayIndex > 6) nextDayIndex = 1;
 console.log('Завтра:', dayName[nextDayIndex]);
+
 function setNextDay(group, delay) {
 	function getNextDay(group, delay) {
-		var groupTag = `#u${group}-target`;
+		let groupTag = `#u${group}-target`;
 		if (dayIndex != 0) {
 			if (timeInSeconds >= lessonTimeSeconds[lessonAmount]['end'] + delay) {
 				$(groupTag).children(`.day_${nextDayIndex}`).children('.day__name').addClass('nextDay slide').next().css('display', 'grid');
@@ -692,6 +680,20 @@ let lessons = {
 
 console.log('Расписания', lessons);
 
+createSchedule(117);
+createSchedule(217);
+
+$('.lesson__type').each(function () {
+	switch ($(this).text()) {
+		case 'ЛК':
+			$(this).parent('.lesson').addClass('lesson_lection');
+			break;
+		case 'ПЗ':
+			$(this).parent('.lesson').addClass('lesson_practice');
+			break;
+	}
+});
+
 function createSchedule(group) {
 	let groupTag = `#u${group}-target`
 
@@ -752,11 +754,6 @@ function createSchedule(group) {
 		}
 	}
 }
-
-createSchedule(117);
-createSchedule(217);
-
-
 
 /*let lessonsU117 = {
 	// ? Понедельник
@@ -1984,8 +1981,6 @@ $('.day__name').click(function () {
 	$(this).toggleClass('slide');
 })
 
-// ! ================= Прилипающая навигация ==============================
-
 
 // ! Selected
 $('.prefs__option').children('select').each(function () {
@@ -2038,76 +2033,68 @@ function chooseDefaultGroup() {
 	$('.popup').css('display', 'flex');
 }
 let lessonName = {
-	'short': ['ФРО на АЯ', 'АИП и ЧФ', 'ПАП при ОВД', 'ПП и ТОВД', 'ЭО', 'ОПВД', 'АП и ПНК', 'МОМАН'],
-	'full': ['Фразеология радиообмена на английском языке', 'Авиационная инженерная психология и человеческий фактор', 'Предотвращение авиационных происшествий при обслуживании воздушного движения', 'Правила, процедуры и технология обслуживания воздушного движения', 'Экономика отрасли', 'Организация потоков воздушного движения', 'Авиационные приборы и пилотажные навигационные комплексы', 'Метеорологическое обеспечение международной аэронавигации']
-};
-
-let teacherName = {
-	'short': ['Лазовский Г.Б., Швайко Е. П.', 'Науменко А.И.', 'Худолей Е.В.', 'Александров О.В.', 'Дубовский А.В.', 'Лазовский Г.Б.', 'Вишневский Р.А.', 'Пилипчук В.С.', 'Барабан И.И.'],
-	'full': ['Лазовский Георгий Борисович, Швайко Елена Петровна', 'Науменко Александр Иванович', 'Худолей Елена Владимировна', 'Александров Олег Валерьевич', 'Дубовский Алексей Викторович', 'Лазовский Георгий Борисович', 'Вишневский Роман Анатольевич', 'Пилипчук Владимир Сергеевич', 'Барабан Иван Иванович']
+	'ФРО на АЯ': 'Фразеология радиообмена на английском языке',
+	'АИП и ЧФ': 'Авиационная инженерная психология и человеческий фактор',
+	'ПАП при ОВД': 'Предотвращение авиационных происшествий при обслуживании воздушного движения',
+	'ПП и ТОВД': 'Правила, процедуры и технология обслуживания воздушного движения',
+	'ЭО': 'Экономика отрасли',
+	'ОПВД': 'Организация потоков воздушного движения',
+	'АП и ПНК': 'Авиационные приборы и пилотажные навигационные комплексы',
+	'МОМАН': 'Метеорологическое обеспечение международной аэронавигации'
 }
 
-$(document).ready(function () {
-	/*	console.log($('.ttest').text())
-		if (teacherName['short'][8] == $('.ttest').text()) {
-			console.log('true')
-		} else {
-			console.log('false')
-		}*/
-	function fullTeacherName() {
-		// console.log($(this).text());
-		console.log($(this).text());
-		for (let i = 0; i < teacherName['short'].length; i++) {
-			switch ($(this).text()) {
-				case teacherName['short'][i]:
-					$(this).fadeOut(100, function () {
-						$(this).text(teacherName['full'][i]).fadeIn(100)
-					})
-					break;
+let teacherName = {
+	'Лазовский Г.Б., Швайко Е. П.': 'Лазовский Георгий Борисович, Швайко Елена Петровна',
+	'Науменко А.И.': 'Науменко Александр Иванович',
+	'Худолей Е.В.': 'Худолей Елена Владимировна',
+	'Александров О.В.': 'Александров Олег Валерьевич',
+	'Дубовский А.В.': 'Дубовский Алексей Викторович',
+	'Лазовский Г.Б.': 'Лазовский Георгий Борисович',
+	'Вишневский Р.А.': 'Вишневский Роман Анатольевич',
+	'Пилипчук В.С.': 'Пилипчук Владимир Сергеевич',
+	'Барабан И.И.': 'Барабан Иван Иванович'
+}
 
-				case teacherName['full'][i]:
-					$(this).fadeOut(100, function () {
-						$(this).text(teacherName['short'][i]).fadeIn(100)
-					})
-					break;
-			};
-		};
+$('.lesson__name').click(fullLessonName);
+$('.now__name').click(fullLessonName);
+
+$('.lesson__teacher').click(fullTeacherName);
+
+function fullTeacherName() {
+	let teacher = $(this);
+	// console.log(teacher.text() in teacherName);
+
+	if (teacher.text() in teacherName) {
+		teacher.fadeOut(100, function () {
+			teacher.text(teacherName[teacher.text()]).fadeIn(100);
+		});
+	} else {
+		for (let key in teacherName) if (teacherName[key] == teacher.text()) {
+			teacher.fadeOut(100, function () {
+				teacher.text(key).fadeIn(100);
+			});
+			break;
+		}
 	}
+}
 
-	function fullLessonName() {
-		// console.log($(this).text())
-		for (let i = 0; i < lessonName['short'].length; i++) {
+function fullLessonName() {
+	let lesson = $(this);
+	// console.log(lesson.text() in lessonName);
 
-			switch ($(this).text()) {
-				case lessonName['short'][i]:
-					$(this).fadeOut(100, function () {
-						$(this).text(lessonName['full'][i]).fadeIn(100)
-					})
-					break;
-
-				case lessonName['full'][i]:
-					$(this).fadeOut(100, function () {
-						$(this).text(lessonName['short'][i]).fadeIn(100)
-					})
-					break;
-			};
-		};
+	if (lesson.text() in lessonName) {
+		lesson.fadeOut(100, function () {
+			lesson.text(lessonName[lesson.text()]).fadeIn(100);
+		});
+	} else {
+		for (let key in lessonName) if (lessonName[key] == lesson.text()) {
+			lesson.fadeOut(100, function () {
+				lesson.text(key).fadeIn(100);
+			});
+			break;
+		}
 	}
-
-	$('.lesson__name').click(fullLessonName);
-	$('.now__name').click(fullLessonName);
-
-	$('.lesson__teacher').click(fullTeacherName);
-});
-$(document).ready(function () {
-	$('.lesson__type').each(function () {
-		if ($(this).text() == 'ЛК') {
-			$(this).parent('.lesson').addClass('lesson_lection');
-		} else {
-			$(this).parent('.lesson').addClass('lesson_practice');
-		};
-	});
-});
+}
 let titleChangerArray = [
 	'Хочу передать привет Сивцу P.S. Сашка Бурбик',
 	'Коренислав, где Бурбислав?',
@@ -2324,23 +2311,18 @@ let soundsObject = {
 }
 
 $('.lesson__teacher').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	name = name.split(' ')[0];
 	if (name in soundsObject) playSound(name);
 });
 
 $('.lesson__name').click(function () {
-	if (settings['sounds'] == 'false') return;
 	let name = $(this).next().next().next().text();
 	name = name.split(' ')[0];
 	if (name in soundsObject) playSound(name);
 });
 
 $('.lesson__time').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	name = name.split(':')[0];
 	name = name.slice(-2);
@@ -2349,61 +2331,49 @@ $('.lesson__time').click(function () {
 
 $('.lesson__auditory').click(function () {
 	if (settings['sounds'] == 'false') return;
-
 	playSound('auditory');
 });
 
 $('.lesson_out').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	if (name in soundsObject) playSound(name);
 });
 
 $('.nav__tab').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	name = name.split(' ')[0];
 	if (name in soundsObject) playSound(name);
 });
 
 $('.day__name').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	name = name.split(' ')[0];
 	if (name in soundsObject) playSound(name);
 });
 
 $('.now__title').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	name = name.split(' ')[0];
 	if (name in soundsObject) playSound(name);
 });
 
 $('.now__gone').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	if (name in soundsObject) playSound(name);
 });
 
 $('.week__parity').click(function () {
 	if (settings['sounds'] == 'false') return;
-
 	playSound('parity');
 });
 
 $('.header__title').click(function () {
 	if (settings['sounds'] == 'false') return;
-
 	playSound('Сейчас');
 });
 
 function playSound(key) {
+	if (settings['sounds'] == 'false') return;
 	let random = Math.floor(Math.random() * (soundsObject[key].length));
 	// console.log(random);
 	for (let keyStop in soundsObject) {

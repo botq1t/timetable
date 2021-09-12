@@ -474,6 +474,20 @@ let lessons = {
 
 console.log('Расписания', lessons);
 
+createSchedule(117);
+createSchedule(217);
+
+$('.lesson__type').each(function () {
+	switch ($(this).text()) {
+		case 'ЛК':
+			$(this).parent('.lesson').addClass('lesson_lection');
+			break;
+		case 'ПЗ':
+			$(this).parent('.lesson').addClass('lesson_practice');
+			break;
+	}
+});
+
 function createSchedule(group) {
 	let groupTag = `#u${group}-target`
 
@@ -534,11 +548,6 @@ function createSchedule(group) {
 		}
 	}
 }
-
-createSchedule(117);
-createSchedule(217);
-
-
 
 /*let lessonsU117 = {
 	// ? Понедельник

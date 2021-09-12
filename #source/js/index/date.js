@@ -4,8 +4,6 @@ const dayName = ['Воскресенье', 'Понедельник', 'Вторн
 const remainEnd = 1640552400000;		//? Конец семестра в миллисекундах
 const weekCheck = 604800000; 							//? Одна неделя в миллисекундах
 const semBegin = 1630270800000; 			//? Начало семестра в миллисекундах
-let nextDayLastLessonTime;
-let currentLessonBegin, currentLessonEnd;
 // * =================================================
 // ! Получение текущей даты, дня недели и времени в секундах
 let date, dayIndex, timeInSeconds;
@@ -16,17 +14,15 @@ function getDate() {
 }
 getDate();
 setInterval(getDate, 1000);
-
+console.log('====================== date.js ========================');
 console.log('Дата:', date);
 console.log('Номер дня:', dayIndex);
 console.log('Время в секундах:', timeInSeconds);
-console.log();
 
 // * =================================================
 // ! Секунды в красивую строку
 function getTimeString(h, m, s) {
-	var h, m, s;
-	var timeString = ''
+	let timeString = ''
 	if (h < 10) { timeString = timeString + '0' }
 	timeString = timeString + h + ':';
 	if (m < 10) { timeString = timeString + '0' }
@@ -38,8 +34,7 @@ function getTimeString(h, m, s) {
 // * =================================================
 // ! Выделение часов, минут и секунд из секунд
 function getHMS(time) {
-	var time;
-	var output = {
+	let output = {
 		'hours': 0,
 		'minutes': 0,
 		'seconds': 0
@@ -106,25 +101,24 @@ function setWeekParity() {
 // * ===========================================
 // ! Количество пар сегодня
 function getLessonAmount(group, day) {
-	var day;
 	if (day == undefined) day = dayIndex;
-	if (day == 0)
-		day = 1;
+	if (day == 0) day = 1;
 
-	var groupTag = `#u${group}-target`;
-	var today = $(groupTag).children(`.day_${day}`).children('.day__timetable').children('.lesson').last();
-	var i = 5;
+	let groupTag = `#u${group}-target`;
+	let today = $(groupTag).children(`.day_${day}`).children('.day__timetable').children('.lesson').last();
+	let i = 5;
 	while (today.hasClass(`lesson_${i}`) == false) i--;
 	return i;
 }
 // * ===========================================
 // ! ====== Расписание следующего дня ==========
-var nextDayIndex = dayIndex + 1;
+let nextDayIndex = dayIndex + 1;
 if (nextDayIndex > 6) nextDayIndex = 1;
 console.log('Завтра:', dayName[nextDayIndex]);
+
 function setNextDay(group, delay) {
 	function getNextDay(group, delay) {
-		var groupTag = `#u${group}-target`;
+		let groupTag = `#u${group}-target`;
 		if (dayIndex != 0) {
 			if (timeInSeconds >= lessonTimeSeconds[lessonAmount]['end'] + delay) {
 				$(groupTag).children(`.day_${nextDayIndex}`).children('.day__name').addClass('nextDay slide').next().css('display', 'grid');

@@ -122,23 +122,18 @@ let soundsObject = {
 }
 
 $('.lesson__teacher').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	name = name.split(' ')[0];
 	if (name in soundsObject) playSound(name);
 });
 
 $('.lesson__name').click(function () {
-	if (settings['sounds'] == 'false') return;
 	let name = $(this).next().next().next().text();
 	name = name.split(' ')[0];
 	if (name in soundsObject) playSound(name);
 });
 
 $('.lesson__time').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	name = name.split(':')[0];
 	name = name.slice(-2);
@@ -147,61 +142,49 @@ $('.lesson__time').click(function () {
 
 $('.lesson__auditory').click(function () {
 	if (settings['sounds'] == 'false') return;
-
 	playSound('auditory');
 });
 
 $('.lesson_out').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	if (name in soundsObject) playSound(name);
 });
 
 $('.nav__tab').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	name = name.split(' ')[0];
 	if (name in soundsObject) playSound(name);
 });
 
 $('.day__name').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	name = name.split(' ')[0];
 	if (name in soundsObject) playSound(name);
 });
 
 $('.now__title').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	name = name.split(' ')[0];
 	if (name in soundsObject) playSound(name);
 });
 
 $('.now__gone').click(function () {
-	if (settings['sounds'] == 'false') return;
-
 	let name = $(this).text();
 	if (name in soundsObject) playSound(name);
 });
 
 $('.week__parity').click(function () {
 	if (settings['sounds'] == 'false') return;
-
 	playSound('parity');
 });
 
 $('.header__title').click(function () {
 	if (settings['sounds'] == 'false') return;
-
 	playSound('Сейчас');
 });
 
 function playSound(key) {
+	if (settings['sounds'] == 'false') return;
 	let random = Math.floor(Math.random() * (soundsObject[key].length));
 	// console.log(random);
 	for (let keyStop in soundsObject) {
