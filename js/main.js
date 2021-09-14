@@ -257,14 +257,22 @@ let lessons = {
 			'lessons': true,
 			1: {
 				'index': 1,
-				'parity': 'both',
+				'parity': 'odd',
+				'name': 'ЭО',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Науменко А.И.'
+			},
+			2: {
+				'index': 1,
+				'parity': 'even',
 				'name': 'ЭО',
 				'type': 'ЛК',
 				'auditory': '3103',
 				'teacher': 'Науменко А.И.'
 			},
 
-			2: {
+			3: {
 				'index': 2,
 				'parity': 'both',
 				'name': 'ЭО',
@@ -479,14 +487,22 @@ let lessons = {
 			'lessons': true,
 			1: {
 				'index': 1,
-				'parity': 'both',
+				'parity': 'odd',
+				'name': 'ЭО',
+				'type': 'ЛК',
+				'auditory': '3203',
+				'teacher': 'Науменко А.И.'
+			},
+			2: {
+				'index': 1,
+				'parity': 'even',
 				'name': 'ЭО',
 				'type': 'ЛК',
 				'auditory': '3103',
 				'teacher': 'Науменко А.И.'
 			},
 
-			2: {
+			3: {
 				'index': 2,
 				'parity': 'both',
 				'name': 'ОПВД',
@@ -494,7 +510,7 @@ let lessons = {
 				'auditory': '3204',
 				'teacher': 'Вишневский Р.А.'
 			},
-			3: {
+			4: {
 				'index': 3,
 				'parity': 'both',
 				'name': 'ЭО',
