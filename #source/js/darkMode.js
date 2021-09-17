@@ -12,11 +12,11 @@ if (timeInSeconds >= 20 * 3600 || timeInSeconds < 8 * 3600) {
 	switch (settings['colorScheme']) {
 		case 'light':
 			settings['colorScheme'] = 'dark';
-			localStorage['settings'] = JSON.stringify(settings);
+			localStorage['timetable_settings'] = JSON.stringify(settings);
 			break;
 		case 'dark':
 			settings['colorScheme'] = 'light';
-			localStorage['settings'] = JSON.stringify(settings);
+			localStorage['timetable_settings'] = JSON.stringify(settings);
 			break;
 	}
 	console.log('color scheme:', settings['colorScheme'])

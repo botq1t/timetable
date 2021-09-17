@@ -33,7 +33,7 @@
 	})
 });*/
 // ! ================ Переключение вкладок ============================
-if (settings['defaultGroup'] != 'undefined') {
+if (settings['defaultGroup']) {
 	if (dayIndex == 0 ||
 		timeInSeconds < lessonTimeSeconds[1]['begin'] ||
 		timeInSeconds >= lessonTimeSeconds[getLessonAmount(settings['defaultGroup'])]['end']) {

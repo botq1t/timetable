@@ -4,7 +4,7 @@ $('.prefs__option').children('select').each(function () {
 	let id = $(this).attr('id');
 	id = id.split('_')[1];
 	$(`#prefs_${id}`).children().each(function () {
-		if ($(this).attr('value') == settings[`${id}`]) {
+		if ($(this).attr('value') == String(settings[`${id}`])) {
 			$(this).prop('selected', true);
 		}
 	});
@@ -24,9 +24,21 @@ $('#prefs_button-submit').click(function () {
 		let select = $(this).children('select');
 		let id = select.attr('id');
 		id = id.split('_')[1];
-		settings[id] = select.val();
+
+		let value = select.val();
+
+		if (!isNaN(Number(value))) {
+			settings[id] = Number(value);
+		} else if (value == 'true') {
+			settings[id] = true;
+		} else if (value == 'false') {
+			settings[id] = false;
+		} else {
+			settings[id] = value;
+		}
+		// settings[id] = select.val();
 	})
-	localStorage['settings'] = JSON.stringify(settings);
+	localStorage['timetable_settings'] = JSON.stringify(settings);
 });
 
 $('#prefs_button-reset').click(function () {
@@ -34,15 +46,15 @@ $('#prefs_button-reset').click(function () {
 	document.location.reload();
 });
 // ! Popups
-if (settings['defaultGroup'] == 'undefined') {
+if (!settings['defaultGroup']) {
 	setTimeout(chooseDefaultGroup, 1000);
 }
 
 $('#popup_group').children('.popup__option').children('div').click(function () {
 	let id = $(this).attr('id');
 	id = id.split('_')[1];
-	settings['defaultGroup'] = id;
-	localStorage['settings'] = JSON.stringify(settings);
+	settings['defaultGroup'] = +id;
+	localStorage['timetable_settings'] = JSON.stringify(settings);
 	document.location.reload();
 })
 

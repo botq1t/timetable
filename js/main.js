@@ -1,18 +1,25 @@
 "use strict"
 console.log('====================== main.js ========================');
 let settings, defaultSettings = {
-	'colorScheme': 'light',
-	'colorSchemeDark': 'dark',
-	'defaultGroup': 'undefined',
-	'dynamicTitle': 'true',
-	'sounds': 'true',
+	colorScheme: 'light',
+	colorSchemeDark: 'dark',
+	colorSchemeDarkBegin: 20 * 3600,
+	colorSchemeDarkEnd: 8 * 3600,
+	defaultGroup: null,
+	dynamicTitle: true,
+	sounds: true,
 };
 
-if (!localStorage['settings']) {
-	localStorage['settings'] = JSON.stringify(defaultSettings);
+if (localStorage['settings']) {
+	localStorage['timetable_settings'] = localStorage['settings'];
+	localStorage.removeItem('settings');
 }
 
-settings = JSON.parse(localStorage['settings']);
+if (!localStorage['timetable_settings']) {
+	localStorage['timetable_settings'] = JSON.stringify(defaultSettings);
+}
+
+settings = JSON.parse(localStorage['timetable_settings']);
 console.log('Settings', settings);
 
 const monthName = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'илюя', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
@@ -1533,11 +1540,11 @@ if (timeInSeconds >= 20 * 3600 || timeInSeconds < 8 * 3600) {
 	switch (settings['colorScheme']) {
 		case 'light':
 			settings['colorScheme'] = 'dark';
-			localStorage['settings'] = JSON.stringify(settings);
+			localStorage['timetable_settings'] = JSON.stringify(settings);
 			break;
 		case 'dark':
 			settings['colorScheme'] = 'light';
-			localStorage['settings'] = JSON.stringify(settings);
+			localStorage['timetable_settings'] = JSON.stringify(settings);
 			break;
 	}
 	console.log('color scheme:', settings['colorScheme'])
@@ -1954,7 +1961,7 @@ function nowDisplayItemsUpdate(group) {
 	})
 });*/
 // ! ================ Переключение вкладок ============================
-if (settings['defaultGroup'] != 'undefined') {
+if (settings['defaultGroup']) {
 	if (dayIndex == 0 ||
 		timeInSeconds < lessonTimeSeconds[1]['begin'] ||
 		timeInSeconds >= lessonTimeSeconds[getLessonAmount(settings['defaultGroup'])]['end']) {
@@ -2003,7 +2010,7 @@ $('.prefs__option').children('select').each(function () {
 	let id = $(this).attr('id');
 	id = id.split('_')[1];
 	$(`#prefs_${id}`).children().each(function () {
-		if ($(this).attr('value') == settings[`${id}`]) {
+		if ($(this).attr('value') == String(settings[`${id}`])) {
 			$(this).prop('selected', true);
 		}
 	});
@@ -2023,9 +2030,21 @@ $('#prefs_button-submit').click(function () {
 		let select = $(this).children('select');
 		let id = select.attr('id');
 		id = id.split('_')[1];
-		settings[id] = select.val();
+
+		let value = select.val();
+
+		if (!isNaN(Number(value))) {
+			settings[id] = Number(value);
+		} else if (value == 'true') {
+			settings[id] = true;
+		} else if (value == 'false') {
+			settings[id] = false;
+		} else {
+			settings[id] = value;
+		}
+		// settings[id] = select.val();
 	})
-	localStorage['settings'] = JSON.stringify(settings);
+	localStorage['timetable_settings'] = JSON.stringify(settings);
 });
 
 $('#prefs_button-reset').click(function () {
@@ -2033,15 +2052,15 @@ $('#prefs_button-reset').click(function () {
 	document.location.reload();
 });
 // ! Popups
-if (settings['defaultGroup'] == 'undefined') {
+if (!settings['defaultGroup']) {
 	setTimeout(chooseDefaultGroup, 1000);
 }
 
 $('#popup_group').children('.popup__option').children('div').click(function () {
 	let id = $(this).attr('id');
 	id = id.split('_')[1];
-	settings['defaultGroup'] = id;
-	localStorage['settings'] = JSON.stringify(settings);
+	settings['defaultGroup'] = +id;
+	localStorage['timetable_settings'] = JSON.stringify(settings);
 	document.location.reload();
 })
 
@@ -2189,7 +2208,7 @@ function titleBirthCheker() {
 	if (birthFlag) {
 		clearInterval(titleChanger);
 		$('.header__title').html(`<span class="icon-cake"></span><p>С Днём Рождения, ${titleChangerHappyBirthday[titleDate]}!</p><span class="icon-cake"></span>`);
-	} else if (settings['dynamicTitle'] == 'true') {
+	} else if (settings['dynamicTitle']) {
 		setInterval(titleChanger, 5000);
 	}
 }
@@ -2346,7 +2365,7 @@ $('.lesson__time').click(function () {
 });
 
 $('.lesson__auditory').click(function () {
-	if (settings['sounds'] == 'false') return;
+	if (!settings['sounds']) return;
 	playSound('auditory');
 });
 
@@ -2379,17 +2398,17 @@ $('.now__gone').click(function () {
 });
 
 $('.week__parity').click(function () {
-	if (settings['sounds'] == 'false') return;
+	if (!settings['sounds']) return;
 	playSound('parity');
 });
 
 $('.header__title').click(function () {
-	if (settings['sounds'] == 'false') return;
+	if (!settings['sounds']) return;
 	playSound('Сейчас');
 });
 
 function playSound(key) {
-	if (settings['sounds'] == 'false') return;
+	if (!settings['sounds']) return;
 	let random = Math.floor(Math.random() * (soundsObject[key].length));
 	// console.log(random);
 	for (let keyStop in soundsObject) {
