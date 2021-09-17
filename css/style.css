@@ -76,14 +76,14 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------*/
 @font-face {
   font-family: "iconfont";
-  src: url("../fonts/iconfont.eot?m6uq2n");
-  src: url("../fonts/iconfont.eot?m6uq2n#iefix") format("embedded-opentype"), url("../fonts/iconfont.ttf?m6uq2n") format("truetype"), url("../fonts/iconfont.woff?m6uq2n") format("woff"), url("../fonts/iconfont.svg?m6uq2n#iconfont") format("svg");
+  src: url("../fonts/iconfont.eot?xwd172");
+  src: url("../fonts/iconfont.eot?xwd172#iefix") format("embedded-opentype"), url("../fonts/iconfont.ttf?xwd172") format("truetype"), url("../fonts/iconfont.woff?xwd172") format("woff"), url("../fonts/iconfont.svg?xwd172#iconfont") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
-[class^=icon-]:before,
-[class*=" icon-"]:before {
+[class^=icon-]::before,
+[class*=" icon-"]::before {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: "iconfont" !important;
   speak: never;
@@ -98,55 +98,47 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .icon-prefs:before {
-  content: "";
-}
-
-.icon-moon:before {
-  content: "";
-}
-
-.icon-sun:before {
-  content: "";
-}
-
-.icon-happy:before {
-  content: "";
-}
-
-.icon-cake:before {
-  content: "";
-}
-
-.icon-bokal:before {
-  content: "";
-}
-
-.icon-bells:before {
-  content: "";
-}
-
-.icon-sleep:before {
-  content: "";
-}
-
-.icon-sad:before {
-  content: "";
-}
-
-.icon-clock:before {
-  content: "";
-}
-
-.icon-back:before {
   content: "";
 }
 
-.icon-random:before {
+.icon-bells:before {
   content: "";
 }
 
-.icon-home:before {
+.icon-bokal:before {
   content: "";
+}
+
+.icon-cake:before {
+  content: "";
+}
+
+.icon-clock:before {
+  content: "";
+}
+
+.icon-happy:before {
+  content: "";
+}
+
+.icon-moon:before {
+  content: "";
+}
+
+.icon-peace:before {
+  content: "";
+}
+
+.icon-sad:before {
+  content: "";
+}
+
+.icon-sleep:before {
+  content: "";
+}
+
+.icon-sun:before {
+  content: "";
 }
 
 .wrapper {
@@ -703,7 +695,7 @@ body {
   color: white;
 }
 .day__name::before, .day__name::after {
-  content: "";
+  content: "";
   font-family: "iconfont" !important;
   speak: never;
   font-style: normal;
@@ -1042,7 +1034,7 @@ body {
   text-shadow: 0 0 5px black;
 }
 .footer__time::before, .footer__time::after {
-  content: "";
+  content: "";
   font-family: "iconfont" !important;
   speak: never;
   font-style: normal;
@@ -1297,7 +1289,7 @@ body.dark .footer {
   background: rgba(0, 0, 0, 0.9);
 }
 body.dark .footer__time::before, body.dark .footer__time::after {
-  content: "";
+  content: "";
 }
 body.dark .day {
   border-color: #cacaca;
