@@ -39,9 +39,12 @@ $maxWidth: 1024;
 body {
 	// font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 	font-family: "Noto Sans", sans-serif;
+	&.lock {
+		overflow: hidden;
+	}
 }
 // ! ================== Prefs =====================
-@import "elements/prefs.scss";
+@import "elements/index/prefs.scss";
 
 // ! ================== Header =====================
 @import "elements/index/header.scss";

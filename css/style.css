@@ -76,15 +76,15 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------*/
 @font-face {
   font-family: "iconfont";
-  src: url("../fonts/iconfont.eot?xwd172");
-  src: url("../fonts/iconfont.eot?xwd172#iefix") format("embedded-opentype"), url("../fonts/iconfont.ttf?xwd172") format("truetype"), url("../fonts/iconfont.woff?xwd172") format("woff"), url("../fonts/iconfont.svg?xwd172#iconfont") format("svg");
+  src: url("../fonts/iconfont.eot?l5ir53");
+  src: url("../fonts/iconfont.eot?l5ir53#iefix") format("embedded-opentype"), url("../fonts/iconfont.ttf?l5ir53") format("truetype"), url("../fonts/iconfont.woff?l5ir53") format("woff"), url("../fonts/iconfont.svg?l5ir53#iconfont") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 [class^=icon-]::before,
 [class*=" icon-"]::before {
-  /* use !important to prevent issues with browser extensions that change fonts */
+  /* use !important to prevent issues with browser extensions that change ../fonts */
   font-family: "iconfont" !important;
   speak: never;
   font-style: normal;
@@ -95,6 +95,10 @@ h1, h2, h3, h4, h5, h6 {
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-close:before {
+  content: "";
 }
 
 .icon-prefs:before {
@@ -165,33 +169,31 @@ h1, h2, h3, h4, h5, h6 {
 body {
   font-family: "Noto Sans", sans-serif;
 }
+body.lock {
+  overflow: hidden;
+}
 
 .prefs {
   position: fixed;
+  z-index: 10;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  opacity: 0;
-  visibility: hidden;
-  background-color: rgba(0, 0, 0, 0.6);
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 300ms ease 0s;
+  transition: all 300ms ease 0s;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: 20px 10px;
-  -webkit-transition: all 300ms ease 0s;
-  transition: all 300ms ease 0s;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .prefs.active {
   opacity: 1;
@@ -199,49 +201,34 @@ body {
   -webkit-transition: all 300ms ease 0s;
   transition: all 300ms ease 0s;
 }
-.prefs__content {
-  padding: 20px 40px 20px 20px;
+.prefs__body {
   position: relative;
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
+  color: white;
   background-color: #0b08db;
-  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 5px;
+  width: 90%;
+  max-width: 1000px;
+  height: 60%;
 }
 .prefs__close {
-  cursor: pointer;
   position: absolute;
   right: 10px;
-  top: 10px;
-  height: 30px;
-  width: 30px;
+  top: 3px;
+  text-shadow: 0px 1px 2px black;
+  font-size: calc(25px + 10 * ((100vw - 320px) / 704));
+  -webkit-transition: all 100ms ease 0s;
+  transition: all 100ms ease 0s;
 }
-.prefs__close::before, .prefs__close::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background-color: white;
-  border-radius: 10px;
-  -webkit-transition: background-color 100ms ease 0s;
-  transition: background-color 100ms ease 0s;
+.prefs__close:active, .prefs__close:hover {
+  color: red;
 }
-.prefs__close::before {
-  top: 50%;
-  -webkit-transform: rotate(45deg) translateY(-50%);
-          transform: rotate(45deg) translateY(-50%);
-}
-.prefs__close::after {
-  bottom: 50%;
-  -webkit-transform: rotate(-45deg) translateY(50%);
-          transform: rotate(-45deg) translateY(50%);
-}
-.prefs__close:active::before, .prefs__close:active::after {
-  background-color: red;
-}
-.prefs__block {
-  color: white;
+.prefs__left {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -249,114 +236,75 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin-bottom: 15px;
-}
-.prefs__block form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-.prefs__block:last-child {
-  margin-bottom: 0;
-}
-.prefs__title {
-  padding: 5px 10px;
-  margin-bottom: 20px;
-  font-size: calc(20px + 5 * ((100vw - 320px) / 704));
-}
-.prefs__body {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  padding: 0 0 0 20px;
-}
-.prefs__item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin-bottom: 15px;
-}
-.prefs__description {
-  font-size: calc(14px + 4 * ((100vw - 320px) / 704));
-}
-.prefs__option select {
-  font-style: italic;
-  font-size: calc(14px + 4 * ((100vw - 320px) / 704));
-  color: white;
-  background-color: transparent;
-}
-.prefs__option select option {
-  background-color: #0b08db;
-}
-.prefs__button {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
 }
 .prefs__submit {
-  font-size: calc(14px + 4 * ((100vw - 320px) / 704));
-  background-color: white;
-  padding: 2px 5px;
+  font-size: calc(15px + 5 * ((100vw - 320px) / 704));
+  text-shadow: 0px 1px 2px black;
+  background-color: rgba(32, 221, 25, 0.5);
+  margin: 10px;
+  padding: 8px;
+  text-align: center;
   border-radius: 8px;
+  -webkit-box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+          box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
 }
-.prefs__reset {
-  cursor: pointer;
+.prefs__submit:active {
+  -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+          box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+  -webkit-transition: all 100ms ease 0s;
+  transition: all 100ms ease 0s;
+}
+.prefs__nav {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: calc(14px + 4 * ((100vw - 320px) / 704));
-  background-color: #ff3f3f;
-  padding: 2px 5px;
-  border-radius: 8px;
-}
-
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.6);
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+}
+.prefs__tab {
+  font-size: calc(15px + 5 * ((100vw - 320px) / 704));
+  text-shadow: 0px 1px 2px black;
+  margin: 7.5px 0px;
+  padding: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 5px;
+}
+.prefs__tab.active {
+  background-color: rgba(32, 221, 25, 0.5);
+}
+.prefs__content {
+  padding: 10px;
+  -webkit-box-shadow: 5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+          box-shadow: 5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 10px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  background-color: rgba(32, 221, 25, 0.5);
+}
+.prefs__card {
   display: none;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  padding: 20px 10px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
-.popup__body {
-  padding: 20px 30px;
-  background-color: #0b08db;
-  border-radius: 10px;
+.prefs__card.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
-.popup__item {
+.prefs__block {
+  margin: 0px 0px 10px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -364,33 +312,50 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  padding: 5px 0;
 }
-.popup__title {
-  font-size: calc(20px + 10 * ((100vw - 320px) / 704));
-  color: white;
-  margin: 0 0 60px 0;
-  font-weight: 700;
+.prefs__block:last-child {
+  margin: 0;
 }
-.popup__option {
+.prefs__title {
+  text-align: center;
+  font-size: calc(18px + 2 * ((100vw - 320px) / 704));
+  margin: 0px 0px 13px 0px;
+  text-shadow: 0px 1px 2px black;
+}
+.prefs__options {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
 }
-.popup__option div {
-  cursor: pointer;
+.prefs__options il {
+  -webkit-box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+          box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+  font-weight: 700;
+  color: black;
+  padding: 5px 15px;
+  text-align: center;
+  border-radius: 8px;
   background-color: white;
-  padding: 3px 10px;
-  font-size: calc(18px + 7 * ((100vw - 320px) / 704));
-  -webkit-transition: background-color 300ms ease 0s;
-  transition: background-color 300ms ease 0s;
-  border-radius: 10px;
+  font-size: calc(15px + 3 * ((100vw - 320px) / 704));
+  -webkit-transition: all 300ms ease 0s;
+  transition: all 300ms ease 0s;
 }
-.popup__option div:active {
-  background-color: red;
-  -webkit-transition: background-color 300ms ease 0s;
-  transition: background-color 300ms ease 0s;
+.prefs__options il.active {
+  background-color: yellow;
+}
+.prefs__options il:active {
+  -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+          box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+  -webkit-transition: all 100ms ease 0s;
+  transition: all 100ms ease 0s;
+}
+.prefs__options il input {
+  background-color: transparent;
+  font-size: calc(15px + 3 * ((100vw - 320px) / 704));
+  max-width: 110px;
 }
 
 .header {

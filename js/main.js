@@ -1528,13 +1528,27 @@ $(document).ready(function () {
 */
 let colorSchemeArray = ['light', 'dark'];
 
-console.log(colorSchemeArray);
+// console.log(colorSchemeArray);
 
-if (timeInSeconds >= 20 * 3600 || timeInSeconds < 8 * 3600) {
+if (settings.colorSchemeDarkBegin > settings.colorSchemeDarkEnd) {
+	if (timeInSeconds >= settings.colorSchemeDarkBegin || timeInSeconds < settings.colorSchemeDarkEnd) {
+		setColorScheme(settings['colorSchemeDark']);
+	} else {
+		setColorScheme(settings['colorScheme']);
+	}
+} else {
+	if (timeInSeconds < settings.colorSchemeDarkEnd && timeInSeconds >= settings.colorSchemeDarkBegin) {
+		setColorScheme(settings['colorSchemeDark']);
+	} else {
+		setColorScheme(settings['colorScheme']);
+	}
+}
+
+/*if (timeInSeconds >= 20 * 3600 || timeInSeconds < 8 * 3600) {
 	setColorScheme(settings['colorSchemeDark']);
 } else {
 	setColorScheme(settings['colorScheme']);
-}
+}*/
 
 /*$('.footer').click(function () {
 	switch (settings['colorScheme']) {
@@ -1555,64 +1569,8 @@ if (timeInSeconds >= 20 * 3600 || timeInSeconds < 8 * 3600) {
 function setColorScheme(mode) {
 	for (let i = 0; i < colorSchemeArray.length; i++) {
 		$('body').removeClass(colorSchemeArray[i]);
-		/*$('.header__body').removeClass(colorSchemeArray[i]);
-		$('.header__title').removeClass(colorSchemeArray[i]);
-		$('.header__nav').removeClass(colorSchemeArray[i]);
-
-		$('.week__today').removeClass(colorSchemeArray[i]);
-		$('.week__parity').removeClass(colorSchemeArray[i]);
-		$('.week__update').removeClass(colorSchemeArray[i]);
-
-		$('.nav__tab').removeClass(colorSchemeArray[i]);
-		$('.nav__settings').removeClass(colorSchemeArray[i]);
-
-		$('.main').removeClass(colorSchemeArray[i]);
-
-		$('.now__gone').removeClass(colorSchemeArray[i]);
-		$('.now__title').removeClass(colorSchemeArray[i]);
-		$('.now__item').not('.now__title').removeClass(colorSchemeArray[i]);
-		$('.now__card').removeClass(colorSchemeArray[i]);
-		$('.now__name').removeClass(colorSchemeArray[i]);
-		$('.current').removeClass(colorSchemeArray[i]);
-		$('.next').removeClass(colorSchemeArray[i]);
-
-		$('.footer').removeClass(colorSchemeArray[i]);
-		$('.footer__time').removeClass(colorSchemeArray[i]);
-
-		$('.day__name').removeClass(colorSchemeArray[i]);
-		$('.day').removeClass(colorSchemeArray[i]);
-		$('.lesson').removeClass(colorSchemeArray[i]);
-		$('.lesson__item').removeClass(colorSchemeArray[i]);*/
 	}
 	$('body').addClass(mode);
-	/*$('.header__body').addClass(mode);
-	$('.header__title').addClass(mode);
-	$('.header__nav').addClass(mode);
-
-	$('.week__today').addClass(mode);
-	$('.week__parity').addClass(mode);
-	$('.week__update').addClass(mode);
-
-	$('.nav__tab').addClass(mode);
-	$('.nav__settings').addClass(mode);
-
-	$('.main').addClass(mode);
-
-	$('.now__gone').addClass(mode);
-	$('.now__title').addClass(mode);
-	$('.now__item').not('.now__title').addClass(mode);
-	$('.now__card').addClass(mode);
-	$('.now__name').addClass(mode);
-	$('.current').addClass(mode);
-	$('.next').addClass(mode);
-
-	$('.footer').addClass(mode);
-	$('.footer__time').addClass(mode);
-
-	$('.day__name').addClass(mode);
-	$('.day').addClass(mode);
-	$('.lesson').addClass(mode);
-	$('.lesson__item').addClass(mode);*/
 }
 
 
@@ -2004,69 +1962,126 @@ $('.day__name').click(function () {
 	$(this).toggleClass('slide');
 })
 
-
-// ! Selected
-$('.prefs__option').children('select').each(function () {
+console.log('++++++++++++++++++++++++++++++++++++++++++');
+if (!settings.defaultGroup) {
+	setTimeout(checkPrefsGroup, 2000);
+}
+$('.prefs__block').each(function () {
 	let id = $(this).attr('id');
 	id = id.split('_')[1];
-	$(`#prefs_${id}`).children().each(function () {
-		if ($(this).attr('value') == String(settings[`${id}`])) {
-			$(this).prop('selected', true);
-		}
-	});
+	console.log(id);
+	if (!$(this).hasClass('time')) {
+		$(this).children('.prefs__options').children().each(function () {
+			let checker = $(this).attr('id');
+			checker = checker.split('_')[2];
+			if (checker == String(settings[id])) {
+				$(this).addClass('active');
+			}
+		});
+	} else {
+		let timeString = getPrefsTime(id);
+		console.log(id, timeString);
+		$(this).children('.prefs__options').children().children().val(timeString);
 
-})
-// ! Click events
-$('#prefs').click(function () {
-	$('#prefs-target').addClass('active');
+	}
+
+
+
+});
+
+$('.prefs__tab').click(function () {
+	$('.prefs__tab').removeClass('active');
+	$('.prefs__card').removeClass('active');
+
+	$(this).addClass('active');
+	let id = $(this).attr('id');
+	id = id.split('_')[2];
+	console.log(id);
+	$(`#prefs_target_${id}`).addClass('active');
+});
+
+$('.prefs__options').children('il').click(function () {
+	$(this).parent().children().removeClass('active');
+	$(this).addClass('active');
 });
 
 $('.prefs__close').click(function () {
 	$('#prefs-target').removeClass('active');
+	$('body').removeClass('lock');
 });
 
-$('#prefs_button-submit').click(function () {
-	$('.prefs__option').each(function () {
-		let select = $(this).children('select');
-		let id = select.attr('id');
-		id = id.split('_')[1];
+$('#prefs').click(function () {
+	$('#prefs-target').addClass('active');
+	$('body').addClass('lock');
+});
 
-		let value = select.val();
+$('.prefs__submit').click(function () {
+	$('.prefs__options').each(function () {
 
-		if (!isNaN(Number(value))) {
-			settings[id] = Number(value);
-		} else if (value == 'true') {
-			settings[id] = true;
-		} else if (value == 'false') {
-			settings[id] = false;
+		if (!$(this).children('il').hasClass('time')) {
+			$(this).children().each(function () {
+				let id = $(this).attr('id');
+				let name = id.split('_')[1];
+				id = id.split('_')[2];
+
+				if ($(this).hasClass('active')) {
+					if (!isNaN(Number(id))) {
+						settings[name] = +id;
+					} else if (id == 'true') {
+						settings[name] = true;
+					} else if (id == 'false') {
+						settings[name] = false;
+					} else {
+						settings[name] = id;
+					}
+				}
+			});
 		} else {
-			settings[id] = value;
+			let time = $(this).children().children().val();
+			let id = $(this).children().children().attr('name');
+			let timeSeconds = (+time.split(':')[0] * 3600) + (+time.split(':')[1] * 60);
+			settings[id] = timeSeconds;
+			// console.log(id, time, timeSeconds);
 		}
-		// settings[id] = select.val();
-	})
-	localStorage['timetable_settings'] = JSON.stringify(settings);
-});
 
-$('#prefs_button-reset').click(function () {
-	localStorage.clear();
+	});
+	localStorage['timetable_settings'] = JSON.stringify(settings);
+	console.log(settings);
 	document.location.reload();
 });
-// ! Popups
-if (!settings['defaultGroup']) {
-	setTimeout(chooseDefaultGroup, 1000);
+
+function getPrefsTime(id) {
+	let timeString = '';
+	let time = Math.floor(settings[id] / 3600);
+	if (time < 10) {
+		timeString = timeString + '0';
+	}
+	timeString = timeString + time;
+	timeString = timeString + ':';
+
+	time = (settings[id] - time * 3600) / 60;
+	if (time < 10) {
+		timeString = timeString + '0';
+	}
+	timeString = timeString + time;
+	return timeString;
 }
 
-$('#popup_group').children('.popup__option').children('div').click(function () {
-	let id = $(this).attr('id');
-	id = id.split('_')[1];
-	settings['defaultGroup'] = +id;
-	localStorage['timetable_settings'] = JSON.stringify(settings);
-	document.location.reload();
-})
+function checkPrefsGroup() {
+	$('#prefs-target').addClass('active');
+	$('body').addClass('lock');
 
-function chooseDefaultGroup() {
-	$('.popup').css('display', 'flex');
+	$('.prefs__tab').removeClass('active');
+	$('.prefs__card').removeClass('active');
+
+	$('#prefs_tab_other').addClass('active');
+	$('#prefs_target_other').addClass('active');
+
+	alert('Выберите свою группу плез)');
 }
+
+console.log('++++++++++++++++++++++++++++++++++++++++++');
+
 let lessonName = {
 	'ФРО на АЯ': 'Фразеология радиообмена на английском языке',
 	'АИП и ЧФ': 'Авиационная инженерная психология и человеческий фактор',
