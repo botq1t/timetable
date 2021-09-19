@@ -1962,14 +1962,14 @@ $('.day__name').click(function () {
 	$(this).toggleClass('slide');
 })
 
-console.log('++++++++++++++++++++++++++++++++++++++++++');
+// console.log('++++++++++++++++++++++++++++++++++++++++++');
 if (!settings.defaultGroup) {
 	setTimeout(checkPrefsGroup, 2000);
 }
 $('.prefs__block').each(function () {
 	let id = $(this).attr('id');
 	id = id.split('_')[1];
-	console.log(id);
+	// console.log(id);
 	if (!$(this).hasClass('time')) {
 		$(this).children('.prefs__options').children().each(function () {
 			let checker = $(this).attr('id');
@@ -1980,7 +1980,7 @@ $('.prefs__block').each(function () {
 		});
 	} else {
 		let timeString = getPrefsTime(id);
-		console.log(id, timeString);
+		// console.log(id, timeString);
 		$(this).children('.prefs__options').children().children().val(timeString);
 
 	}
@@ -1996,7 +1996,7 @@ $('.prefs__tab').click(function () {
 	$(this).addClass('active');
 	let id = $(this).attr('id');
 	id = id.split('_')[2];
-	console.log(id);
+	// console.log(id);
 	$(`#prefs_target_${id}`).addClass('active');
 });
 
@@ -2041,12 +2041,12 @@ $('.prefs__submit').click(function () {
 			let id = $(this).children().children().attr('name');
 			let timeSeconds = (+time.split(':')[0] * 3600) + (+time.split(':')[1] * 60);
 			settings[id] = timeSeconds;
-			// console.log(id, time, timeSeconds);
+			// // console.log(id, time, timeSeconds);
 		}
 
 	});
 	localStorage['timetable_settings'] = JSON.stringify(settings);
-	console.log(settings);
+	// console.log(settings);
 	document.location.reload();
 });
 
@@ -2080,7 +2080,7 @@ function checkPrefsGroup() {
 	alert('Выберите свою группу плез)');
 }
 
-console.log('++++++++++++++++++++++++++++++++++++++++++');
+// console.log('++++++++++++++++++++++++++++++++++++++++++');
 
 let lessonName = {
 	'ФРО на АЯ': 'Фразеология радиообмена на английском языке',

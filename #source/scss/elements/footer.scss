@@ -1,5 +1,4 @@
 .footer {
-	background: $accentColor;
 	&__body {
 		display: flex;
 		flex-direction: column;
@@ -13,14 +12,10 @@
 		justify-content: center;
 		text-align: center;
 		@include adaptiv-font(26, 17);
-		// font-size: 20px;
-		color: white;
 		font-weight: 700;
 		font-style: italic;
-		text-shadow: 0 0 5px black;
 		&::before,
 		&::after {
-			content: "\e90a";
 			font-family: "iconfont" !important;
 			speak: never;
 			font-style: normal;
