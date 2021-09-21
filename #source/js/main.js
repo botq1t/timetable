@@ -26,22 +26,13 @@ export { settings };
 // @prepros-append "index/date.js"
 // ! =================== Schedule creation ============================
 import { createSchedule } from './modules/schedule.js';
-
+import { setLessonType } from './modules/lessonBreak.js';
 console.log('Расписания', lessons);
 
 createSchedule(117);
 createSchedule(217);
 
-$('.lesson__type').each(function () {
-	switch ($(this).text()) {
-		case 'ЛК':
-			$(this).parent('.lesson').addClass('lesson_lection');
-			break;
-		case 'ПЗ':
-			$(this).parent('.lesson').addClass('lesson_practice');
-			break;
-	}
-});
+$('.lesson__type').each(setLessonType);
 
 //  ! ======================= Lessons Time =============================
 import { lessonTime, lessonTimeSeconds, breakTime, breakTimeSeconds } from './modules/lessonTime.js';
@@ -63,6 +54,12 @@ for (let i in lessonTime) {
 // @prepros-append "index/now.js"
 // @prepros-append "index/tabs.js"
 // @prepros-append "index/prefs.js"
-// @prepros-append "index/fullLessonName.js"
+// ! ===================== Full Lesson Name =======================
+import { fullLessonName, fullTeacherName } from './modules/lessonTeacherName.js';
+
+$('.lesson__name').click(fullLessonName);
+$('.now__name').click(fullLessonName);
+
+$('.lesson__teacher').click(fullTeacherName);
 // @prepros-append "titleChanger.js"
 // @prepros-append "index/sounds.js"

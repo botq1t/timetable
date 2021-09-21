@@ -25,22 +25,13 @@ export { settings };
 // ! ====================== Date ======================================
 // ! =================== Schedule creation ============================
 import { createSchedule } from './modules/schedule.js';
-
+import { setLessonType } from './modules/lessonBreak.js';
 console.log('Расписания', lessons);
 
 createSchedule(117);
 createSchedule(217);
 
-$('.lesson__type').each(function () {
-	switch ($(this).text()) {
-		case 'ЛК':
-			$(this).parent('.lesson').addClass('lesson_lection');
-			break;
-		case 'ПЗ':
-			$(this).parent('.lesson').addClass('lesson_practice');
-			break;
-	}
-});
+$('.lesson__type').each(setLessonType);
 
 //  ! ======================= Lessons Time =============================
 import { lessonTime, lessonTimeSeconds, breakTime, breakTimeSeconds } from './modules/lessonTime.js';
@@ -58,6 +49,13 @@ for (let i in lessonTime) {
 	});
 }
 
+// ! ===================== Full Lesson Name =======================
+import { fullLessonName, fullTeacherName } from './modules/lessonTeacherName.js';
+
+$('.lesson__name').click(fullLessonName);
+$('.now__name').click(fullLessonName);
+
+$('.lesson__teacher').click(fullTeacherName);
 const monthName = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'илюя', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 const dayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];		//? Название дней недели
 
@@ -779,17 +777,7 @@ function checkPrefsGroup() {
 
 // console.log('++++++++++++++++++++++++++++++++++++++++++');
 
-import { fullLessonName, fullTeacherName } from './modules/lessonTeacherName.js';
-
-$('.lesson__name').click(fullLessonName);
-$('.now__name').click(fullLessonName);
-
-$('.lesson__teacher').click(fullTeacherName);
-
-
-
-
-let titleChangerArray = [
+const titleChangerArray = [
 	'Хочу передать привет Сивцу P.S. Сашка Бурбик',
 	'Коренислав, где Бурбислав?',
 	'Нэ атмечай у мения жёпа болыт',
@@ -813,33 +801,8 @@ let titleChangerArray = [
 	'Ты меня презираешь',
 ]
 let birthFlag = false;
-/*
-let titleChangerHappyBirthday = {
-	'date': ['24.9', '14.10', '3.0'],
-	'name': ['Грузик', 'Корнеслав', 'Медвежонок'],
-}
 
-
-function titleBirthCheker() {
-	var titleDate = `${date.getDate().toString()}.${date.getMonth().toString()}`;
-	console.log('title string', titleDate);
-
-	if (titleChangerHappyBirthday['date'].includes(titleDate)) {
-		var titleIndex = titleChangerHappyBirthday['date'].indexOf(titleDate);
-		birthFlag = true;
-	}
-
-	if (birthFlag) {
-		clearInterval(titleChanger);
-		$('.header__title').html(`<span class="icon-cake"></span><p>С Днём Рождения, ${titleChangerHappyBirthday['name'][titleIndex]}!</p><span class="icon-cake"></span>`);
-	} else {
-		setInterval(titleChanger, 5000);
-	}
-}
-
-*/
-
-let titleChangerHappyBirthday = {
+const titleChangerHappyBirthday = {
 	'3.0': 'Медвежонок',
 	'10.0': 'Таня',
 	'10.2': 'Артурчик Крутилкин',
@@ -855,7 +818,6 @@ let titleChangerHappyBirthday = {
 	'14.10': 'Корнеславик',
 }
 
-
 function titleBirthCheker() {
 	let titleDate = `${date.getDate().toString()}.${date.getMonth().toString()}`;
 	console.log('title string', titleDate);
@@ -863,12 +825,12 @@ function titleBirthCheker() {
 	if (titleDate in titleChangerHappyBirthday) {
 		birthFlag = true;
 	}
-
+	let titleInterval;
 	if (birthFlag) {
-		clearInterval(titleChanger);
+		clearInterval(titleInterval);
 		$('.header__title').html(`<span class="icon-cake"></span><p>С Днём Рождения, ${titleChangerHappyBirthday[titleDate]}!</p><span class="icon-cake"></span>`);
 	} else if (settings['dynamicTitle']) {
-		setInterval(titleChanger, 5000);
+		titleInterval = setInterval(titleChanger, 5000);
 	}
 }
 

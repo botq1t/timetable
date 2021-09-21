@@ -19,7 +19,18 @@ const functions = {
 					i = lessons[group][day][key].index;
 					return i;
 				}
-	}
+	},
+	setLessonType: function () {
+		switch ($(this).text()) {
+			case 'ЛК':
+				$(this).parent('.lesson').addClass('lesson_lection');
+				break;
+			case 'ПЗ':
+				$(this).parent('.lesson').addClass('lesson_practice');
+				break;
+		}
+	},
 }
 
 export const getFirstLesson = functions.getFirstLesson;
+export const setLessonType = functions.setLessonType;
