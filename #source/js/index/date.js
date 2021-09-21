@@ -4,6 +4,7 @@ const dayName = ['Воскресенье', 'Понедельник', 'Вторн
 const remainEnd = 1640552400000;		//? Конец семестра в миллисекундах
 const weekCheck = 604800000; 							//? Одна неделя в миллисекундах
 const semBegin = 1630270800000; 			//? Начало семестра в миллисекундах
+
 // * =================================================
 // ! Получение текущей даты, дня недели и времени в секундах
 let date, dayIndex, timeInSeconds;
@@ -12,8 +13,10 @@ function getDate() {
 	dayIndex = date.getDay();
 	timeInSeconds = (date.getHours() * 3600) + (date.getMinutes() * 60) + (date.getSeconds());
 }
+
 getDate();
 setInterval(getDate, 1000);
+export { date, dayIndex, timeInSeconds };
 console.log('====================== date.js ========================');
 console.log('Дата:', date);
 console.log('Номер дня:', dayIndex);
@@ -70,8 +73,9 @@ function getWeekIndex() {
 	var weekPassTime = date.getTime() - semBegin;
 	return (Math.floor(weekPassTime / weekCheck) + 1)
 }
-var weekIndex = getWeekIndex();
+let weekIndex = getWeekIndex();
 const nowWeekIndex = getWeekIndex();
+export { nowWeekIndex };
 console.log('Номер текущей недели:', weekIndex);
 // * ===========================================
 // ! Чётности недели
@@ -96,11 +100,10 @@ function setWeekParity() {
 			if ($(this).hasClass('lesson_odd') == false) $(this).css('display', 'none');
 		})
 	}
-	weekIndex++;
 }
 // * ===========================================
 // ! Количество пар сегодня
-function getLessonAmount(group, day) {
+/*function getLessonAmount(group, day) {
 	if (day == undefined) day = dayIndex;
 	if (day == 0) day = 1;
 
@@ -109,7 +112,39 @@ function getLessonAmount(group, day) {
 	let i = 5;
 	while (today.hasClass(`lesson_${i}`) == false) i--;
 	return i;
+}*/
+
+import { lessons } from './modules/schedule.js';
+
+function getLessonAmount(group, day) {
+	let weekIndex;
+	if (day == undefined) day = dayIndex;
+	if (day == 0) {
+		day = 1;
+		weekIndex = nowWeekIndex + 1;
+	} else {
+		weekIndex = nowWeekIndex;
+	}
+
+	if (weekIndex % 2 == 0) {
+		weekIndex = 'even';
+	} else {
+		weekIndex = 'odd';
+	}
+
+	let i = 1;
+
+	for (let key in lessons[group][day]) {
+		if (lessons[group][day][key].parity == 'both' || lessons[group][day][key].parity == weekIndex) {
+			i = lessons[group][day][key].index;
+		}
+	}
+
+	return i;
 }
+
+console.log('lesson amount 117', getLessonAmount(117, 1));
+console.log('lesson amount 217', getLessonAmount(217, 1));
 // * ===========================================
 // ! ====== Расписание следующего дня ==========
 let nextDayIndex = dayIndex + 1;
@@ -162,7 +197,7 @@ $(document).ready(function () {
 	// ! Вывод текущей даты и времени
 	function displayDate() {
 		$('.week__date').html(`Сегодня: ${date.getDate()} ${monthName[date.getMonth()]} ${date.getFullYear()} г.<br>(${dayName[dayIndex]}, ${nowWeekIndex}-ая неделя)`);
-		var currentTime = getTimeString(date.getHours(), date.getMinutes(), date.getSeconds());
+		let currentTime = getTimeString(date.getHours(), date.getMinutes(), date.getSeconds());
 		$('.week__time').text(`Время: ${currentTime}`);
 	}
 	displayDate();
@@ -177,7 +212,10 @@ $(document).ready(function () {
 
 	// ! Вывод и смена чётности недели
 	setWeekParity();
-	$('.week__parity').click(setWeekParity);
+	$('.week__parity').click(function () {
+		weekIndex++;
+		setWeekParity();
+	});
 
 	// ! Расписание следующего дня
 	setNextDay(117, 300);
