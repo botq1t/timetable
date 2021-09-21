@@ -1,313 +1,264 @@
+$accentColor-dark: rgb(255, 255, 255);
+$accentColorActive-dark: rgb(0, 214, 29);
+$accentColorNextDay-dark: rgb(216, 140, 0);
+$boxShadowColor-dark: rgb(221, 221, 221);
+
+$textColor_1-dark: white;
+$textColor_2-dark: white;
+$textColorActive-dark: red;
+$textColorShadow_1-dark: rgba(0, 0, 0, 0.6);
+$textColorShadow_2-dark: black;
+
+$lectionColor: rgba(49, 240, 167, 0.4);
+$lectionColorHover: rgba(49, 240, 167, 0.6);
+$practiceColor: rgba(255, 123, 0, 0.4);
+$practiceColorHover: rgba(255, 123, 0, 0.6);
+$lessonActiveColor: rgb(192, 0, 0);
+
+$evenColor-dark: rgba(57, 252, 252, 0.4);
+$oddColor-dark: rgba(247, 0, 255, 0.4);
+
+$backgroundColor-dark: rgb(34, 34, 34);
+$borderColor_1-dark: rgba(255, 255, 255, 0.6);
+
+$nowCurrentColor-dark: rgba(255, 0, 0, 0.4);
+$nowNextColor-dark: rgba(255, 153, 0, 0.4);
 .dark {
-	&.header {
-		&__body {
-			background-color: $backgroundColorDark;
-		}
-		&__title {
-			color: white;
-		}
-	}
-
-	&.week {
-		&__today {
-			border-top: 1px solid $borderColorDark;
-			color: white;
-		}
-		&__parity {
-			color: $backgroundColorDark;
-			&.even {
-				background-color: $evenColorDark;
-			}
-			&.odd {
-				background-color: $oddColorDark;
-			}
-		}
-		&__update {
-			color: white;
-			transition: color 300ms ease 0s;
-			&:active {
-				color: red;
-				transition: color 300ms ease 0s;
-			}
-		}
-	}
-
-	&.nav {
-		border-top: 1px solid $borderColorDark;
-		&__tab {
-			color: white;
-			&.active {
-				border-left: 1px solid transparent;
-				border-right: 1px solid transparent;
-				// transition: all 300ms ease 0s;
-				&.even {
-					background: transparent;
-					transition: background 300ms ease 0s;
-				}
-				&.odd {
-					background: transparent;
-					transition: background 300ms ease 0s;
-				}
-				&::before {
-					background: white;
-				}
-			}
-		}
-	}
-
-	&.main {
-		&.even {
-			background: $backgroundColorDark url("../img/stickers.webp") local;
-			transition: all 300ms ease 0s;
-		}
-		&.odd {
-			background: $backgroundColorDark url("../img/stickers.webp") local;
-			transition: all 300ms ease 0s;
-		}
-	}
-
-	&.now {
-		&__gone {
-			background: $backgroundColorDark;
-			color: white;
-		}
-
-		&__title {
-			border-color: $borderColorDark;
-			background: $backgroundColorDark;
-		}
-
-		&__item {
-			border-color: $borderColorDark;
-		}
-
-		&__card {
-			border-color: $borderColorDark;
-			color: white;
-		}
-
-		&__name {
-			border-color: $borderColorDark;
-		}
-	}
-	&.current {
-		background: rgb(56, 0, 0);
-		border-color: $borderColorDark;
-	}
-	&.next {
-		background: rgb(82, 49, 1);
-	}
-
-	&.footer {
-		border-top: 1px solid $borderColorDark;
-		background: $backgroundColorDark;
-		&__time {
-			&::before,
-			&::after {
-				content: "\e90a";
-			}
-		}
-	}
-
-	&.day {
-		border-color: $borderColorDark;
-		&__name {
-			background: $backgroundColorDark;
-			border-color: $borderColorDark;
-			&.active {
-				background: rgb(0, 204, 27);
-			}
-			&.nextDay {
-				background: rgb(207, 135, 0);
-			}
-		}
-	}
-
-	&.lesson {
-		color: white;
-		background: $backgroundColorDark;
-		border-color: $borderColorDark;
-		&.active {
-			background: rgb(190, 0, 0);
-		}
-		&_practice {
-			background: rgb(56, 27, 0);
-			&:hover {
-				background: rgb(95, 46, 0);
-				transition: all 300ms ease 0s;
-			}
-		}
-		&_lection {
-			background: rgb(0, 56, 35);
-			transition: all 300ms ease 0s;
-			&:hover {
-				background: rgb(0, 90, 56);
-				transition: all 300ms ease 0s;
-			}
-		}
-		&__item {
-			border-color: $borderColorDark;
-		}
-	}
-}
-
-body.dark {
+	// ! ================== Header =======================
 	.header {
-		&__body {
-			background-color: $backgroundColorDark;
-		}
+		color: $textColor_1-dark;
+		background-color: $backgroundColor-dark;
 		&__title {
-			color: white;
+			color: $accentColor-dark;
+			animation: headerTitleAnim-dark 4s linear 0s infinite;
 		}
 	}
 
 	.week {
-		&__today {
-			border-top: 1px solid $borderColorDark;
-			color: white;
-		}
+		border-color: $borderColor_1-dark;
+
 		&__parity {
-			color: $backgroundColorDark;
-			&.even {
-				background-color: $evenColorDark;
+			background-color: white;
+			text-shadow: 0 0 2px $textColorShadow_1-dark;
+			box-shadow: 0 3px 0 $boxShadowColor-dark;
+			&:hover,
+			&:active {
+				box-shadow: 0 1px 0 $boxShadowColor-dark;
 			}
+
+			&.even {
+				background: $evenColor-dark;
+			}
+
 			&.odd {
-				background-color: $oddColorDark;
+				background: $oddColor-dark;
 			}
 		}
+
 		&__update {
-			color: white;
-			transition: color 300ms ease 0s;
-			&:active {
-				color: red;
-				transition: color 300ms ease 0s;
+			color: $textColor_1-dark;
+			&:active,
+			&:hover {
+				color: $textColorActive-dark;
 			}
 		}
 	}
 
 	.nav {
-		border-top: 1px solid $borderColorDark;
+		text-shadow: 0 0 2px $textColorShadow_1-dark;
+		border-color: $borderColor_1-dark;
+
+		&__settings {
+			color: $accentColor-dark;
+			&:active,
+			&:hover {
+				color: red;
+			}
+		}
+
 		&__tab {
-			color: white;
+			color: $accentColor-dark;
+			&::before {
+				background: $accentColor-dark;
+			}
+
 			&.active {
-				border-left: 1px solid transparent;
-				border-right: 1px solid transparent;
-				// transition: all 300ms ease 0s;
+				border-color: transparent;
 				&.even {
-					background: transparent;
+					background: $evenColor-dark;
 					transition: background 300ms ease 0s;
 				}
 				&.odd {
-					background: transparent;
+					background: $oddColor-dark;
 					transition: background 300ms ease 0s;
 				}
 				&::before {
-					background: white;
+					background: $accentColor-dark;
 				}
 			}
 		}
-		&__settings {
-			color: white;
-			transition: color 100ms ease 0s;
-			&:active {
-				color: red;
-				transition: color 100ms ease 0s;
-			}
-		}
 	}
 
+	// ! ================== Main =======================
 	.main {
+		background: $backgroundColor-dark url("../img/main/stickers_60.webp") local;
 		&.even {
-			background: $backgroundColorDark url("../img/stickers.webp") local;
-			transition: all 300ms ease 0s;
+			&::before {
+				content: "";
+				position: absolute;
+				z-index: 1;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background-color: $evenColor-dark;
+				transition: all 300ms ease 0s;
+			}
 		}
 		&.odd {
-			background: $backgroundColorDark url("../img/stickers.webp") local;
-			transition: all 300ms ease 0s;
-		}
-	}
-
-	.now {
-		&__gone {
-			background: $backgroundColorDark;
-			color: white;
-		}
-
-		&__title {
-			border-color: $borderColorDark;
-			background: $backgroundColorDark;
-		}
-
-		&__item {
-			border-color: $borderColorDark;
-		}
-
-		&__card {
-			border-color: $borderColorDark;
-			color: white;
-		}
-
-		&__name {
-			border-color: $borderColorDark;
-		}
-	}
-	.current {
-		background: rgb(56, 0, 0);
-		border-color: $borderColorDark;
-	}
-	.next {
-		background: rgb(82, 49, 1);
-	}
-
-	.footer {
-		border-top: 1px solid $borderColorDark;
-		background: $backgroundColorDark;
-		&__time {
-			&::before,
-			&::after {
-				content: "\e90a";
+			&::before {
+				content: "";
+				position: absolute;
+				z-index: 1;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background-color: $oddColor-dark;
+				transition: all 300ms ease 0s;
 			}
 		}
 	}
 
+	// ! ================== Timetable =======================
 	.day {
-		border-color: $borderColorDark;
+		background: $backgroundColor-dark;
+		border-color: $accentColor-dark;
+
 		&__name {
-			background: $backgroundColorDark;
-			border-color: $borderColorDark;
+			text-shadow: 0 0 3px $textColorShadow_2-dark;
+			background: $backgroundColor-dark;
+			color: $textColor_2-dark;
+			border-color: $accentColor-dark;
+
 			&.active {
-				background: rgb(0, 204, 27);
+				background: $accentColorActive-dark;
 			}
+
 			&.nextDay {
-				background: rgb(207, 135, 0);
+				background: $accentColorNextDay-dark;
 			}
+
+			&.slide {
+				border-color: $accentColor-dark;
+			}
+		}
+
+		&__timetable {
+			color: $textColor_1-dark;
 		}
 	}
 
 	.lesson {
-		color: white;
-		background: $backgroundColorDark;
-		border-color: $borderColorDark;
-		&.active {
-			background: rgb(190, 0, 0);
-		}
-		&_practice {
-			background: rgb(56, 27, 0);
-			&:hover {
-				background: rgb(95, 46, 0);
-				transition: all 300ms ease 0s;
-			}
-		}
+		border-color: $accentColor-dark;
+
 		&_lection {
-			background: rgb(0, 56, 35);
+			background: $lectionColor;
 			transition: all 300ms ease 0s;
 			&:hover {
-				background: rgb(0, 90, 56);
+				background: $lectionColorHover;
 				transition: all 300ms ease 0s;
 			}
 		}
-		&__item {
-			border-color: $borderColorDark;
+
+		&_practice {
+			background: $practiceColor;
+			transition: all 300ms ease 0s;
+			&:hover {
+				background: $practiceColorHover;
+				transition: all 300ms ease 0s;
+			}
 		}
+
+		&.active {
+			background: $lessonActiveColor;
+			color: $textColor_2-dark;
+			text-shadow: 0 0 1px $textColorShadow_2-dark;
+		}
+
+		&__item {
+			border-color: $accentColor-dark;
+		}
+	}
+
+	// ! ================== Footer =======================
+	.footer {
+		background: $backgroundColorDark;
+		color: $textColor_2-dark;
+		text-shadow: 0 0 5px $textColorShadow_2-dark;
+
+		&__time {
+			&::before,
+			&::after {
+				content: "\e906";
+			}
+		}
+	}
+
+	// ! ================== Now =======================
+	.now {
+		&__item {
+			border-color: $accentColor-dark;
+		}
+
+		&__card {
+			background: $backgroundColor-dark;
+			border-color: $accentColor-dark;
+		}
+
+		&__title {
+			background: $backgroundColor-dark;
+			color: $textColor_2-dark;
+			border-color: $accentColor-dark;
+		}
+
+		&__content,
+		&__gone {
+			color: $textColor_1-dark;
+			&.current {
+				background: $nowCurrentColor-dark;
+				border-color: $accentColor-dark;
+			}
+			&.next {
+				background: $nowNextColor-dark;
+			}
+		}
+
+		&__name {
+			border-color: $accentColor-dark;
+		}
+	}
+}
+
+@keyframes headerTitleAnim-dark {
+	0% {
+		text-shadow: 0 0 4px rgb(255, 0, 0);
+		transform: scale(0.95);
+	}
+	25% {
+		text-shadow: 0 0 5px rgb(9, 255, 0);
+		transform: scale(1);
+	}
+	50% {
+		text-shadow: 0 0 4px rgb(0, 217, 255);
+		transform: scale(0.95);
+	}
+	75% {
+		text-shadow: 0 0 3px rgb(238, 255, 0);
+		transform: scale(1);
+	}
+	100% {
+		text-shadow: 0 0 4px rgb(255, 0, 0);
+		transform: scale(0.95);
 	}
 }

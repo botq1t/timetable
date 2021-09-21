@@ -1,18 +1,25 @@
 "use strict"
 console.log('====================== main.js ========================');
 let settings, defaultSettings = {
-	'colorScheme': 'light',
-	'colorSchemeDark': 'dark',
-	'defaultGroup': 'undefined',
-	'dynamicTitle': 'true',
-	'sounds': 'true',
+	colorScheme: 'light',
+	colorSchemeDark: 'dark',
+	colorSchemeDarkBegin: 20 * 3600,
+	colorSchemeDarkEnd: 8 * 3600,
+	defaultGroup: null,
+	dynamicTitle: true,
+	sounds: true,
 };
 
-if (!localStorage['settings']) {
-	localStorage['settings'] = JSON.stringify(defaultSettings);
+if (localStorage['settings']) {
+	localStorage['timetable_settings'] = localStorage['settings'];
+	localStorage.removeItem('settings');
 }
 
-settings = JSON.parse(localStorage['settings']);
+if (!localStorage['timetable_settings']) {
+	localStorage['timetable_settings'] = JSON.stringify(defaultSettings);
+}
+
+settings = JSON.parse(localStorage['timetable_settings']);
 console.log('Settings', settings);
 
 // @prepros-append "index/date.js"

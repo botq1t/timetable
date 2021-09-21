@@ -141,7 +141,7 @@ $('.lesson__time').click(function () {
 });
 
 $('.lesson__auditory').click(function () {
-	if (settings['sounds'] == 'false') return;
+	if (!settings['sounds']) return;
 	playSound('auditory');
 });
 
@@ -174,17 +174,17 @@ $('.now__gone').click(function () {
 });
 
 $('.week__parity').click(function () {
-	if (settings['sounds'] == 'false') return;
+	if (!settings['sounds']) return;
 	playSound('parity');
 });
 
 $('.header__title').click(function () {
-	if (settings['sounds'] == 'false') return;
+	if (!settings['sounds']) return;
 	playSound('Сейчас');
 });
 
 function playSound(key) {
-	if (settings['sounds'] == 'false') return;
+	if (!settings['sounds']) return;
 	let random = Math.floor(Math.random() * (soundsObject[key].length));
 	// console.log(random);
 	for (let keyStop in soundsObject) {

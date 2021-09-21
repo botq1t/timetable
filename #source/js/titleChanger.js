@@ -76,7 +76,7 @@ function titleBirthCheker() {
 	if (birthFlag) {
 		clearInterval(titleChanger);
 		$('.header__title').html(`<span class="icon-cake"></span><p>С Днём Рождения, ${titleChangerHappyBirthday[titleDate]}!</p><span class="icon-cake"></span>`);
-	} else if (settings['dynamicTitle'] == 'true') {
+	} else if (settings['dynamicTitle']) {
 		setInterval(titleChanger, 5000);
 	}
 }
