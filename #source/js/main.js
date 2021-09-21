@@ -21,7 +21,8 @@ if (!localStorage['timetable_settings']) {
 
 settings = JSON.parse(localStorage['timetable_settings']);
 console.log('Settings', settings);
-
+export { settings };
+// ! ====================== Date ======================================
 // @prepros-append "index/date.js"
 // ! =================== Schedule creation ============================
 import { createSchedule } from './modules/schedule.js';
