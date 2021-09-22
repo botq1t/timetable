@@ -31,10 +31,8 @@ const objects = {
 			new Audio('audio/victor/cunt.mp3'),
 			new Audio('audio/victor/chert.mp3'),
 			new Audio('audio/victor/zavtra.mp3'),
-			new Audio('audio/victor/rat.mp3'),
 			new Audio('audio/victor/want-to-die-1.mp3'),
 			new Audio('audio/victor/want-to-die-2.mp3'),
-			new Audio('audio/victor/blevon.mp3'),
 		],
 		'Дубовский': [
 			new Audio('audio/victor/chert.mp3'),
