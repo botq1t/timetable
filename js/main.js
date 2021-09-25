@@ -1,5 +1,7 @@
 "use strict"
+// ! =====================================================
 // ! ================== Settings =========================
+// ! =====================================================
 let settings, defaultSettings = {
 	colorScheme: 'light',
 	colorSchemeDark: 'dark',
@@ -22,218 +24,47 @@ if (!localStorage['timetable_settings']) {
 settings = JSON.parse(localStorage['timetable_settings']);
 console.log('Settings', settings);
 export { settings };
-// ! ====================== Date ======================================
-// ! =================== Schedule creation ============================
-import { createSchedule } from './modules/schedule.js';
-import { setLessonType } from './modules/lessonBreak.js';
-console.log('Расписания', lessons);
+// ! =====================================================
+// ! ====================== Date =========================
+// ! =====================================================
+import { dayName, getDate } from './modules/date.js';
 
-createSchedule(117);
-createSchedule(217);
+// ? Получение текущей даты, дня недели и времени в секундах
+let date = getDate().date;
+let dayIndex = getDate().dayIndex;
+let timeInSeconds = getDate().timeInSeconds;
 
-$('.lesson__type').each(setLessonType);
-
-//  ! ======================= Lessons Time =============================
-import { lessonTime, lessonTimeSeconds, breakTime, breakTimeSeconds } from './modules/lessonTime.js';
-
-console.log('Пары:', lessonTime);
-console.log('Пары в секундах', lessonTimeSeconds);
-
-console.log('Перерывы', breakTime);
-console.log('Перерывы в секундах', breakTimeSeconds);
-
-for (let i in lessonTime) {
-	$(`.time_${i}`).each(function () {
-		$(this).children('.time__start').text(lessonTime[i].begin);
-		$(this).children('.time__end').text(lessonTime[i].end);
-	});
-}
-
-// ! ===================== Full Lesson Name =======================
-import { fullLessonName, fullTeacherName } from './modules/lessonTeacherName.js';
-
-$('.lesson__name').click(fullLessonName);
-$('.now__name').click(fullLessonName);
-
-$('.lesson__teacher').click(fullTeacherName);
-const monthName = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'илюя', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
-const dayName = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];		//? Название дней недели
-
-const remainEnd = 1640552400000;		//? Конец семестра в миллисекундах
-const weekCheck = 604800000; 							//? Одна неделя в миллисекундах
-const semBegin = 1630270800000; 			//? Начало семестра в миллисекундах
-
-// * =================================================
-// ! Получение текущей даты, дня недели и времени в секундах
-let date, dayIndex, timeInSeconds;
-function getDate() {
-	date = new Date();
-	dayIndex = date.getDay();
-	timeInSeconds = (date.getHours() * 3600) + (date.getMinutes() * 60) + (date.getSeconds());
-}
-
-getDate();
-setInterval(getDate, 1000);
-export { date, dayIndex, timeInSeconds };
-console.log('====================== date.js ========================');
+console.log('====================== date ========================');
 console.log('Дата:', date);
 console.log('Номер дня:', dayIndex);
 console.log('Время в секундах:', timeInSeconds);
+console.log('====================== date end ========================');
 
-// * =================================================
-// ! Секунды в красивую строку
-function getTimeString(h, m, s) {
-	let timeString = ''
-	if (h < 10) { timeString = timeString + '0' }
-	timeString = timeString + h + ':';
-	if (m < 10) { timeString = timeString + '0' }
-	timeString = timeString + m + ':';
-	if (s < 10) { timeString = timeString + '0' }
-	timeString = timeString + s;
-	return timeString;
-}
-// * =================================================
-// ! Выделение часов, минут и секунд из секунд
-function getHMS(time) {
-	let output = {
-		'hours': 0,
-		'minutes': 0,
-		'seconds': 0
-	}
-	output['hours'] = Math.floor(time / 3600);
-	output['minutes'] = Math.floor((time - (output['hours'] * 3600)) / 60);
-	output['seconds'] = time - (output['hours'] * 3600) - (output['minutes'] * 60);
-	return output;
-}
-// * ===========================================
-// ! Осталось до конца семестра
-function getRemain() {
-	let remainTime = remainEnd - date.getTime();
-	remainTime = Math.floor(remainTime / 1000);
+setInterval(function () {
+	date = getDate().date;
+	dayIndex = getDate().dayIndex;
+	timeInSeconds = getDate().timeInSeconds;
+}, 1000);
 
-	let remainDays = Math.floor(remainTime / 86400);
-	let remainInSeconds = remainTime - (remainDays * 86400);
-	let remainHMS = getHMS(remainInSeconds);
 
-	let remainTimeString = getTimeString(remainHMS['hours'], remainHMS['minutes'], remainHMS['seconds']);
-	let remain = `${remainDays} дней, ${remainTimeString}`
+export { date, dayIndex, timeInSeconds };
 
-	$('.footer__time').text(`До сессии: ${remain}`)
-}
-// * ===========================================
-// ! Выделение текущего дня недели
-function hlToday() {
-	$(`.day_${dayIndex}`).children('.day__name').addClass('active slide').next().css('display', 'grid');
-}
-// * ===========================================
-// ! Получение номера недели
-function getWeekIndex() {
-	var weekPassTime = date.getTime() - semBegin;
-	return (Math.floor(weekPassTime / weekCheck) + 1)
-}
-let weekIndex = getWeekIndex();
-const nowWeekIndex = getWeekIndex();
+// ? ============= Получение номера недели ====================
+import { getWeekIndex } from './modules/date.js';
+
+let weekIndex = getWeekIndex(date);
+const nowWeekIndex = getWeekIndex(date);
 export { nowWeekIndex };
 console.log('Номер текущей недели:', weekIndex);
-// * ===========================================
-// ! Чётности недели
-function setWeekParity() {
-	if (weekIndex % 2 == 0) {
-		$('.week__parity').removeClass('odd').addClass('even').text('Чётная неделя');
-		$('.main').removeClass('odd').addClass('even');
-		$('.nav__tab').removeClass('odd').addClass('even');
+// ? ===================== Количество пар сегодня ================
+import { getLessonAmount } from './modules/lessonBreak.js';
 
-
-		$('.lesson_even').css('display', 'grid');
-		$('.lesson_odd').each(function () {
-			if ($(this).hasClass('lesson_even') == false) $(this).css('display', 'none');
-		})
-	} else {
-		$('.week__parity').removeClass('even').addClass('odd').text('Нечётная неделя');
-		$('.main').removeClass('even').addClass('odd');
-		$('.nav__tab').removeClass('even').addClass('odd');
-
-		$('.lesson_odd').css('display', 'grid');
-		$('.lesson_even').each(function () {
-			if ($(this).hasClass('lesson_odd') == false) $(this).css('display', 'none');
-		})
-	}
-}
-// * ===========================================
-// ! Количество пар сегодня
-/*function getLessonAmount(group, day) {
-	if (day == undefined) day = dayIndex;
-	if (day == 0) day = 1;
-
-	let groupTag = `#u${group}-target`;
-	let today = $(groupTag).children(`.day_${day}`).children('.day__timetable').children('.lesson').last();
-	let i = 5;
-	while (today.hasClass(`lesson_${i}`) == false) i--;
-	return i;
-}*/
-
-import { lessons } from './modules/schedule.js';
-
-function getLessonAmount(group, day) {
-	let weekIndex;
-	if (day == undefined) day = dayIndex;
-	if (day == 0) {
-		day = 1;
-		weekIndex = nowWeekIndex + 1;
-	} else {
-		weekIndex = nowWeekIndex;
-	}
-
-	if (weekIndex % 2 == 0) {
-		weekIndex = 'even';
-	} else {
-		weekIndex = 'odd';
-	}
-
-	let i = 1;
-
-	for (let key in lessons[group][day]) {
-		if (lessons[group][day][key].parity == 'both' || lessons[group][day][key].parity == weekIndex) {
-			i = lessons[group][day][key].index;
-		}
-	}
-
-	return i;
-}
-
-console.log('lesson amount 117', getLessonAmount(117, 1));
-console.log('lesson amount 217', getLessonAmount(217, 1));
-// * ===========================================
-// ! ====== Расписание следующего дня ==========
+// ? ==================== Расписание следующего дня ==============
 let nextDayIndex = dayIndex + 1;
 if (nextDayIndex > 6) nextDayIndex = 1;
 console.log('Завтра:', dayName[nextDayIndex]);
 
-function setNextDay(group, delay) {
-	function getNextDay(group, delay) {
-		let groupTag = `#u${group}-target`;
-		if (dayIndex != 0) {
-			if (timeInSeconds >= lessonTimeSeconds[lessonAmount]['end'] + delay) {
-				$(groupTag).children(`.day_${nextDayIndex}`).children('.day__name').addClass('nextDay slide').next().css('display', 'grid');
-				$(groupTag).children(`.day_${dayIndex}`).children('.day__name').removeClass('slide').next().slideUp();
-			}
-		} else {
-			$(groupTag).children(`.day_1`).children('.day__name').addClass('nextDay slide').next().css('display', 'grid');
-			$(groupTag).children(`.day_${dayIndex}`).children('.day__name').removeClass('slide').next().slideUp();
-		}
-	}
-	let lessonAmount = getLessonAmount(group);
-	console.log(`Количество пар У${group} сегодня:`, lessonAmount);
-	getNextDay(group, delay);
-}
-// * ===========================================
-// ! =========== Текущий перерыв ===============
-function getCurrentBreakIndex() {
-	for (var i = 1; i <= 3; i++)
-		if (timeInSeconds >= breakTimeSeconds['big'][i]['begin'] && timeInSeconds < breakTimeSeconds['big'][i]['end'])
-			var lessonBreakIndex = i;
-	return lessonBreakIndex;
-}
+
 // * ===========================================
 // ! =========== Текущая пара ==================
 function getCurrentLessonIndex() {
@@ -251,38 +82,86 @@ function highlightCurrentLesson() {
 
 // * ===========================================
 // ? Вывод на страницу
+import { getRemain } from './modules/date.js';
+import { hlToday } from './modules/date.js';
+import { setWeekParity } from './modules/date.js';
+import { getNextDay } from './modules/date.js';
+import { displayDate } from './modules/date.js';
+
 $(document).ready(function () {
 	// ! Вывод текущей даты и времени
-	function displayDate() {
-		$('.week__date').html(`Сегодня: ${date.getDate()} ${monthName[date.getMonth()]} ${date.getFullYear()} г.<br>(${dayName[dayIndex]}, ${nowWeekIndex}-ая неделя)`);
-		let currentTime = getTimeString(date.getHours(), date.getMinutes(), date.getSeconds());
-		$('.week__time').text(`Время: ${currentTime}`);
-	}
-	displayDate();
-	setInterval(displayDate, 1000)
+	displayDate(date, dayIndex, nowWeekIndex);
+	setInterval(function () {
+		displayDate(date, dayIndex, nowWeekIndex);
+	}, 1000);
 
 	// ! Вывод остатка до конца семестра
-	getRemain();
-	setInterval(getRemain, 1000)
+	getRemain(date);
+	setInterval(function () {
+		getRemain(date);
+	}, 1000);
 
 	// ! Выделение текущего дня недели
-	hlToday();
+	hlToday(dayIndex);
 
 	// ! Вывод и смена чётности недели
-	setWeekParity();
+	setWeekParity(weekIndex);
 	$('.week__parity').click(function () {
 		weekIndex++;
-		setWeekParity();
+		setWeekParity(weekIndex);
 	});
 
 	// ! Расписание следующего дня
-	setNextDay(117, 300);
-	setNextDay(217, 300);
+	getNextDay(117, 300, dayIndex, timeInSeconds, getLessonAmount(117), nextDayIndex);
+	getNextDay(217, 300, dayIndex, timeInSeconds, getLessonAmount(217), nextDayIndex);
 
 	// ! Выделение текущей пары
 	highlightCurrentLesson();
 	setInterval(highlightCurrentLesson, 1000)
 });
+// ! =================== Schedule creation ============================
+import { createSchedule, lessons } from './modules/schedule.js';
+import { setLessonType } from './modules/lessonBreak.js';
+console.log('Расписания', lessons);
+
+createSchedule(117);
+createSchedule(217);
+
+setLessonType('.lesson__type');
+
+// ! =====================================================
+// ! ======================= Lessons Time ================
+// ! =====================================================
+import { lessonTime, lessonTimeSeconds, breakTime, breakTimeSeconds } from './modules/lessonTime.js';
+
+console.log('Пары:', lessonTime);
+console.log('Пары в секундах', lessonTimeSeconds);
+
+console.log('Перерывы', breakTime);
+console.log('Перерывы в секундах', breakTimeSeconds);
+
+for (let i in lessonTime) {
+	$(`.time_${i}`).each(function () {
+		$(this).children('.time__start').text(lessonTime[i].begin);
+		$(this).children('.time__end').text(lessonTime[i].end);
+	});
+}
+
+// ! =====================================================
+// ! ===================== Full Lesson Name ==============
+// ! =====================================================
+import { fullLessonName, fullTeacherName } from './modules/lessonTeacherName.js';
+
+$('.lesson__name').click(fullLessonName);
+$('.now__name').click(fullLessonName);
+
+$('.lesson__teacher').click(fullTeacherName);
+// ! =====================================================
+// ! ===================== Title Changer =================
+// ! =====================================================
+import { titleBirthCheker } from './modules/titleChanger.js';
+
+titleBirthCheker(date, settings['dynamicTitle']);
 import { colorSchemeArray, setColorScheme } from './modules/colorSchemes.js';
 
 
@@ -300,6 +179,9 @@ if (settings.colorSchemeDarkBegin > settings.colorSchemeDarkEnd) {
 	}
 }
 
+
+import { getCurrentBreakIndex } from './modules/lessonBreak.js';
+import { getHMS, getTimeString } from './modules/date.js';
 
 let nowLesson = {
 	117: { 'now': [], 'next': [] },
@@ -777,72 +659,6 @@ function checkPrefsGroup() {
 
 // console.log('++++++++++++++++++++++++++++++++++++++++++');
 
-const titleChangerArray = [
-	'Хочу передать привет Сивцу P.S. Сашка Бурбик',
-	'Коренислав, где Бурбислав?',
-	'Нэ атмечай у мения жёпа болыт',
-	'Разбрёмсь',
-	'Жирнолею привет завтра передавайте',
-	'Пары в субботу? Почему настолько кайф?',
-	'Папаня орёт!',
-	'Значиць генератор генератор генерирует генерирует',
-	'Дополнительная литература дополняет',
-	'Шарага на любителя, но тем самым любителям она понравится',
-	'Продам гараж',
-	'ПэПэПэ ПэВэПэ',
-	'Сайт проспонсирован Старановичем',
-	'Здороваться, значиць, не будем',
-	'У Лукоморья дуб зелёный...',
-	'Напрягают алкоголики',
-	'Замечательное место',
-	'Ты что игнорируешь? Занятия никто не отменял',
-	'Та ти, ти ти та ти. Или просто ти ти та',
-	'Пугачёва умерла',
-	'Ты меня презираешь',
-]
-let birthFlag = false;
-
-const titleChangerHappyBirthday = {
-	'3.0': 'Медвежонок',
-	'10.0': 'Таня',
-	'10.2': 'Артурчик Крутилкин',
-	'20.2': 'Иветта',
-	'18.4': 'Юля Танцовщица',
-	'25.6': 'Даша Квак',
-	'2.6': 'Юля',
-	'18.7': 'Саша фром Финлядния',
-	'13.8': 'Настя Куш',
-	'25.8': 'Маша',
-	'24.9': 'Грузик',
-	'2.10': 'Ягрон',
-	'14.10': 'Корнеславик',
-}
-
-function titleBirthCheker() {
-	let titleDate = `${date.getDate().toString()}.${date.getMonth().toString()}`;
-	console.log('title string', titleDate);
-
-	if (titleDate in titleChangerHappyBirthday) {
-		birthFlag = true;
-	}
-	let titleInterval;
-	if (birthFlag) {
-		clearInterval(titleInterval);
-		$('.header__title').html(`<span class="icon-cake"></span><p>С Днём Рождения, ${titleChangerHappyBirthday[titleDate]}!</p><span class="icon-cake"></span>`);
-	} else if (settings['dynamicTitle']) {
-		titleInterval = setInterval(titleChanger, 5000);
-	}
-}
-
-titleBirthCheker();
-setInterval(titleBirthCheker, 10000);
-
-
-function titleChanger() {
-	$('.header__title').fadeOut(400, function () {
-		$(this).fadeIn(400).children('p').html(titleChangerArray[Math.floor(Math.random() * titleChangerArray.length)]);
-	})
-}
 import { soundsObject, playSound } from './modules/sounds.js';
 
 $('.lesson__teacher').click(function () {
