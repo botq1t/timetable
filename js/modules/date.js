@@ -40,7 +40,7 @@ import { lessonTimeSeconds } from "./lessonTime.js";
 const functions = {
 	getDate: function () {
 		let output = {};
-		output.date = new Date();
+		output.date = new Date(1632379019000);
 		output.dayIndex = output.date.getDay();
 		output.timeInSeconds = (output.date.getHours() * 3600) + (output.date.getMinutes() * 60) + (output.date.getSeconds());
 		return output;

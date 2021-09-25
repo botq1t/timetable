@@ -70,12 +70,19 @@ const lessonsFunctions = {
 				lessonIndex = i;
 		return lessonIndex;
 	},
+
+	highlightCurrentLesson: function (dayIndex) {
+		let lessonIndex = lessonsFunctions.getCurrentLessonIndex();
+		$(`.day_${dayIndex}`).children('.day__timetable').children('.lesson').each(function () { $(this).removeClass('active') })
+		$(`.day_${dayIndex}`).children('.day__timetable').children(`.lesson_${lessonIndex}`).each(function () { $(this).addClass('active') })
+	},
 };
 
 export const getFirstLesson = lessonsFunctions.getFirstLesson;
 export const setLessonType = lessonsFunctions.setLessonType;
 export const getLessonAmount = lessonsFunctions.getLessonAmount;
 export const getCurrentLessonIndex = lessonsFunctions.getLessonAmount;
+export const highlightCurrentLesson = lessonsFunctions.highlightCurrentLesson;
 
 const breaksFunctions = {
 	getCurrentBreakIndex: function () {

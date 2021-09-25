@@ -73,11 +73,7 @@ function getCurrentLessonIndex() {
 			var lessonIndex = i;
 	return lessonIndex;
 }
-function highlightCurrentLesson() {
-	var lessonIndex = getCurrentLessonIndex();
-	$(`.day_${dayIndex}`).children('.day__timetable').children('.lesson').each(function () { $(this).removeClass('active') })
-	$(`.day_${dayIndex}`).children('.day__timetable').children(`.lesson_${lessonIndex}`).each(function () { $(this).addClass('active') })
-}
+
 
 
 // * ===========================================
@@ -87,6 +83,7 @@ import { hlToday } from './modules/date.js';
 import { setWeekParity } from './modules/date.js';
 import { getNextDay } from './modules/date.js';
 import { displayDate } from './modules/date.js';
+import { highlightCurrentLesson } from './modules/lessonBreak.js';
 
 $(document).ready(function () {
 	// ! Вывод текущей даты и времени
@@ -116,10 +113,14 @@ $(document).ready(function () {
 	getNextDay(217, 300, dayIndex, timeInSeconds, getLessonAmount(217), nextDayIndex);
 
 	// ! Выделение текущей пары
-	highlightCurrentLesson();
-	setInterval(highlightCurrentLesson, 1000)
+	highlightCurrentLesson(dayIndex);
+	setInterval(function () {
+		highlightCurrentLesson(dayIndex);
+	}, 1000);
 });
-// ! =================== Schedule creation ============================
+// ! =====================================================
+// ! =================== Schedule creation ===============
+// ! =====================================================
 import { createSchedule, lessons } from './modules/schedule.js';
 import { setLessonType } from './modules/lessonBreak.js';
 console.log('Расписания', lessons);
