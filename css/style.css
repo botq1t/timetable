@@ -449,11 +449,11 @@ body.lock {
 }
 .week__parity {
   display: inline-block;
-  cursor: pointer;
-  padding: 5px 25px;
   border-radius: 10px;
   position: relative;
   top: 0px;
+  cursor: pointer;
+  padding: 5px 25px;
   -webkit-transition: all 500ms ease 0s;
   transition: all 500ms ease 0s;
 }
@@ -479,9 +479,6 @@ body.lock {
   margin: 0 10px;
   -webkit-transition: color 100ms ease 0s;
   transition: color 100ms ease 0s;
-  /*&.dark {
-  	color: white;
-  }*/
 }
 .nav__menu {
   display: -webkit-box;
