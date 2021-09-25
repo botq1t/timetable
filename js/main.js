@@ -163,7 +163,7 @@ $('.lesson__teacher').click(fullTeacherName);
 import { titleBirthCheker } from './modules/titleChanger.js';
 
 titleBirthCheker(date, settings['dynamicTitle']);
-import { colorSchemeArray, setColorScheme } from './modules/colorSchemes.js';
+import { setColorScheme } from './modules/colorSchemes.js';
 
 
 if (settings.colorSchemeDarkBegin > settings.colorSchemeDarkEnd) {
