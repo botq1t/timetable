@@ -517,6 +517,7 @@ $('.nav__tab').each(function () {
 });
 
 $('.nav__tab').click(function () {
+	if ($(this).html() == 'Инфо') return;
 	if (!$(this).hasClass('active')) {
 		let tabIndex = $(this).attr('id');
 		$('.nav__tab').removeClass('active');
