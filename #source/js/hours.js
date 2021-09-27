@@ -4,7 +4,7 @@ import { getDate, getWeekIndex } from './modules/date.js';
 import { corrections } from './modules/hours/corrections.js';
 
 let dayIndex = getDate().dayIndex;
-if (dayIndex != 0) dayIndex--;
+// if (dayIndex != 0) dayIndex--;
 if (dayIndex == 0) dayIndex = 6;
 const weekIndex = getWeekIndex(getDate().date);
 
