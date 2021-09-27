@@ -28,6 +28,18 @@ $nowNextColor-dark: rgba(255, 153, 0, 0.4);
 	.header {
 		color: $textColor_1-dark;
 		background-color: $backgroundColor-dark;
+		color: $textColor_2-dark;
+		text-shadow: 0 0 5px $textColorShadow_2-dark;
+		box-shadow: 2px 0 5px black;
+
+		&__time {
+			border-color: $borderColor_1-dark;
+			&::before,
+			&::after {
+				content: "\e906";
+			}
+		}
+
 		&__title {
 			color: $accentColor-dark;
 			animation: headerTitleAnim-dark 4s linear 0s infinite;
@@ -60,41 +72,6 @@ $nowNextColor-dark: rgba(255, 153, 0, 0.4);
 			&:active,
 			&:hover {
 				color: $textColorActive-dark;
-			}
-		}
-	}
-
-	.nav {
-		text-shadow: 0 0 2px $textColorShadow_1-dark;
-		border-color: $borderColor_1-dark;
-
-		&__settings {
-			color: $accentColor-dark;
-			&:active,
-			&:hover {
-				color: red;
-			}
-		}
-
-		&__tab {
-			color: $accentColor-dark;
-			&::before {
-				background: $accentColor-dark;
-			}
-
-			&.active {
-				border-color: transparent;
-				&.even {
-					background: $evenColor-dark;
-					transition: background 300ms ease 0s;
-				}
-				&.odd {
-					background: $oddColor-dark;
-					transition: background 300ms ease 0s;
-				}
-				&::before {
-					background: $accentColor-dark;
-				}
 			}
 		}
 	}
@@ -192,15 +169,44 @@ $nowNextColor-dark: rgba(255, 153, 0, 0.4);
 	}
 
 	// ! ================== Footer =======================
-	.footer {
-		background: $backgroundColorDark;
-		color: $textColor_2-dark;
-		text-shadow: 0 0 5px $textColorShadow_2-dark;
+	/*.footer {
+		background: $backgroundColorDark;		
+	}*/
 
-		&__time {
-			&::before,
-			&::after {
-				content: "\e906";
+	.nav {
+		text-shadow: 0 0 2px $textColorShadow_1-dark;
+		// border-color: $borderColor_1-dark;
+		box-shadow: -2px 0 5px rgb(0, 0, 0);
+		background-color: $backgroundColor-dark;
+
+		&__settings {
+			color: $accentColor-dark;
+			&:active,
+			&:hover {
+				color: red;
+			}
+		}
+
+		&__tab {
+			color: $accentColor-dark;
+			&::before {
+				background: $accentColor-dark;
+			}
+
+			&.active {
+				box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+				border-color: transparent;
+				&.even {
+					background: $evenColor-dark;
+					transition: background 300ms ease 0s;
+				}
+				&.odd {
+					background: $oddColor-dark;
+					transition: background 300ms ease 0s;
+				}
+				&::before {
+					background: $accentColor-dark;
+				}
 			}
 		}
 	}

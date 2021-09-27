@@ -80,7 +80,7 @@ const functions = {
 		let remainTimeString = getTimeString(remainHMS['hours'], remainHMS['minutes'], remainHMS['seconds']);
 		let remain = `${remainDays} дней, ${remainTimeString}`
 
-		$('.footer__time').text(`До сессии: ${remain}`)
+		$('.header__time').text(`До сессии: ${remain}`)
 	},
 
 	hlToday: function (dayIndex) {
