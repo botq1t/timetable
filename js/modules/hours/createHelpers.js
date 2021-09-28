@@ -79,71 +79,17 @@ const functions = {
 		}
 	},
 
+	fillPassedHours: function (group, hours) {
+		$(`#target_tab_${group}`).find('.card__body').children('.item').each(function () {
+			let lesson = $(this).find('.item__title').text();
+			let passed = $(this).find('.item__column_passed');
 
-
-
-	initHoursByParity: function (whereFrom) {
-		let output = {
-			'even': {},
-			'odd': {},
-		};
-
-		for (let parity in output) {
-			for (let lesson in whereFrom) {
-				let addition = {};
-				Object.assign(addition, whereFrom[lesson]);
-				output[parity][lesson] = addition;
-			}
-		}
-
-		return output;
-	},
-
-	fillHoursByParity: function (group, lessons, hours, day) {
-		let output = initHoursByParity(hours[group]);
-		if (!day || day == 0) day = 6;
-
-		for (let dayIndex in lessons[group]) {
-			// console.log('day:', dayIndex);
-			for (let lessonIndex in lessons[group][dayIndex]) {
-				let currentLesson = lessons[group][dayIndex][lessonIndex];
-				if (typeof currentLesson == 'boolean' || currentLesson.type == 'no') continue;
-
-				let parityFlag = currentLesson.parity;
-				let lessonType = functions.getType(currentLesson.type);
-				let currentLessonName = currentLesson.name;
-
-				// console.log(parityFlag, lessonType, currentLessonName);
-
-				if (parityFlag == 'both') {
-					output['even'][currentLessonName][lessonType]++;
-					output['odd'][currentLessonName][lessonType]++;
-					// console.log('added both for ', lessonType);
-				} else {
-					output[parityFlag][currentLessonName][lessonType]++;
-					// console.log('added ', parityFlag, ' for ', lessonType);
-
-				}
-
-			}
-			// console.log(lessons[group][key]);
-			if (dayIndex == day) break;
-		}
-		// console.log(output);
-		return output;
-	},
-
-	getType: function (type) {
-		switch (type) {
-			case 'ЛК':
-				return 'lection';
-			case 'ПЗ':
-				return 'practice';
-		}
-	},
+			passed.find('.item__hours_lection').text(`${hours[group][lesson].lection} лк`);
+			passed.find('.item__hours_practice').text(`${hours[group][lesson].practice} пз`);
+		});
+	}
 }
 
 export const initHours = functions.initHours;
 export const fillHours = functions.fillHours;
-// export const initHoursByParity = functions.initHoursByParity;
-// export const fillHoursByParity = functions.fillHoursByParity;
+export const fillPassedHours = functions.fillPassedHours;
