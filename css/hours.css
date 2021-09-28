@@ -257,6 +257,8 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
 }
 .nav__tab {
+  color: white;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
   cursor: pointer;
   padding: 10px;
   margin: 0px 15px 0px 0px;
@@ -276,11 +278,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 .nav__tab.active {
   background-color: #aceeff;
-  color: #215a00;
-  -webkit-box-shadow: 0px 0px 2px 1px rgba(34, 60, 80, 0.6) inset;
-          box-shadow: 0px 0px 2px 1px rgba(34, 60, 80, 0.6) inset;
+  color: #c3ffa0;
+  -webkit-box-shadow: 0px 0px 2px 0px rgba(34, 60, 80, 0.6) inset;
+          box-shadow: 0px 0px 2px 0px rgba(34, 60, 80, 0.6) inset;
 }
 .nav__tab_link {
   margin: 0px 0px 0px 15px;
-  color: black;
 }
