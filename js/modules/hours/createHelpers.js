@@ -1,5 +1,6 @@
 import { lessons } from './../schedule.js';
 import { lessonName } from './../lessonTeacherName.js';
+import { totalHours } from './corrections.js';
 
 const functions = {
 	initHours: function (whereFrom) {
@@ -25,9 +26,12 @@ const functions = {
 				}
 			} else {
 				// console.log(weekParity);
-				for (let j = 1; j <= dayIndex; j++) {
+				let j = 1;
+				for (; j <= dayIndex; j++) {
 					functions.addHours(i, j, lessons, group, weekParity, output);
 				}
+
+				console.log('j', j);
 			}
 		}
 		return output;
@@ -87,9 +91,31 @@ const functions = {
 			passed.find('.item__hours_lection').text(`${hours[group][lesson].lection} лк`);
 			passed.find('.item__hours_practice').text(`${hours[group][lesson].practice} пз`);
 		});
-	}
+	},
+
+	fillTotalHours: function (group, hours) {
+		$(`#target_tab_${group}`).find('.card__body').children('.item').each(function () {
+			let lesson = $(this).find('.item__title').text();
+			let total = $(this).find('.item__column_total');
+
+			total.find('.item__hours_lection').text(`${totalHours[lesson].lection} лк`);
+			total.find('.item__hours_practice').text(`${totalHours[lesson].practice} пз`);
+		});
+	},
+
+	fillRemainHours: function (group, hours) {
+		$(`#target_tab_${group}`).find('.card__body').children('.item').each(function () {
+			let lesson = $(this).find('.item__title').text();
+			let remain = $(this).find('.item__column_remain');
+
+			remain.find('.item__hours_lection').text(`${totalHours[lesson].lection - hours[group][lesson].lection} лк`);
+			remain.find('.item__hours_practice').text(`${totalHours[lesson].practice - hours[group][lesson].practice} пз`);
+		});
+	},
 }
 
 export const initHours = functions.initHours;
 export const fillHours = functions.fillHours;
 export const fillPassedHours = functions.fillPassedHours;
+export const fillTotalHours = functions.fillTotalHours;
+export const fillRemainHours = functions.fillRemainHours;

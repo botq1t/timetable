@@ -1,7 +1,9 @@
 'use strict'
-import { fillHours, fillPassedHours } from './modules/hours/createHelpers.js';
+import { fillHours, fillPassedHours, fillTotalHours, fillRemainHours } from './modules/hours/createHelpers.js';
 import { getDate, getWeekIndex } from './modules/date.js';
 import { corrections } from './modules/hours/corrections.js';
+
+
 let settings;
 if (localStorage['timetable_settings']) settings = JSON.parse(localStorage['timetable_settings']);
 
@@ -28,6 +30,12 @@ console.log(hours);
 
 fillPassedHours(117, hours);
 fillPassedHours(217, hours);
+
+fillTotalHours(117);
+fillTotalHours(217);
+
+fillRemainHours(117, hours);
+fillRemainHours(217, hours);
 
 if (settings.defaultGroup) {
 	$(`#target_tab_${settings.defaultGroup}`).css('display', 'flex');
