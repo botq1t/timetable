@@ -59,3 +59,4 @@ const changeFunctions = {
 
 export const fullTeacherName = changeFunctions.fullTeacherName;
 export const fullLessonName = changeFunctions.fullLessonName;
+export { lessonName };

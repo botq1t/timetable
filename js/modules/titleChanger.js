@@ -1,4 +1,4 @@
-let titleChangerArray = [
+const titleChangerArray = [
 	'Хочу передать привет Сивцу P.S. Сашка Бурбик',
 	'Коренислав, где Бурбислав?',
 	'Нэ атмечай у мения жёпа болыт',
@@ -20,35 +20,9 @@ let titleChangerArray = [
 	'Та ти, ти ти та ти. Или просто ти ти та',
 	'Пугачёва умерла',
 	'Ты меня презираешь',
-]
-let birthFlag = false;
-/*
-let titleChangerHappyBirthday = {
-	'date': ['24.9', '14.10', '3.0'],
-	'name': ['Грузик', 'Корнеслав', 'Медвежонок'],
-}
+];
 
-
-function titleBirthCheker() {
-	var titleDate = `${date.getDate().toString()}.${date.getMonth().toString()}`;
-	console.log('title string', titleDate);
-
-	if (titleChangerHappyBirthday['date'].includes(titleDate)) {
-		var titleIndex = titleChangerHappyBirthday['date'].indexOf(titleDate);
-		birthFlag = true;
-	}
-
-	if (birthFlag) {
-		clearInterval(titleChanger);
-		$('.header__title').html(`<span class="icon-cake"></span><p>С Днём Рождения, ${titleChangerHappyBirthday['name'][titleIndex]}!</p><span class="icon-cake"></span>`);
-	} else {
-		setInterval(titleChanger, 5000);
-	}
-}
-
-*/
-
-let titleChangerHappyBirthday = {
+const titleChangerHappyBirthday = {
 	'3.0': 'Медвежонок',
 	'10.0': 'Таня',
 	'10.2': 'Артурчик Крутилкин',
@@ -59,34 +33,26 @@ let titleChangerHappyBirthday = {
 	'18.7': 'Саша фром Финлядния',
 	'13.8': 'Настя Куш',
 	'25.8': 'Маша',
-	'24.9': 'Грузик',
+	// '24.9': 'Грузик',
 	'2.10': 'Ягрон',
 	'14.10': 'Корнеславик',
-}
+};
 
-
-function titleBirthCheker() {
+const titleBirthCheker = function (date, flag) {
 	let titleDate = `${date.getDate().toString()}.${date.getMonth().toString()}`;
-	console.log('title string', titleDate);
+	// console.log('title string', titleDate);
 
 	if (titleDate in titleChangerHappyBirthday) {
-		birthFlag = true;
-	}
-
-	if (birthFlag) {
-		clearInterval(titleChanger);
 		$('.header__title').html(`<span class="icon-cake"></span><p>С Днём Рождения, ${titleChangerHappyBirthday[titleDate]}!</p><span class="icon-cake"></span>`);
-	} else if (settings['dynamicTitle']) {
+	} else if (flag) {
 		setInterval(titleChanger, 5000);
 	}
 }
-
-titleBirthCheker();
-setInterval(titleBirthCheker, 10000);
-
 
 function titleChanger() {
 	$('.header__title').fadeOut(400, function () {
 		$(this).fadeIn(400).children('p').html(titleChangerArray[Math.floor(Math.random() * titleChangerArray.length)]);
 	})
 }
+
+export { titleBirthCheker };
