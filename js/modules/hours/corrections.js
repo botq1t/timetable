@@ -28,7 +28,7 @@ export const totalHours = {
 	'МОМАН': { 'lection': 11, 'practice': 7 },
 	'ОПВД': { 'lection': 21, 'practice': 10 },
 	'ПАП при ОВД': { 'lection': 20, 'practice': 10 },
-	'ПП и ТОВД': { 'lection': 19, 'practice': 11 },
+	'ПП и ТОВД': { 'lection': 19, 'practice': 17 },
 	'ФРО на АЯ': { 'lection': 0, 'practice': 57 },
 	'ЭО': { 'lection': 14, 'practice': 17 },
 }
