@@ -1,3 +1,6 @@
+import { getCurrentBreakIndex } from './modules/lessonBreak.js';
+import { getHMS, getTimeString } from './modules/date.js';
+
 let nowLesson = {
 	117: { 'now': [], 'next': [] },
 	217: { 'now': [], 'next': [] },

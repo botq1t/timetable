@@ -381,9 +381,12 @@ body.lock {
 
 .header {
   position: relative;
+  width: 100%;
+  top: 0;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 auto;
           flex: 0 1 auto;
+  z-index: 5;
 }
 .header__body {
   display: -ms-grid;
@@ -395,6 +398,39 @@ body.lock {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+.header__time {
+  padding: 10px 0;
+  border-bottom: 1px solid;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  font-size: calc(17px + 9 * ((100vw - 320px) / 704));
+  font-weight: 700;
+  font-style: italic;
+}
+.header__time::before, .header__time::after {
+  font-family: "iconfont" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+}
+.header__time::before {
+  margin: 0 10px 0 0;
+}
+.header__time::after {
+  margin: 0 0 0 10px;
 }
 .header__title {
   display: -webkit-box;
@@ -449,11 +485,11 @@ body.lock {
 }
 .week__parity {
   display: inline-block;
-  cursor: pointer;
-  padding: 5px 25px;
   border-radius: 10px;
   position: relative;
   top: 0px;
+  cursor: pointer;
+  padding: 5px 25px;
   -webkit-transition: all 500ms ease 0s;
   transition: all 500ms ease 0s;
 }
@@ -469,71 +505,6 @@ body.lock {
   transition: color 100ms ease 0s;
 }
 
-.nav {
-  width: 100%;
-  border-top: 1px solid;
-}
-.nav__settings {
-  cursor: pointer;
-  font-size: calc(25px + 5 * ((100vw - 320px) / 704));
-  margin: 0 10px;
-  -webkit-transition: color 100ms ease 0s;
-  transition: color 100ms ease 0s;
-  /*&.dark {
-  	color: white;
-  }*/
-}
-.nav__menu {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 0 15px;
-  margin: 0 -15px;
-  overflow-x: auto;
-}
-.nav__tab {
-  font-size: calc(25px + 5 * ((100vw - 320px) / 704));
-  -webkit-transition: background 300ms ease 0s;
-  transition: background 300ms ease 0s;
-  position: relative;
-  cursor: pointer;
-  padding: 10px 15px;
-}
-.nav__tab::before {
-  content: "";
-  height: 0px;
-  width: 0%;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  -webkit-transition: all 200ms ease 0s;
-  transition: all 200ms ease 0s;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
-.nav__tab.active {
-  border-left: 1px solid;
-  border-right: 1px solid;
-}
-.nav__tab.active::before {
-  content: "";
-  height: 3px;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  -webkit-transition: all 300ms ease 0s;
-  transition: all 300ms ease 0s;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-}
-
 .main {
   position: relative;
   -webkit-box-flex: 1;
@@ -541,7 +512,7 @@ body.lock {
           flex: 1 0 auto;
   -webkit-transition: all 300ms ease 0s;
   transition: all 300ms ease 0s;
-  padding: 15px 0;
+  padding: 15px 0 45px;
 }
 
 .timetable {
@@ -869,40 +840,90 @@ body.lock {
           align-items: center;
   padding: 10px 0;
 }
-.footer__time {
+
+.nav {
+  position: fixed;
+  z-index: 10;
+  bottom: 0;
+  width: 100%;
+}
+.nav__settings {
+  cursor: pointer;
+  font-size: calc(25px + 5 * ((100vw - 320px) / 704));
+  margin: 0 10px;
+  -webkit-transition: color 100ms ease 0s;
+  transition: color 100ms ease 0s;
+}
+.nav__menu {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  text-align: center;
-  font-size: calc(17px + 9 * ((100vw - 320px) / 704));
-  font-weight: 700;
-  font-style: italic;
+  padding: 0 15px;
+  margin: 0 -15px;
+  overflow-x: auto;
 }
-.footer__time::before, .footer__time::after {
-  font-family: "iconfont" !important;
-  speak: never;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
+.nav__tab {
+  font-size: calc(25px + 5 * ((100vw - 320px) / 704));
+  -webkit-transition: background 300ms ease 0s;
+  transition: background 300ms ease 0s;
+  position: relative;
+  cursor: pointer;
+  padding: 10px 15px;
 }
-.footer__time::before {
-  margin: 0 10px 0 0;
+.nav__tab::before {
+  content: "";
+  height: 0px;
+  width: 0%;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  -webkit-transition: all 200ms ease 0s;
+  transition: all 200ms ease 0s;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
 }
-.footer__time::after {
-  margin: 0 0 0 10px;
+.nav__tab.active {
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
+.nav__tab.active::before {
+  content: "";
+  height: 3px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  -webkit-transition: all 300ms ease 0s;
+  transition: all 300ms ease 0s;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
 }
 
+.light {
+  /*.footer {
+
+
+  }*/
+}
 .light .header {
   color: black;
   background-color: #f7f7f7;
+  -webkit-box-shadow: 2px 0 5px black;
+          box-shadow: 2px 0 5px black;
+}
+.light .header__time {
+  border-color: #cacaca;
+  color: #0b08db;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.4);
+}
+.light .header__time::before, .light .header__time::after {
+  content: "";
 }
 .light .header__title {
   color: #0b08db;
@@ -933,38 +954,6 @@ body.lock {
 }
 .light .week__update:active, .light .week__update:hover {
   color: red;
-}
-.light .nav {
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
-  border-color: #cacaca;
-}
-.light .nav__settings {
-  color: #0b08db;
-}
-.light .nav__settings:active, .light .nav__settings:hover {
-  color: red;
-}
-.light .nav__tab {
-  color: #0b08db;
-}
-.light .nav__tab::before {
-  background: #0b08db;
-}
-.light .nav__tab.active {
-  border-color: #cacaca;
-}
-.light .nav__tab.active.even {
-  background: rgba(57, 252, 252, 0.3);
-  -webkit-transition: background 300ms ease 0s;
-  transition: background 300ms ease 0s;
-}
-.light .nav__tab.active.odd {
-  background: rgba(247, 0, 255, 0.3);
-  -webkit-transition: background 300ms ease 0s;
-  transition: background 300ms ease 0s;
-}
-.light .nav__tab.active::before {
-  background: #0b08db;
 }
 .light .main {
   background: #f7f7f7 url("../img/main/stickers_30.webp") local;
@@ -1046,13 +1035,41 @@ body.lock {
 .light .lesson__item {
   border-color: #0b08db;
 }
-.light .footer {
-  background: #0b08db;
-  color: white;
-  text-shadow: 0 0 5px black;
+.light .nav {
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: -2px 0 5px #000;
+          box-shadow: -2px 0 5px #000;
+  background-color: #f7f7f7;
 }
-.light .footer__time::before, .light .footer__time::after {
-  content: "";
+.light .nav__settings {
+  color: #0b08db;
+}
+.light .nav__settings:active, .light .nav__settings:hover {
+  color: red;
+}
+.light .nav__tab {
+  color: #0b08db;
+}
+.light .nav__tab::before {
+  background: #0b08db;
+}
+.light .nav__tab.active {
+  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+  border-color: #cacaca;
+}
+.light .nav__tab.active.even {
+  background: rgba(57, 252, 252, 0.3);
+  -webkit-transition: background 300ms ease 0s;
+  transition: background 300ms ease 0s;
+}
+.light .nav__tab.active.odd {
+  background: rgba(247, 0, 255, 0.3);
+  -webkit-transition: background 300ms ease 0s;
+  transition: background 300ms ease 0s;
+}
+.light .nav__tab.active::before {
+  background: #0b08db;
 }
 .light .now__item {
   border-color: #0b08db;
@@ -1135,9 +1152,24 @@ body.lock {
             transform: scale(0.95);
   }
 }
+.dark {
+  /*.footer {
+  	background: $backgroundColorDark;		
+  }*/
+}
 .dark .header {
   color: white;
   background-color: #222222;
+  color: white;
+  text-shadow: 0 0 5px black;
+  -webkit-box-shadow: 2px 0 5px black;
+          box-shadow: 2px 0 5px black;
+}
+.dark .header__time {
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.dark .header__time::before, .dark .header__time::after {
+  content: "";
 }
 .dark .header__title {
   color: white;
@@ -1168,38 +1200,6 @@ body.lock {
 }
 .dark .week__update:active, .dark .week__update:hover {
   color: red;
-}
-.dark .nav {
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
-  border-color: rgba(255, 255, 255, 0.6);
-}
-.dark .nav__settings {
-  color: white;
-}
-.dark .nav__settings:active, .dark .nav__settings:hover {
-  color: red;
-}
-.dark .nav__tab {
-  color: white;
-}
-.dark .nav__tab::before {
-  background: white;
-}
-.dark .nav__tab.active {
-  border-color: transparent;
-}
-.dark .nav__tab.active.even {
-  background: rgba(57, 252, 252, 0.4);
-  -webkit-transition: background 300ms ease 0s;
-  transition: background 300ms ease 0s;
-}
-.dark .nav__tab.active.odd {
-  background: rgba(247, 0, 255, 0.4);
-  -webkit-transition: background 300ms ease 0s;
-  transition: background 300ms ease 0s;
-}
-.dark .nav__tab.active::before {
-  background: white;
 }
 .dark .main {
   background: #222222 url("../img/main/stickers_60.webp") local;
@@ -1281,13 +1281,41 @@ body.lock {
 .dark .lesson__item {
   border-color: white;
 }
-.dark .footer {
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  text-shadow: 0 0 5px black;
+.dark .nav {
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: -2px 0 5px black;
+          box-shadow: -2px 0 5px black;
+  background-color: #222222;
 }
-.dark .footer__time::before, .dark .footer__time::after {
-  content: "";
+.dark .nav__settings {
+  color: white;
+}
+.dark .nav__settings:active, .dark .nav__settings:hover {
+  color: red;
+}
+.dark .nav__tab {
+  color: white;
+}
+.dark .nav__tab::before {
+  background: white;
+}
+.dark .nav__tab.active {
+  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+  border-color: transparent;
+}
+.dark .nav__tab.active.even {
+  background: rgba(57, 252, 252, 0.4);
+  -webkit-transition: background 300ms ease 0s;
+  transition: background 300ms ease 0s;
+}
+.dark .nav__tab.active.odd {
+  background: rgba(247, 0, 255, 0.4);
+  -webkit-transition: background 300ms ease 0s;
+  transition: background 300ms ease 0s;
+}
+.dark .nav__tab.active::before {
+  background: white;
 }
 .dark .now__item {
   border-color: white;

@@ -15,6 +15,8 @@
 	<div class="wrapper">
 <header class="header">
 	<div class="header__body">
+		<div class="header__time"></div>
+
 		<h1 class="header__title">
 			<span class="icon-clock"></span>
 			<p>Расписанька</p>
@@ -29,16 +31,6 @@
 			<a download="Расписание от 11.09" href="files/11.09.pdf" class="week__update">Расписание от 11 сентября
 				(кликабельно)</a>
 		</div>
-		<nav class="header__nav nav">
-			<div class="container container_nav">
-				<ul class="nav__menu">
-					<il id="prefs" class="nav__settings"><span class="icon-prefs"></span></il>
-					<il id="now" class="nav__tab active">Сейчас</il>
-					<il id="u117" class="nav__tab">У117</il>
-					<il id="u217" class="nav__tab">У217</il>
-				</ul>
-			</div>
-		</nav>
 	</div>
 </header>		<main class="main">
 			<div class="container">
@@ -708,11 +700,22 @@
 			</div>
 		</main>
 <footer class="footer">
-	<div class="container">
+	<nav class="header__nav nav">
+		<div class="container container_nav">
+			<ul class="nav__menu">
+				<il id="prefs" class="nav__settings"><span class="icon-prefs"></span></il>
+				<il id="now" class="nav__tab active">Сейчас</il>
+				<il id="u117" class="nav__tab">У117</il>
+				<il id="u217" class="nav__tab">У217</il>
+				<a href="hours.html" class="nav__tab">Часы</a>
+			</ul>
+		</div>
+	</nav>
+	<!-- <div class="container">
 		<div class="footer__body">
 			<p class="footer__time">Наум, пепук, дубич, да за шо...</p>
 		</div>
-	</div>
+	</div> -->
 </footer><section id="prefs-target" class="prefs">
 	<div class="prefs__body">
 		<div class="prefs__close"><span class="icon-close"></span></div>
