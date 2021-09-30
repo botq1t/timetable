@@ -73,9 +73,6 @@ function getCurrentLessonIndex() {
 			var lessonIndex = i;
 	return lessonIndex;
 }
-
-
-
 // * ===========================================
 // ? Вывод на страницу
 import { getRemain } from './modules/date.js';
@@ -119,6 +116,25 @@ $(document).ready(function () {
 	}, 1000);
 });
 // ! =====================================================
+// ! =================== Color Schemes ===============
+// ! =====================================================
+import { setColorScheme } from './modules/colorSchemes.js';
+
+
+if (settings.colorSchemeDarkBegin > settings.colorSchemeDarkEnd) {
+	if (timeInSeconds >= settings.colorSchemeDarkBegin || timeInSeconds < settings.colorSchemeDarkEnd) {
+		setColorScheme(settings['colorSchemeDark']);
+	} else {
+		setColorScheme(settings['colorScheme']);
+	}
+} else {
+	if (timeInSeconds < settings.colorSchemeDarkEnd && timeInSeconds >= settings.colorSchemeDarkBegin) {
+		setColorScheme(settings['colorSchemeDark']);
+	} else {
+		setColorScheme(settings['colorScheme']);
+	}
+}
+// ! =====================================================
 // ! =================== Schedule creation ===============
 // ! =====================================================
 import { createSchedule, lessons } from './modules/schedule.js';
@@ -148,7 +164,7 @@ for (let i in lessonTime) {
 	});
 }
 
-// @prepros-append "darkMode.js"
+
 // @prepros-append "index/now.js"
 // @prepros-append "index/tabs.js"
 // @prepros-append "index/prefs.js"
