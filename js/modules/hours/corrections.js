@@ -1,7 +1,7 @@
 export const corrections = {
 	117: {
 		'АИП и ЧФ': { 'lection': 0, 'practice': 0 },
-		'АП и ПНК': { 'lection': 2, 'practice': -2 },
+		'АП и ПНК': { 'lection': 3, 'practice': -3 },
 		'МОМАН': { 'lection': 0, 'practice': 0 },
 		'ОПВД': { 'lection': 0, 'practice': -1 },
 		'ПАП при ОВД': { 'lection': 0, 'practice': -1 },
@@ -12,7 +12,7 @@ export const corrections = {
 
 	217: {
 		'АИП и ЧФ': { 'lection': -2, 'practice': -2 },
-		'АП и ПНК': { 'lection': 2, 'practice': -2 },
+		'АП и ПНК': { 'lection': 3, 'practice': -3 },
 		'МОМАН': { 'lection': 0, 'practice': 0 },
 		'ОПВД': { 'lection': 0, 'practice': -1 },
 		'ПАП при ОВД': { 'lection': 0, 'practice': 0 },
